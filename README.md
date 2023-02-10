@@ -47,7 +47,7 @@ The repository now contains the code I have created for the interface so far (no
                    the ability to add NewLines. There is currently no capability to remove NewLines by pressing 
                    backspace on an empty line because the process of creating NewLines can be improved. A divider 
                    is a component used within a block, such that a block is created from dividers and textareas (a 
-                   divider simply stores a <p> containing text). A DropZone is my attempt at creating an area for 
+                   divider simply stores a \<p> containing text). A DropZone is my attempt at creating an area for 
                    blocks to be dropped and shown on a NewLine. A DropZone currently adds the inner components of 
                    a Block and not the Block itself; thus, Blocks can only be dropped into the droparea and cannot 
                    be removed.
