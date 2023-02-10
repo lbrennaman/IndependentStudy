@@ -52,10 +52,10 @@ The repository now contains the code I have created for the interface so far (no
                    a Block and not the Block itself; thus, Blocks can only be dropped into the droparea and cannot 
                    be removed.
   
-  - - DragZone.jsx: this is the area that should probably be called the sidebar. This is the area where blocks are 
-                    supposed to appear after the user types in the BlockZone's current line. Blocks will appear and
-                    the user can drag them from the DragZone to the BlockArea.
+- - DragZone.jsx: this is the area that should probably be called the sidebar. This is the area where blocks are 
+                  supposed to appear after the user types in the BlockZone's current line. Blocks will appear and
+                  the user can drag them from the DragZone to the BlockArea.
   
-  - - main.jsx: at the moment, creates the Monaco editor and initializes the root line of the BlockArea and DragZone.
-                In the future, will most likely control communication between BlockArea and DragZone components (if
-                necessary) and communication of block data to the Monaco editor and vice versa.
+- - main.jsx: at the moment, creates the Monaco editor and initializes the root line of the BlockArea and DragZone.
+              In the future, will most likely control communication between BlockArea and DragZone components (if
+              necessary) and communication of block data to the Monaco editor and vice versa.
