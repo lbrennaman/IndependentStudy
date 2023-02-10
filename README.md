@@ -34,7 +34,7 @@ The repository now contains the code I have created for the interface so far (no
 - vite.config.js: a config file for vite.
 
 - src:
- - Block.jsx: a file defining React components used for Blocks. The plan is to have a Block class and have each 
+  - Block.jsx: a file defining React components used for Blocks. The plan is to have a Block class and have each 
                type of block extend the Block class.
                
  - BlockZone.jsx: the BlockZone is the area where blocks will be combined together to represent code. The base 
