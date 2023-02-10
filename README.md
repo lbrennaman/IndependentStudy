@@ -34,10 +34,10 @@ The repository now contains the code I have created for the interface so far (no
 - vite.config.js: a config file for vite.
 
 - src:
-- - Block.jsx: a file defining React components used for Blocks. The plan is to have a Block class and have each 
+ - Block.jsx: a file defining React components used for Blocks. The plan is to have a Block class and have each 
                type of block extend the Block class.
                
-- - BlockZone.jsx: the BlockZone is the area where blocks will be combined together to represent code. The base 
+ - BlockZone.jsx: the BlockZone is the area where blocks will be combined together to represent code. The base 
                    of the BlockZone is a text editor where the root line of the text editor is a React component.
                    The root line cannot disappear and is the holder that keeps following lines in place.
                    New lines are added to the text editor by adding React components to the root line as children. 
@@ -52,10 +52,10 @@ The repository now contains the code I have created for the interface so far (no
                    a Block and not the Block itself; thus, Blocks can only be dropped into the droparea and cannot 
                    be removed.
   
-- - DragZone.jsx: this is the area that should probably be called the sidebar. This is the area where blocks are 
+ - DragZone.jsx: this is the area that should probably be called the sidebar. This is the area where blocks are 
                   supposed to appear after the user types in the BlockZone's current line. Blocks will appear and
                   the user can drag them from the DragZone to the BlockArea.
   
-- - main.jsx: at the moment, creates the Monaco editor and initializes the root line of the BlockArea and DragZone.
+ - main.jsx: at the moment, creates the Monaco editor and initializes the root line of the BlockArea and DragZone.
               In the future, will most likely control communication between BlockArea and DragZone components (if
               necessary) and communication of block data to the Monaco editor and vice versa.
