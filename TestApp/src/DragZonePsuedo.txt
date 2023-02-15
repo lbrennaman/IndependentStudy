@@ -1,0 +1,36 @@
+/************************
+ * Imports Defined Here *
+ ************************/
+
+ class DragZone extends React.Component {
+    constructor(properties) {
+        super(properties);
+        this.state = {
+            blockList: null;
+        };
+
+        // Default DragZone Function Bindings
+    }
+
+    // Default DragZone Functions
+    setBlockList(event) {
+        read value of UserInput
+        parse string for any filters
+        if filter is for extender_blocks:
+            set this.state.blockList to all extender_blocks containing the string
+        etc.
+    }
+
+    render() {
+        Div container {
+            div UserInputContainer {
+                <UserInput onInput=setBlockList/> 
+                // If input cannot be retrieved from here, create a variable in this.state to hold the current <UserInput> with a specified value
+                // Then, when setting blockList, use this.state.userInput.getValue()
+            }
+            div BlockContainer {
+                {this.state.blockList}
+            }
+        }
+    }
+ }

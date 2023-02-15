@@ -1,0 +1,43 @@
+/************************
+ * Imports Defined Here *
+ ************************/
+
+class BlockZone extends React.Component {
+    constructor(properties) {
+        super(properties);
+        this.state = {
+            lines: LinkedList(<UserInput onKeyPress=this.handleKeyPress>);     // Have the BlockZone store a LinkedList of <UserInput> (text editor lines)
+        };
+
+        // Default BlockZone Function Bindings
+    }
+
+    handleKeyPress() {
+        if the enter key is pressed,
+            insert a <UserInput> after the index of the line in focus
+    }
+
+    handleDrop(event, linenumber) {
+        replace line in corresponding index of lines with corresponding block
+        // this.state.lines.replace(linenumber - 1, <Block>);
+
+        event.stopPropagation(); to prevent the event from being inherited by any child objects
+    }
+
+    render() {
+        var elements;
+        for each line in lines:
+            elements += Row {
+                Col {
+                    linenumber
+                }
+                Col onDrop=handleDrop(event, linenumber) {
+                    line
+                }
+            }
+
+        DIV CONTAINER {
+            {elements}
+        }
+    }
+}

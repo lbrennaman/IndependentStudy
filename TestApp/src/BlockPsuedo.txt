@@ -1,0 +1,245 @@
+/************************
+ * Imports Defined Here *
+ ************************/
+
+class Block extends React.Component {
+    constructor {
+        super
+        this.state = {
+            name:   // let the name of a block be str(its class + lineNumber) updates as line number does. Always unique
+            value:  // concatenate values of block dividers
+        };
+
+        elements: // List of dividers in this block; in the order they occur
+        // Default Block elements: [TextDivider, InputDivider, TextDivider]
+
+        // Default Block Function Bindings
+        this.getValue = this.getValue.bind(this);
+    }
+
+    // Default Block Functions
+
+    // Get the value of this block: the code that this block represents
+    getValue() {
+        var returnString = "";
+
+        for (int i = 0; i < elements.length(); i++) {
+            returnString.append(elements[i].getValue());
+        }
+
+        // Block containers? -> do this ^^^ for the definition line: "for () {"
+        // use getValue() on all child blocks in order
+        // then use getValue() on one final block containing only a TextDivider: "}"
+    }
+
+    render() {
+        // First call handleExtender() so that it triggers upon updating an extender's value
+        handleExtender();
+
+        // Create a draggable div (block container) {
+            // Create a row to act as the container of up to 12 dividers {
+                // Spawn elements: {elements}
+            }
+        }
+    }
+}
+
+/* Old method of doing blocks *************************************************************
+
+// Block subclasses and their elements (all Cpp blocks)
+IncludeBlock::elements: [TextDivider:"#include <"
+                         UserInputDivider
+                         TextDivider:">"]
+
+UsingBlock::elements: [TextDivider:"using namespace "
+                       UserInputDivider]
+
+FunctionPrototypeBlock: [TypeDropdownDivider
+                         UserInputDivider
+                         TextDivider: "("
+                         ExtenderDropdownDivider
+                         TextDivider: ");"]
+
+// Definition of a block that can contain multiple blocks
+BodyBlock: [TextDivider: "{\n"
+            childBlockList
+            TextDivider: "\n}"]
+
+// Block container: this block is capable of holding other blocks
+FunctionDefinitionBlock: [TypeDropdownDivider
+                         UserInputDivider
+                         TextDivider: "("
+                         ExtenderDropdownDivider
+                         TextDivider: ") {"]
+
+                         OR
+
+                         [TypeDropdownDivider
+                         UserInputDivider
+                         TextDivider: "("
+                         ExtenderDropdownDivider
+                         TextDivider: ") "
+                         BodyBlock]
+
+// Block container: this block is capable of holding other blocks
+ClassDefinitionBlock: [TextDivider: "class "
+                        UserInputDivider
+                        TextDivider: " {"]
+
+                        OR
+
+                        [TextDivider: "class "
+                        UserInputDivider
+                        TextDivider: " "
+                        BodyBlock]
+
+// Block container: this block is capable of holding other blocks
+TemplateClassDefinitionBlock: [TextDivider: "template<"
+                               ExtenderDropdownDivider (define type of template [can be multiple])
+                               TextDivider:"> "
+                               ClassDefinitionBlock]
+
+// Block container: this block is capable of holding other blocks
+MainBlock: [TextDivider: "int main("
+            ExtenderDropdownDivider
+            TextDivider: ") {"]
+
+            OR
+
+            [TextDivider: "int main("
+            ExtenderDropdownDivider
+            TextDivider: ") "
+            BodyBlock]
+
+VariableAssignmentBlock: [TypeDropdownDivider
+                          UserInputDivider
+                          ExtenderDropdownDivider]
+
+StdoutBlock: [TextDivider: "cout << "
+                UserInputDivider
+                ExtenderDropdownDivider
+
+StdinBlock: [TextDivider: "cin >> "
+             UserInputDivider]
+
+ForBlock: [TextDivider: "for ("
+            VariableAssignmentBlock
+            ConditionBlock
+            VariableAssignmentBlock
+            TextDivider: ") {"
+            BodyBlock
+            TextDivider: "}"
+            ]
+
+IfBlock:
+
+FunctionCallBlock:
+
+*//////////////////////////////////////////////////////////////////////////////////////
+
+// NewBlock Method:
+
+class Block extends React.Component {
+    constructor(properties) {
+        super(properties);
+        this.state = {
+
+        };
+
+        // Default Block Function Bindings
+    }
+
+    // Default Block Functions
+
+    render() {
+
+        DIV CONTAINER (Block border) {
+            ROW TERMINAL_CONTAINER {
+                // Textareas can contain user input or terminal_blocks
+                COL TEXTAREA { 
+                    <UserInput>
+                }
+
+                // Extenders are special text areas that display Extender Blocks in the sidebar
+                COL EXTENDER { 
+                    <Extender>
+                }
+            }
+        }
+    }
+}
+
+class BlockInput extends React.Component {
+    constructor {
+        super
+        this.state {
+            value: // The data stored by this BlockInput
+            style: // Allow the style to be passed through component instantiation
+        }
+
+        // Default BlockInput Function Bindings
+    }
+
+    // Default Divider Functions
+    getValue() {
+        return this.state.value;
+    }
+
+    render() {
+        // Div container (set to fill outer container) {
+            {this.state.value}
+        }
+    }
+}
+
+class UserInput extends BlockInput {
+    constructor() {}
+
+    handleKeyPress() {
+        if the key is enter {
+            prevent enter key's default behavior (event.preventDefault())
+        }
+    }
+
+    setValue(event) {                           // Use an event to get the text in the textarea
+        this.setState({value: event.value});    // Set this block's value
+    }
+
+    render() {
+        DIV CONTAINER {
+            FORM {
+                TEXTAREA(onInput=setValue) {
+
+                }
+            }
+        }
+    }
+}
+
+class Extender extends BlockInput {
+    constructor() {}
+
+    addExtender(event) {
+        append block to first COL DIV
+
+        if (block_to_append is !end_statement block) {
+            append Extender to second COL DIV
+        }
+    }
+
+    render() {
+        DIV CONTAINER {
+            DIV ROW {
+                DIV COL(onDrop=addExtender){
+                    <UserInput>
+                }
+                DIV COL {
+                    // No Extender here upon instantiation (would cause infinite extenders)
+                    // When an extender/terminal_block is placed in this Extender's 
+                    // UserInput column, add an Extender here. Only do not add Extender
+                    // if added block is a semicolon [end_statement block]
+                }
+            }
+        }
+    }
+}

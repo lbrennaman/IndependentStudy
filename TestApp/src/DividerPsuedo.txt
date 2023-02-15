@@ -1,0 +1,101 @@
+/************************
+ * Imports Defined Here *
+ ************************/
+
+class Divider extends React.Component {
+    constructor {
+        super
+        this.state {
+            value: // The data stored by this divider
+            style: // Allow the style to be passed through component instantiation
+        }
+
+        // Default Divider Function Bindings
+    }
+
+    // Default Divider Functions
+    getValue() {
+        return this.state.value;
+    }
+
+    render() {
+        // Div container (set to fill outer container) {
+            {this.state.value}
+        }
+    }
+}
+
+class TextDivider extends Divider {
+    constructor {
+        super
+    }
+
+    render() {
+        // Div container (set to fill outer container) {
+            <p style={this.state.style}>
+                // Display this.state.value according to style
+            </p>
+        }
+    }
+}
+
+class UserInputDivider extends Divider {
+    constructor {
+        super
+    }
+
+    render() {
+        // Div container (set to fill outer container) {
+
+        }
+    }
+}
+
+class DropdownDivider extends Divider {
+    constructor {
+        super
+        this.state = {
+            options: // define a list of default dropdown options to select from
+        }
+    }
+
+    render() {
+        // Div container (set to fill outer container) {
+            // Create a bootstrap dropdown using this.state.options
+        }
+    }
+}
+
+// List of types will be C++ types. Type dropdowns for other languages can be implemented
+// through further inheritance, such as CppTypeDropdownDivider, JsTypeDropdownDivider, etc.
+class TypeDropdownDivider extends DropdownDivider {
+    constructor {
+        super
+        this.state = {
+            options: // define a list of default types to choose from for c++
+        }
+    }
+
+    render() {
+        // Div container {
+            // Bootstrap dropdown
+        }
+    }
+}
+
+// Provide a list of extenders: an extender will append a new divider to a block
+class ExtenderDropdownDivider extends DropdownDivider {
+    constructor {
+        super
+        this.state {
+            options: // define a list of default extenders to choose from for c++
+        }
+    }
+
+    render() {
+        // Div row container {
+            // col-1: Bootstrap dropdown
+            // col: depending on value of dropdown in col-1, update to be a new Extender
+        }
+    }
+}
