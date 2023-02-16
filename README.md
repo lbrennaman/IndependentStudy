@@ -10,7 +10,7 @@ An example using C++:<br/>
 &emsp;&emsp;Start: [UserInput] [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// Format of the initial block<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;int* [UserInput] [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// The user places an [int* [UserInput]] terminal block into [UserInput]<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;int* variable [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// The user types the name "variable" into [UserInput]<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &[UserInput] [Extender] &emsp;// The user used an [= &[UserInput] [Extender]] block<br/>
+&emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &[UserInput] [Extender]&emsp;&emsp;// The user used an [= &[UserInput] [Extender]] block<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &var2 [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;// The user types var2 for the second variable name<br/>
 &emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &var2;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// The user ends the statement using the end_statement block.<br/>
   </head>
