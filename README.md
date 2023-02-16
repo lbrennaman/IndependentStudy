@@ -7,7 +7,7 @@ The repository now contains a pseudocode design for the interface via src/mainPs
 <html>
   <head>
 An example using C++:<br/>
-  Start: [UserInput] [Extender]                     // Format of the initial block<br/>
+&#9;Start: [UserInput] [Extender]&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;// Format of the initial block<br/>
           int* [UserInput] [Extender]               // The user places an [int* [UserInput]] terminal block into [UserInput]<br/>
           int* variable [Extender]                  // The user types the name "variable" into [UserInput]<br/>
           int* variable = &[UserInput] [Extender]   // The user used an [= &[UserInput] [Extender]] block<br/>
