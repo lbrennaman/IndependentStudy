@@ -1,37 +1,66 @@
-import React from 'react'
+import React from 'react';
+import { UserInput, Block } from './Block';
 
-import Block from './Block'
-
-class SetRootDragZone extends React.Component {
+export class DragZone extends React.Component {
     constructor(properties) {
-      super(properties);
-      this.state = {name: properties.name}
+        super(properties);
+        this.state = {
+            blockList: null
+        };
+
+        this.value = null;
+
+        // Default DragZone Function Bindings
+        this.setBlockList = this.setBlockList.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.getBlocks = this.getBlocks.bind(this);
     }
 
-    allowDrop(event) {
-      event.preventDefault();
-      console.log("Allow Drop: ", event.target);
+    // Parse the list of filters from the text in UserInput and return a filtered list of blocks
+    setBlockList(event) {
+        console.log("Blocklist updated");
+        var text = event.target.value;
+        var filters = parseFilters(text);
+        this.state.blockList = filterBlocks(filters, text);
+
+        event.stopPropagation();
     }
-  
-    catchDrop(event) {
-      event.preventDefault();
-  
-      var data = event.dataTransfer.getData("text");
-      console.log("Data: ", data);
-      console.log("Target: ", event.target);
-      event.target.appendChild(document.getElementById(data));
+
+    handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+        console.log("Block key down: " + event.key);
+        this.currentKey = event.key;
     }
-  
+
+    // Using the filtered list of all possible blocks, create a list of those block objects
+    getBlocks() {
+        return <div className="container-fluid p-0 m-0" style={{height: '30px'}}><Block/></div>
+    }
+
+    // Parse the list of filters from the line of text and return an array of filters
+    parseFilters() {
+        return null;
+    }
+
+    // Using the filters, return a list of all possible blocks that match the search criteria
+    filterBlocks() {
+        return null;
+    }
+
     render() {
-      return(
-        <div id="DragZoneContainer" className={"container-fluid p-0 m-0"} 
-          style={{height: '100%', width: '100%'}}
-          onDragOver={(event) => this.allowDrop(event)}
-          onDrop={(event) => this.catchDrop(event)}>
-            <Block name="#include"/>
-        </div>
-      )
+        return(
+            <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
+                <div className="container-fluid p-0 m-0" style={{height: '30px'}}>
+                    <UserInput onChange={(event) => this.setBlockList(event)} onKeyDown={(event) => this.handleKeyDown(event)}/>
+                </div>
+                <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
+                    {this.getBlocks()}
+                </div>
+            </div>
+        )
     }
-  }
+}
 
-  export default SetRootDragZone;
+export default DragZone;

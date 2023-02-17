@@ -1,131 +1,138 @@
-import React from 'react'
-import { CreateForm  }from './BlockZone'
-import { CreateDivider } from './BlockZone'
+import React from 'react';
 
-class Block extends React.Component {
+export class Block extends React.Component {
     constructor(properties) {
         super(properties);
         this.state = {
-            name: properties.name, 
-            value: "",
-            forms: [
-                <CreateForm name={"BlockForm"} parent={this} type={"Block"}/>
-            ],
-            dividers: [
-                <CreateDivider value="#include <" style={{ 
-                    height: '100%', 
-                    width:'100%', 
-                    textAlign: 'right' 
-                }}/>, 
-                <CreateDivider value=">" style={{
-                    height: '100%', 
-                    width:'100%'
-                }}/>
-            ]};
+            name: properties.class + properties.lineNumber,
+            value: this.getValue()
+        }
 
-        // Default Block Bindings
-        this.dragEvent = this.dragEvent.bind(this);
+        // Default Block Function Bindings
+        this.getValue = this.getValue.bind(this);
     }
 
-    dragEvent(event) {
-        console.log("Dragstart!")
-        event.dataTransfer.setData("text", event.target.id);
-        console.log("Drag id: ", event.target.id);
+    getValue() {
+        return "Update";
     }
 
     render() {
-        // Determine the column size for this block
-        const columns = this.state.forms.length + this.state.dividers.length;
-        
-        // Bootstrap has a max of 12 columns per row
-        if (columns > 12) {
-            console.log("Too many columns!");
-        }
-
-        // Set the className for the columns to create
-        const colClass = "col-" + (12 / columns) + " p-0 m-0";
-
-        // Initialize the column divs to add to the row to make the block
-        const element = [];
-
-        // Add columns for each divider and textarea
-        for (let i = 0; i < this.state.dividers.length; i++) {
-            element.push(
-                <div className={colClass} style={{height: '100%'}}>
-                    {this.state.dividers[i]}
-                </div>);
-
-            // There should be one less form than divider (no block ends with a textarea)
-            if (i < this.state.forms.length) {
-                element.push(
-                    <div className={colClass} style={{height: '100%'}}>
-                        {this.state.forms[i]}
-                    </div>);
-            }
-        }
-        
-        //  Build the block: 
-        /*  Container (block border) {
-                Row (Container to split dividers and textareas into columns) {
-                    Column (divider)
-                    Column (textarea)
-                    Column (divider)
-                    .
-                    .
-                    .
-                    Column (divider)
-                }
-        } */
-        return(
-            <div id={this.state.name + ":" + this.state.value} 
-                className="container-fluid p-0 m-0 bg-dark text-white"
-                draggable={"true"} 
-                onDragStart={(event) => this.dragEvent(event)}
-                style={{
-                    height: '30px', 
-                    width: '100%',
-                    border: '2px solid black'
-                }}>
+        return (
+            <div className="container-fluid p-0 m-0" style={{height: '100%', border: '2px solid yellow'}}>
+                {/* Row Terminal Block Container */}
                 <div className="row p-0 m-0" style={{height: '100%', width: '100%'}}>
-                    {element}
+                    {/* UserInput Textarea Container */}
+                    <div className="col p-0 m-0" style={{height: '100%', borderRight: '2px solid yellow'}}>
+                        <UserInput/>
+                    </div>
+                    {/* Extender Container */}
+                    <div className="col p-0 m-0" style={{height: '100%'}}>
+                        <Extender/>
+                    </div>
                 </div>
             </div>
         )
     }
 }
 
-// #include <> block
-class CppIncludeBlock extends Block {
+export class BlockInput extends React.Component {
     constructor(properties) {
-      super(properties);
-      // this.state = {name: properties.name, value: ""};
-  
-      // CppIncludeBlock Bindings
-      this.getValue = this.getValue.bind(this);
+        super(properties);
+        this.state = {
+            value: properties.value,
+            style: properties.style
+        }
+
+        // Default BlockInput Function Bindings
+        this.getValue = this.getValue.bind(this);
     }
-  
+
     getValue() {
-      // Get value of child form and return "#include <" + formValue + ">"
-      return "#include <>";
+        return this.state.value;
     }
-  
+
     render() {
-      return(
-        <div className="include" style={{height: '100%'}} draggable="true">
-          <div className="row border border-dark bg-dark text-white" style={{height: '100%'}}>
-            <div className="col-4 m-0" style={{height: '100%'}}>
-              <p style={{ height: '100%', width:'100%', textAlign: 'right' }}>#include &#60;</p>
+        return(
+            <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
+                {this.state.value}
             </div>
-            <div className="col-4 m-0" style={{height: '100%'}}>
-              <CreateForm name={this.state.name + "form"} parent={this}/>
-            </div>
-            <div className="col-4 m-0" style={{height: '100%'}}>
-                <p style={{height: '100%', width:'100%' }}>&#62;</p>
-            </div>
-          </div>
-        </div>      
-      )
+        )
     }
-  }
-  
-  export default Block;
+}
+
+export class UserInput extends BlockInput {
+    constructor(properties) {
+        super(properties);
+        this.state = {
+            onChange: properties.onChange,
+            onKeyDown: properties.onKeyDown
+        }
+
+        // UserInput Function Bindings
+        this.setValue = this.setValue.bind(this);
+    }
+
+    setValue(event) {
+        this.setState({value: event.target.value}); // Note, sets state here but does not update to next state until after function ends
+        event.stopPropagation();
+    }
+
+    render() {
+        this.state.returnValue = this.getValue();
+        return (
+            <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
+                <form style={{height: '100%', width:'100%'}}>
+                    <textarea 
+                        id={"DragZoneSearchBar"}
+                        className={"p-0 m-0"}
+                        defaultValue={""}
+                        style={{
+                            height: '100%', 
+                            width:'100%', 
+                            overflow: 'hidden', 
+                            resize: 'none', 
+                            border: 'none', 
+                            outline: 'none', 
+                            boxShadow: 'none',
+                            whiteSpace: 'pre',
+                            overflowWrap: 'normal',
+                            overflowX: 'auto'
+                        }}
+                        onKeyDown={this.state.onKeyDown}
+                        onChange={this.state.onChange}
+                        onInput={(event) => this.setValue(event)}>
+                    </textarea>
+                </form>
+            </div>
+        )
+    }
+}
+
+class Extender extends BlockInput {
+    constructor(properties) {
+        super(properties);
+
+        // Extender Function Bindings
+        this.addExtender = this.addExtender.bind(this);
+    }
+
+    addExtender(event) {
+        console.log("Add extender fired!");
+    }
+
+    render() {
+        return(
+            <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
+                <div className="row p-0 m-0" style={{height: '100%', width: '100%'}}>
+                    <div className="col p-0 m-0" style={{height: '100%'}} onDrop={(event) => this.addExtender(event)}>
+                        <UserInput/>
+                    </div>
+                    <div className="col p-0 m-0" style={{height: '100%'}}>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Block;
