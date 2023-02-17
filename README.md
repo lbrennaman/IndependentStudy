@@ -1,20 +1,20 @@
 # IndependentStudy
 A code editor providing a visual aspect to coding rather than allowing a user to code just through keyboard input.
 
+## 2/16/13 Edits:
+Created the code for the interface after following the pseudocode. Some of the pseudocode could not be implemented as intended, and for some of the code, the way the code works is undesirable. For example, the BlockZone uses a LinkedList of UserInputs to create the textareas for blocks to be placed within the BlockZone. Pressing enter appends a new line to the end of the linked list no matter what line is currently selected. An approach is currently being thought of to fix this behavior, with the desired behavior being a new line being inserted immediately after the selected line (ex. if the user is currently on line 2 and the user presses enter, a new line should be inserted between lines 2 and 3, with the new line number being updated to 3 and all subsequent lines having their line numbers updated respectively.
+
 ## 2/15/23 Edits:
 The repository now contains a pseudocode design for the interface via src/mainPsuedo.txt, src/BlockPsuedo.txt, src/BlockZonePseudo.txt, and src/DragZonePsuedo.txt. blockVisualization.cpp shows the original thought process of how the blocks will work by showing comments for respective c++ statements; however, a new approach to creating the blocks has made the old thought process obsolete. "Dividers" will no longer used: blocks will consist of UserInput (textareas) and Extenders (textareas). UserInput textareas provide an area to place "terminal_blocks" that can be dragged from the dragzone and placed within the block. The terminal_block is "absorbed" by the parent block as the parent block appends the html elements. Extender textareas also provide an area to place terminal_blocks, but upon placing a terminal_block within the Extender (or providing the Extender with text input), a new Extender will be appended to the block to allow the block to represent a programming statement of variable length; the statement will only end when an end_statement block is placed into the Extender. For example, in C++, this end_statement block will be a semicolon. The hope with this design is that any programming statement can be created with an initial block containing a UserInput textarea and Extender textarea, given that the DragZone provides the terminal_blocks to use. The DragZone will contain many predefined blocks to choose from, along with a textarea used to search for the exact block to use (also containing filters to help aid the search). There will also be blocks generated from the program, too, such as variable blocks and functions. Ultimately the usefulness of this interface will be dependent on how helpful the DragZone is when searching for blocks.
 
-<html>
-  <head>
-An example using C++:<br/>
-&emsp;&emsp;Start: [UserInput] [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// Format of the initial block<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;int* [UserInput] [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// The user places an [int* [UserInput]] terminal block into [UserInput]<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;int* variable [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// The user types the name "variable" into [UserInput]<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &[UserInput] [Extender]&emsp;&emsp;// The user used an [= &[UserInput] [Extender]] block<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &var2 [Extender]&emsp;&emsp;&emsp;&emsp;&emsp;// The user types var2 for the second variable name<br/>
-&emsp;&emsp;&emsp;&emsp;&emsp;int* variable = &var2;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// The user ends the statement using the end_statement block.<br/>
-  </head>
-</html>
+
+An example using C++:
+- Start: [UserInput] [Extender]  // Format of the initial block
+  - int* [UserInput] [Extender]  // The user places an [int* [UserInput]] terminal block into [UserInput]
+  - int* variable [Extender]  // The user types the name "variable" into [UserInput]
+  - int* variable = &[UserInput] [Extender]  // The user used an [= &[UserInput] [Extender]] block
+  - int* variable = &var2 [Extender]  // The user types var2 for the second variable name
+  - int* variable = &var2;  // The user ends the statement using the end_statement block.
 
 ## 2/10/23 Edits:
 The repository now contains the code I have created for the interface so far (not all of it, my previous attempt at using electron has not been uploaded). The repositor now contains the TestApp directory. This is the directory I will be using to build the application (I have yet to come up with a name for the application, so I will refer to it as the Visual Text Editor (VTE)). All testing will be done in the TestApp directory. When the final version of the VTE is ready to be created, I will create a directory specifically for the final version.
