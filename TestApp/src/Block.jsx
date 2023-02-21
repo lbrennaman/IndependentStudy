@@ -78,7 +78,6 @@ export class UserInput extends BlockInput {
     }
 
     render() {
-        this.state.returnValue = this.getValue();
         return (
             <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
                 <form style={{height: '100%', width:'100%'}}>

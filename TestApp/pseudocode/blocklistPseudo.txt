@@ -1,0 +1,20 @@
+starting block = [Extension Block]
+
+[Extension Block] = {Left Op}[User Input]{Right Op}[Extender]
+
+    // Do not display ops in search unless searched for: default to null ops
+    {Left Op} = [null, [Math Ops], [Assign ops], [Bool Ops], [Bitwise Ops], [Inc/Dec ops], [Ptr ops: *, &, new_, delete_,], "::", "?", ","];
+    {Right Op} = [null, [Array access: [[UserInput]] ], ".", "->", "++", "--", turnary else: ":", ]
+
+[User Input] = [Initializer] || keyboard input
+[Initializer] = [keyword][Extension Block]
+[Extender] = end statement || [Extension Block]
+
+[Math Ops] = [+, -, /, *, %]
+[Math Assign Ops] = [=, +=, -=, /=, *=, %=]
+[Bit Assign Ops] = [&=, |=. ^=. <<=, >>=]
+[Bool ops] = [&&, ||, ==, !=, >, <, >=, <=, <=>,!]
+[Bitwise Ops] = [&, |, ^, <<, >>]
+[Inc/Dec Ops] = [++, --]
+[Ptr Ops] = [*, &, new_, delete_]
+[Misc Ops] = [::, ?, ",", <<, >>]

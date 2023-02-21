@@ -23,7 +23,6 @@ export class BlockZone extends React.Component {
             copy.insert(lineNumber, <UserInput onKeyDown={(event) => this.handleKeyDown(event, lineNumber + 1)}/>);
             this.setState({lines: copy});
         }
-        console.log("HERE");
     }
 
     handleDrop(event, lineNumber) {
