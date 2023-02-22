@@ -64,6 +64,8 @@ export class UserInput extends BlockInput {
     constructor(properties) {
         super(properties);
         this.state = {
+            left: properties.left,
+            right: properties.right,
             onChange: properties.onChange,
             onKeyDown: properties.onKeyDown
         }
@@ -79,29 +81,39 @@ export class UserInput extends BlockInput {
 
     render() {
         return (
-            <div className="container-fluid p-0 m-0" style={{height: '100%'}}>
-                <form style={{height: '100%', width:'100%'}}>
-                    <textarea 
-                        id={"DragZoneSearchBar"}
-                        className={"p-0 m-0"}
-                        defaultValue={""}
-                        style={{
-                            height: '100%', 
-                            width:'100%', 
-                            overflow: 'hidden', 
-                            resize: 'none', 
-                            border: 'none', 
-                            outline: 'none', 
-                            boxShadow: 'none',
-                            whiteSpace: 'pre',
-                            overflowWrap: 'normal',
-                            overflowX: 'auto'
-                        }}
-                        onKeyDown={this.state.onKeyDown}
-                        onChange={this.state.onChange}
-                        onInput={(event) => this.setValue(event)}>
-                    </textarea>
-                </form>
+            <div className="container-fluid p-0 m-0" style={{height: '100%', width: '100%'}}>
+                <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
+                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                        <p className={"p-0 m-0"} style={{height: '100%', width: '100%'}}>{this.state.left}</p>
+                    </div>
+                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                        <form className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
+                            <textarea 
+                                id={"DragZoneSearchBar"}
+                                className={"p-0 m-0"}
+                                defaultValue={""}
+                                style={{
+                                    height: '100%', 
+                                    width:'100%', 
+                                    overflow: 'hidden', 
+                                    resize: 'none', 
+                                    border: 'none', 
+                                    outline: 'none', 
+                                    boxShadow: 'none',
+                                    whiteSpace: 'pre',
+                                    overflowWrap: 'normal',
+                                    overflowX: 'auto'
+                                }}
+                                onKeyDown={this.state.onKeyDown}
+                                onChange={this.state.onChange}
+                                onInput={(event) => this.setValue(event)}>
+                            </textarea>
+                        </form>
+                    </div>
+                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                        <div className={"p-0 m-0"} style={{height: '100%', width: '100%'}}>{this.state.right}</div>
+                    </div>
+                </div>
             </div>
         )
     }
