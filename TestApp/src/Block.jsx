@@ -1,37 +1,22 @@
 import React from 'react';
 
-export class Block extends React.Component {
-    constructor(properties) {
-        super(properties);
-        this.state = {
-            name: properties.class + properties.lineNumber,
-            value: this.getValue()
-        }
-
-        // Default Block Function Bindings
-        this.getValue = this.getValue.bind(this);
+export class Block{
+    constructor(blockSettings = {}) {
+        this.hello = "Hello, world";
     }
+}
 
-    getValue() {
-        return "Update";
-    }
+class BlockNode {
+    left = <UserInput left={left_op} right={right_op}/>;
+    right = <UserInput/>;
+    left_op = "";
+    right_op = "";
 
-    render() {
-        return (
-            <div className="container-fluid p-0 m-0" style={{height: '100%', border: '2px solid yellow'}}>
-                {/* Row Terminal Block Container */}
-                <div className="row p-0 m-0" style={{height: '100%', width: '100%'}}>
-                    {/* UserInput Textarea Container */}
-                    <div className="col p-0 m-0" style={{height: '100%', borderRight: '2px solid yellow'}}>
-                        <UserInput/>
-                    </div>
-                    {/* Extender Container */}
-                    <div className="col p-0 m-0" style={{height: '100%'}}>
-                        <Extender/>
-                    </div>
-                </div>
-            </div>
-        )
+    constructor(blockNodeSettings = {}) {
+        this.left = blockNodeSettings.left;
+        this.right = blockNodeSettings.right;
+        this.left_op = blockNodeSettings.left_op;
+        this.right_op = blockNodeSettings.right_op;
     }
 }
 
@@ -89,7 +74,7 @@ export class UserInput extends BlockInput {
                     <div className={"col p-0 m-0"} style={{height: '100%'}}>
                         <form className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
                             <textarea 
-                                id={"DragZoneSearchBar"}
+                                id={"UserInput"}
                                 className={"p-0 m-0"}
                                 defaultValue={""}
                                 style={{

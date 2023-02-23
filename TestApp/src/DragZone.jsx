@@ -13,6 +13,7 @@ const misc_ops = ["::", " ? ", ", ", " << ", " >> "];
 const left_ops = [math_ops, math_assign_ops, bit_assign_ops, bool_ops, bitwise_ops, inc_dec_ops, ptr_ops, misc_ops];
 const right_ops = ["[]", ".", "->", "++ ", "-- ", " : "];
 
+export var op_list = [];
 
 function listAllRightOps(leftBlock, rightCondition) {
     if (leftBlock.length == 0) {
@@ -21,7 +22,10 @@ function listAllRightOps(leftBlock, rightCondition) {
 
     if (rightCondition == "") {
         return(
-            <div className={"row p-0 m-0"} style={{width: '100%', height: '30px', border: '2px solid yellow'}} draggable={"true"}>
+            <div className={"row p-0 m-0"} 
+                style={{width: '100%', height: '30px', border: '2px solid yellow'}} 
+                draggable={"true"}
+                onDrag={(event) => op_list = [leftBlock[0], ""]}>
                 <div className={"col p-0 m-0"} style={{width: '100%', height: '100%'}}>
                     <UserInput left={leftBlock[0]}/>
                 </div>
@@ -39,7 +43,10 @@ function listAllRightOps(leftBlock, rightCondition) {
             // If the right_op is an array
             if (rightCondition == "[" || rightCondition == "[]") {
                 list.push(
-                    <div className={"row p-0 m-0"} style={{width: '100%', height: '30px', border: '2px solid yellow'}} draggable={"true"}>
+                    <div className={"row p-0 m-0"} 
+                        style={{width: '100%', height: '30px', border: '2px solid yellow'}} 
+                        draggable={"true"}
+                        onDrag={(event) => op_list = [leftBlock[0], <UserInput left="[" right="]"/>]}>
                         <div className={"col p-0 m-0"} style={{width: '100%', height: '100%'}}>
                             <UserInput left={leftBlock[0]} right={<UserInput left="[" right="]"/>}/>
                         </div>
@@ -49,7 +56,10 @@ function listAllRightOps(leftBlock, rightCondition) {
                     </div>);
             } else {
                 list.push(
-                    <div className={"row p-0 m-0"} style={{width: '100%', height: '30px', border: '2px solid yellow'}} draggable={"true"}>
+                    <div className={"row p-0 m-0"} 
+                        style={{width: '100%', height: '30px', border: '2px solid yellow'}} 
+                        draggable={"true"}
+                        onDrag={(event) => op_list = [leftBlock[0], right_ops[i]]}>
                         <div className={"col p-0 m-0"} style={{width: '100%', height: '100%'}}>
                             <UserInput left={leftBlock[0]} right={right_ops[i]}/>
                         </div>
@@ -62,7 +72,10 @@ function listAllRightOps(leftBlock, rightCondition) {
             // If this right_op is :, ensure that the left op is ? (: can only occur with ?)
             if (leftBlock[0][1] == "?" && right_ops[i].includes(rightCondition)) {
                 list.push(
-                    <div className={"row p-0 m-0"} style={{width: '100%', height: '30px', border: '2px solid yellow'}} draggable={"true"}>
+                    <div className={"row p-0 m-0"} 
+                        style={{width: '100%', height: '30px', border: '2px solid yellow'}} 
+                        draggable={"true"}
+                        onDrag={(event) => op_list = [leftBlock[0], right_ops[i]]}>
                         <div className={"col p-0 m-0"} style={{width: '100%', height: '100%'}}>
                             <UserInput left={leftBlock[0]} right={right_ops[i]}/>
                         </div>

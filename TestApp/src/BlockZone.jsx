@@ -1,6 +1,7 @@
 import React from 'react';
 import LinkedList from './LinkedList';
 import { UserInput } from './Block';
+import { op_list } from './DragZone';
 
 export class BlockZone extends React.Component {
     constructor(properties) {
@@ -10,8 +11,21 @@ export class BlockZone extends React.Component {
         }
 
         // Default BlockZone Function Bindings
+        this.allowDrop = this.allowDrop.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.handleDrop = this.handleDrop.bind(this);
+    }
+
+    allowDrop(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        console.log("Drop allowed!");
+        if (event.target.id === (<UserInput/>).type) {
+            console.log("Allowdrop: " + event.target);
+        } else {
+            console.log("Allowdrop: " + event.target);
+        }
     }
 
     handleKeyDown(event, lineNumber) {
@@ -27,6 +41,11 @@ export class BlockZone extends React.Component {
 
     handleDrop(event, lineNumber) {
         console.log("Object drop: ", event.target);
+        console.log("Data: " + op_list);
+        console.log(lineNumber);
+
+        // Replace LinkedList[lineNumber] with <UserInput left=op_list[0] right=op_list[1]/>
+        
         // this.state.lines.replace(index, <Block>);
         event.stopPropagation();
     }
