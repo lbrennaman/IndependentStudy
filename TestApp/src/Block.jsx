@@ -3,7 +3,16 @@ import React from 'react';
 export class Block extends React.Component {
     constructor(properties) {
         super(properties);
-        this.state = { blockTree: new BlockTree() };
+        this.state = { blockTree: new BlockTree(this.onDrop, this)};
+    }
+
+    onDrop(event, component) {
+        event.preventDefault();
+        console.log("DROP");
+
+        var currentTree = component.state.blockTree;
+        currentTree.setLeft(<UserInput left={" = "} right={" . "}/>);
+        component.setState({blockTree: currentTree});
     }
 
     render() {
@@ -39,11 +48,11 @@ export class Block extends React.Component {
 }
 
 class BlockTree {
-    constructor() {
+    constructor(onDrop, component) {
         this.root = new TreeNode({
             value: "Root", 
-            left: <UserInput />, 
-            right: <UserInput />
+            left: <UserInput onDragOver={(event) => event.preventDefault()} onDrop={(event) => onDrop(event, component)}/>, 
+            right: <UserInput onDragOver={(event) => event.preventDefault()} onDrop={(event) => onDrop(event, component)}/>
         });
         this.current = this.root;
     }
@@ -230,7 +239,9 @@ export class UserInput extends BlockInput {
             left: properties.left,
             right: properties.right,
             onChange: properties.onChange,
-            onKeyDown: properties.onKeyDown
+            onKeyDown: properties.onKeyDown,
+            onDragOver: properties.onDragOver,
+            onDrop: properties.onDrop
         }
 
         // UserInput Function Bindings
@@ -267,6 +278,8 @@ export class UserInput extends BlockInput {
                                     overflowWrap: 'normal',
                                     overflowX: 'auto'
                                 }}
+                                onDragOver={this.state.onDragOver}
+                                onDrop={this.state.onDrop}
                                 onKeyDown={this.state.onKeyDown}
                                 onChange={this.state.onChange}
                                 onInput={(event) => this.setValue(event)}>

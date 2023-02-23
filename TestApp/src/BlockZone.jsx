@@ -1,21 +1,22 @@
 import React from 'react';
 import LinkedList from './LinkedList';
-import { BlockTree, UserInput } from './Block';
+import { Block, UserInput } from './Block';
 import { op_list } from './DragZone';
 
 export class BlockZone extends React.Component {
     constructor(properties) {
         super(properties);
         this.state = {
-            lines: new LinkedList([new BlockTree()]),
+            lines: new LinkedList([<Block/>]),
         }
 
         // Default BlockZone Function Bindings
-        this.allowDrop = this.allowDrop.bind(this);
+        //this.allowDrop = this.allowDrop.bind(this);
         //this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.handleDrop = this.handleDrop.bind(this);
+        //this.handleDrop = this.handleDrop.bind(this);
     }
 
+    /*
     allowDrop(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -36,7 +37,7 @@ export class BlockZone extends React.Component {
         // this.state.lines.replace(index, <Block>);
         event.stopPropagation();
     }
-
+*/
     render() {
         var elements = [];
         var index = 0;
@@ -50,8 +51,6 @@ export class BlockZone extends React.Component {
                         {index + 1}
                     </div>
                     <div className="col p-0 m-0" 
-                        onDragOver={(event) => this.allowDrop(event)}
-                        onDrop={(event) => this.handleDrop(event, index + 1)} 
                         style={{height: '100%'}}>
                             {this.state.lines.getValue(index)}
                     </div>
