@@ -1,22 +1,200 @@
 import React from 'react';
 
-export class Block{
-    constructor(blockSettings = {}) {
-        this.hello = "Hello, world";
+export class Block extends React.Component {
+    constructor(properties) {
+        super(properties);
+        this.state = { blockTree: new BlockTree() };
+    }
+
+    render() {
+        var field_list = this.state.blockTree.getBlock();
+        console.log(field_list);
+        var element;
+        
+        for (var i = field_list.length - 1; i > -1; i--) {
+            if (i == field_list.length - 1) {
+                element = <div className={"row p-0 m-0"} style={{height: '100%'}}>
+                        <div className="col p-0 m-0" style={{height: '100%', width: '100%'}}>
+                            {field_list[i]}
+                        </div>
+                    </div>
+            } else {
+                element = <div className={"row p-0 m-0"} style={{height: '100%'}}>
+                    <div className="col p-0 m-0" style={{height: '100%', width: '100%'}}>
+                        {field_list[i]}
+                    </div>
+                    <div className="col p-0 m-0" style={{height: '100%', width: '100%'}}>
+                        {element}
+                    </div>
+                </div>
+            }
+        }
+    
+        return(
+            <div className={"row p-0 m-0"} style={{height: '100%'}}>
+                {element}
+            </div>
+        )
     }
 }
 
-class BlockNode {
-    left = <UserInput left={left_op} right={right_op}/>;
-    right = <UserInput/>;
+class BlockTree {
+    constructor() {
+        this.root = new TreeNode({
+            value: "Root", 
+            left: <UserInput />, 
+            right: <UserInput />
+        });
+        this.current = this.root;
+    }
+
+    getValue() {
+        return this.current.value;
+    }
+
+    setValue(value) {
+        this.current.setValue(value);
+    }
+
+    getBlock() {
+        this.current = this.root;
+        var field_list = [];
+        this.getBlockRecursion(this.current, 0, field_list);
+        return field_list;
+    }
+
+    getBlockRecursion(node, count, field_list) {
+        if (node.left) {
+            this.getBlockRecursion(node.left, (2 * count + 1), field_list);
+        }
+
+        if (node.right) {
+            this.getBlockRecursion(node.right, (2 * count + 2), field_list);
+        } else {
+            field_list.push(node);
+        }
+    }
+
+    getCurrent() {
+        return this.current;
+    }
+
+    setCurrent(index) {
+        this.current = this.root;
+        this.setCurrentRecursion(this.current, index, 0);
+    }
+
+    setCurrentRecursion(node, index, count) {
+        if (count == index) {
+            this.current = node;
+        } else { // If unable to find node, return null
+            this.current = null;
+        }
+
+        if (node.left && count < index) {
+            this.setCurrentRecursion(node.left, index, (2 * count + 1));
+        }
+
+        if (node.right && count < index) {
+            this.setCurrentRecursion(node.right, index, (2 * count + 2));
+        }
+    }
+
+    getLeft() {
+        return this.current.left;
+    }
+
+    setLeft(value) {
+        this.current.setLeft(value);
+    }
+
+    getRight() {
+        return this.current.right;
+    }
+
+    setRight(value) {
+        this.current.setRight(value);
+    }
+
+    print() {
+        this.root.print();
+    }
+}
+
+class TreeNode {
+    stringRepresentation = "";
+    left = null;
+    right = null;
     left_op = "";
     right_op = "";
 
-    constructor(blockNodeSettings = {}) {
-        this.left = blockNodeSettings.left;
-        this.right = blockNodeSettings.right;
-        this.left_op = blockNodeSettings.left_op;
-        this.right_op = blockNodeSettings.right_op;
+    constructor(treeNodeSettings = {}) {
+        if (treeNodeSettings.value != null) {
+            this.value = treeNodeSettings.value;
+        } else {
+            this.value = null;
+        }
+
+        if (typeof(treeNodeSettings.left) === 'object') {
+            this.left = treeNodeSettings.left;
+        } else {
+            if (treeNodeSettings.left != null) {
+                this.left = new TreeNode({ value: treeNodeSettings.left });
+            } else {
+                this.left = null;
+            }
+        }
+
+        if (typeof(treeNodeSettings.right) === 'object') {
+            this.right = treeNodeSettings.right;
+        } else {
+            if (treeNodeSettings.right != null) {
+                this.right = new TreeNode({ value: treeNodeSettings.right });
+            }
+            else {
+                this.right = null;
+            }
+        }
+
+        if (treeNodeSettings.left_op != null) {
+            this.left_op = treeNodeSettings.left_op;
+        }
+
+        if (treeNodeSettings.right_op != null) {
+            this.left_op = treeNodeSettings.right_op;
+        }
+    }
+
+    getValue() {
+        return this.value;
+    }
+
+    setValue(value) {
+        this.value = value;
+    }
+
+    getLeft() {
+        return this.left;
+    }
+
+    setLeft(value) {
+        this.left = new TreeNode({value: value});
+    }
+
+    getRight() {
+        return this.right;
+    }
+
+    setRight(value) {
+        this.right = new TreeNode({value: value});
+    }
+
+    print() {
+        console.log("   Value: " + this.value);
+        console.log("\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/");
+        console.log("\nLeft: \n", this.left);
+        console.log("\nRight: \n", this.right);
+        console.log("\n^^^^^^^^^^^^^^^^^^^^^^^");
     }
 }
 
@@ -68,7 +246,7 @@ export class UserInput extends BlockInput {
         return (
             <div className="container-fluid p-0 m-0" style={{height: '100%', width: '100%'}}>
                 <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
-                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                    <div className={"col-1 p-0 m-0"} style={{height: '100%'}}>
                         <p className={"p-0 m-0"} style={{height: '100%', width: '100%'}}>{this.state.left}</p>
                     </div>
                     <div className={"col p-0 m-0"} style={{height: '100%'}}>
@@ -95,7 +273,7 @@ export class UserInput extends BlockInput {
                             </textarea>
                         </form>
                     </div>
-                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                    <div className={"col-1 p-0 m-0"} style={{height: '100%'}}>
                         <div className={"p-0 m-0"} style={{height: '100%', width: '100%'}}>{this.state.right}</div>
                     </div>
                 </div>
