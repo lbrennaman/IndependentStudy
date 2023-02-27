@@ -3,19 +3,19 @@ import React from 'react';
 export class Block extends React.Component {
     constructor(properties) {
         super(properties);
-        this.state = { blockTree: new BlockTree(this.onDrop, this)};
+        this.state = { fields: 
+            [<UserInput />, 
+            <UserInput />]};
+
+        this.onK = this.onK.bind(this);
     }
 
-    onDrop(event, component) {
-        event.preventDefault();
-        console.log("DROP");
-
-        var currentTree = component.state.blockTree;
-        currentTree.setLeft(<UserInput left={" = "} right={" . "}/>);
-        component.setState({blockTree: currentTree});
+    onK(event) {
+        this.setState({fields: [<UserInput left={"-"} right={"A"}/>, <UserInput left={"AAA"}/>]});
     }
 
     render() {
+        /*
         var field_list = this.state.blockTree.getBlock();
         console.log(field_list);
         var element;
@@ -38,172 +38,20 @@ export class Block extends React.Component {
                 </div>
             }
         }
+        */
+
+        console.log(this.state.fields);
     
         return(
-            <div className={"row p-0 m-0"} style={{height: '100%'}}>
-                {element}
+            <div id={"BLOCK"} className={"row p-0 m-0"} style={{height: '100%'}} onKeyDown={(event) => this.onK(event)}>
+                <div className="col p-0 m-0" style={{height: '100%', width: '100%'}}>
+                        {this.state.fields[0]}
+                    </div>
+                    <div className="col p-0 m-0" style={{height: '100%', width: '100%'}}>
+                        {this.state.fields[1]}
+                    </div>
             </div>
         )
-    }
-}
-
-class BlockTree {
-    constructor(onDrop, component) {
-        this.root = new TreeNode({
-            value: "Root", 
-            left: <UserInput onDragOver={(event) => event.preventDefault()} onDrop={(event) => onDrop(event, component)}/>, 
-            right: <UserInput onDragOver={(event) => event.preventDefault()} onDrop={(event) => onDrop(event, component)}/>
-        });
-        this.current = this.root;
-    }
-
-    getValue() {
-        return this.current.value;
-    }
-
-    setValue(value) {
-        this.current.setValue(value);
-    }
-
-    getBlock() {
-        this.current = this.root;
-        var field_list = [];
-        this.getBlockRecursion(this.current, 0, field_list);
-        return field_list;
-    }
-
-    getBlockRecursion(node, count, field_list) {
-        if (node.left) {
-            this.getBlockRecursion(node.left, (2 * count + 1), field_list);
-        }
-
-        if (node.right) {
-            this.getBlockRecursion(node.right, (2 * count + 2), field_list);
-        } else {
-            field_list.push(node);
-        }
-    }
-
-    getCurrent() {
-        return this.current;
-    }
-
-    setCurrent(index) {
-        this.current = this.root;
-        this.setCurrentRecursion(this.current, index, 0);
-    }
-
-    setCurrentRecursion(node, index, count) {
-        if (count == index) {
-            this.current = node;
-        } else { // If unable to find node, return null
-            this.current = null;
-        }
-
-        if (node.left && count < index) {
-            this.setCurrentRecursion(node.left, index, (2 * count + 1));
-        }
-
-        if (node.right && count < index) {
-            this.setCurrentRecursion(node.right, index, (2 * count + 2));
-        }
-    }
-
-    getLeft() {
-        return this.current.left;
-    }
-
-    setLeft(value) {
-        this.current.setLeft(value);
-    }
-
-    getRight() {
-        return this.current.right;
-    }
-
-    setRight(value) {
-        this.current.setRight(value);
-    }
-
-    print() {
-        this.root.print();
-    }
-}
-
-class TreeNode {
-    stringRepresentation = "";
-    left = null;
-    right = null;
-    left_op = "";
-    right_op = "";
-
-    constructor(treeNodeSettings = {}) {
-        if (treeNodeSettings.value != null) {
-            this.value = treeNodeSettings.value;
-        } else {
-            this.value = null;
-        }
-
-        if (typeof(treeNodeSettings.left) === 'object') {
-            this.left = treeNodeSettings.left;
-        } else {
-            if (treeNodeSettings.left != null) {
-                this.left = new TreeNode({ value: treeNodeSettings.left });
-            } else {
-                this.left = null;
-            }
-        }
-
-        if (typeof(treeNodeSettings.right) === 'object') {
-            this.right = treeNodeSettings.right;
-        } else {
-            if (treeNodeSettings.right != null) {
-                this.right = new TreeNode({ value: treeNodeSettings.right });
-            }
-            else {
-                this.right = null;
-            }
-        }
-
-        if (treeNodeSettings.left_op != null) {
-            this.left_op = treeNodeSettings.left_op;
-        }
-
-        if (treeNodeSettings.right_op != null) {
-            this.left_op = treeNodeSettings.right_op;
-        }
-    }
-
-    getValue() {
-        return this.value;
-    }
-
-    setValue(value) {
-        this.value = value;
-    }
-
-    getLeft() {
-        return this.left;
-    }
-
-    setLeft(value) {
-        this.left = new TreeNode({value: value});
-    }
-
-    getRight() {
-        return this.right;
-    }
-
-    setRight(value) {
-        this.right = new TreeNode({value: value});
-    }
-
-    print() {
-        console.log("   Value: " + this.value);
-        console.log("\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/");
-        console.log("\nLeft: \n", this.left);
-        console.log("\nRight: \n", this.right);
-        console.log("\n^^^^^^^^^^^^^^^^^^^^^^^");
     }
 }
 
@@ -243,6 +91,8 @@ export class UserInput extends BlockInput {
             onDragOver: properties.onDragOver,
             onDrop: properties.onDrop
         }
+
+        console.log("UserInput created!");
 
         // UserInput Function Bindings
         this.setValue = this.setValue.bind(this);
@@ -295,6 +145,7 @@ export class UserInput extends BlockInput {
     }
 }
 
+/*
 class Extender extends BlockInput {
     constructor(properties) {
         super(properties);
@@ -321,5 +172,6 @@ class Extender extends BlockInput {
         )
     }
 }
+*/
 
 export default Block;

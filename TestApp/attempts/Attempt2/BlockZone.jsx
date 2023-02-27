@@ -1,6 +1,6 @@
 import React from 'react';
 import LinkedList from './LinkedList';
-import { Block, UserInput } from './Block';
+import Block from './Block';
 import { op_list } from './DragZone';
 
 export class BlockZone extends React.Component {
@@ -52,7 +52,7 @@ export class BlockZone extends React.Component {
                     </div>
                     <div className="col p-0 m-0" 
                         style={{height: '100%'}}>
-                            {this.state.lines.getValue(index)}
+                            <Block/>
                     </div>
                 </div>
             )
