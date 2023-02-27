@@ -5,6 +5,7 @@ function DragZone(properties) {
                 <div id={"DragZoneContainer"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
                     <form id={"DragZoneForm"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
                         <textarea id={"DragZoneSearchBar"} className={"p-0 m-0"}
+                            onInput={(event) => properties.updateSearch(event.target.value)}
                             style={{
                                 height: '100%', 
                                 width:'100%', 
@@ -31,9 +32,9 @@ function DragZone(properties) {
 }
 
 export class DragZoneController {
-    constructor() {
+    constructor(settings = {}) {
         this.blockList = (<div className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%', border: '2px solid yellow'}}>{"Simulated Block"}</div>);
-        this.component = <DragZone blockList={this.blockList}/>
+        this.component = <DragZone blockList={this.blockList} updateSearch={settings.updateSearch}/>
     }
 
     getComponent() {

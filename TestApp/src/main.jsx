@@ -9,11 +9,6 @@ import EditorController from './Editor';
 function MainView(properties) {
 
     // Define state variables via hooks
-    // Subcomponent controllers
-    const [dragZoneController, updateDragZoneController] = useState(new DragZoneController());
-    const [blockZoneController, updateBlockZoneController] = useState(new BlockZoneController());
-    const [editorController, updateEditorController] = useState(new EditorController());
-
     // Shareable data
     const [search, updateSearch] = useState("");            // DragZone search bar
     const [blockList, updateBlockList] = useState([]);      // DragZone blockList
@@ -22,6 +17,15 @@ function MainView(properties) {
     const [file, updateFile] = useState(null);              // Current file to read from/write to
     const [blockTable, updateBlockTable] = useState([]);    // BlockZone current list of block objects
     const [fileTable, updateFileTable] = useState([]);      // Editor current list of text editor lines
+
+    // Subcomponent controllers
+    const [dragZoneController, updateDragZoneController] = useState(new DragZoneController({updateSearch: updateSearch}));
+    const [blockZoneController, updateBlockZoneController] = useState(new BlockZoneController());
+    const [editorController, updateEditorController] = useState(new EditorController());
+
+    useEffect(() => {
+        console.log(search);
+    }, [search])
 
     return (
         <div className={"row mh-100"} style={{height: '100%'}}>                                                     {/* Main Col Splitter */}
