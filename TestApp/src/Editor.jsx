@@ -1,15 +1,18 @@
 function Editor(properties) {
+    var array = [];
+    for (var i = 0; i < properties.editorLines.length; i++) {
+        array.push(properties.editorLines[i])
+    }
     return(
         <div id={"EditorContainer"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
-            {properties.fileTable}
+            {array}
         </div>
     );
 }
 
 export class EditorController {
-    constructor() {
-        this.fileTable = [<div className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%', border: '2px solid yellow'}}>{"Simulated line"}</div>]
-        this.component = <Editor fileTable={this.fileTable}/>
+    constructor(settings = {}) {
+        this.component = <Editor editorLines={settings.editorLines} updateEditorLines={settings.updateEditorLines}/>
     }
 
     getComponent() {

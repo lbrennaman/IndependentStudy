@@ -1,15 +1,21 @@
 function BlockZone(properties) {
+    var array = [];
+    for (var i = 0; i < properties.blockTable.length; i++) {
+        array.push(properties.blockTable[i].getComponent())
+    }
     return(
         <div id={"BlockZone"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
-            {properties.blockTable}
+            {array}
         </div>
     );
 }
 
 export class BlockZoneController {
-    constructor() {
-        this.blockTable = [<div className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%', border: '2px solid yellow'}}>{"Simulated line"}</div>]
-        this.component = <BlockZone blockTable={this.blockTable}/>;
+    constructor(settings = {}) {
+        this.component = <BlockZone 
+            blockTable={settings.blockTable}
+            updateSelected={settings.updateSelected}
+            updateInput={settings.updateInput}/>;
     }
 
     getComponent() {

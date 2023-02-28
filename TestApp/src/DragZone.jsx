@@ -1,4 +1,8 @@
 function DragZone(properties) {
+    var array = [];
+    for (var i = 0; i < properties.blockList.length; i++) {
+        array.push(properties.blockList[i].getComponent())
+    }
     return(
         <div id={"DragZone"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
             <div id={"DragZoneSplitter"} className={"row p-0 m-0"} style={{height: '30px', width: '100%'}}>
@@ -24,7 +28,7 @@ function DragZone(properties) {
             </div>
             <div id={"DragZoneBlockListViewContainerRow"} className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
                 <div id={"DragZoneBlockListViewContainer"} className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%'}}>
-                    {properties.blockList}
+                    {array}
                 </div>
             </div>
         </div>
@@ -33,8 +37,12 @@ function DragZone(properties) {
 
 export class DragZoneController {
     constructor(settings = {}) {
-        this.blockList = (<div className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%', border: '2px solid yellow'}}>{"Simulated Block"}</div>);
-        this.component = <DragZone blockList={this.blockList} updateSearch={settings.updateSearch}/>
+        this.component = <DragZone 
+            blockList={settings.blockList} 
+            updateSearch={settings.updateSearch} 
+            updateBlockList={settings.updateBlockList}
+            updateSelected={settings.updateSelected}
+            updateInput={settings.updateInput}/>
     }
 
     getComponent() {
