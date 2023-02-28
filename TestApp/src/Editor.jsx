@@ -1,11 +1,7 @@
 function Editor(properties) {
-    var array = [];
-    for (var i = 0; i < properties.editorLines.length; i++) {
-        array.push(properties.editorLines[i])
-    }
     return(
         <div id={"EditorContainer"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
-            {array}
+            {properties.editorLines}
         </div>
     );
 }

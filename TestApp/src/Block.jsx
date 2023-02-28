@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import UserInputController from './UserInput'
 
 function Block(properties) {
-    const [leftValue, setLeftValue] = useState("");
-    const [rightValue, setRightValue] = useState("");
-    const [leftOp, setLeftOp] = useState("");
-    const [rightOp, setRightOp] = useState("");
+    const [leftValue, setLeftValue] = useState(properties.leftValue);
+    const [rightValue, setRightValue] = useState(properties.rightValue);
+    const [leftOp, setLeftOp] = useState(properties.leftOp);
+    const [rightOp, setRightOp] = useState(properties.rightOp);
     const [leftElement, setLeftElement] = useState(new UserInputController({setValue: setLeftValue}));
     const [rightElement, setRightElement] = useState(new UserInputController({setValue: setRightValue}));
 
@@ -42,10 +42,13 @@ function Block(properties) {
 }
 
 export class BlockController {
-    constructor() {
-        this.leftValue = "";
-        this.rightValue = "";
-        this.component = <Block controller={this}/>;
+    constructor(settings = {leftValue: "", rightValue: "", leftOp: "", rightOp: ""}) {
+        this.leftValue = settings.leftValue;
+        this.rightValue = settings.rightValue;
+        this.leftOp = settings.leftOp;
+        this.rightOp = settings.rightOp;
+
+        this.component = <Block controller={this} leftValue={this.leftValue} rightValue={this.rightValue} leftOp={this.leftOp} rightOp={this.rightOp}/>;
     }
 
     setLeftValue(leftValue) {

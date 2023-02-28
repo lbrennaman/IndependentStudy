@@ -1,11 +1,11 @@
 function BlockZone(properties) {
-    var array = [];
-    for (var i = 0; i < properties.blockTable.length; i++) {
-        array.push(properties.blockTable[i].getComponent())
-    }
     return(
         <div id={"BlockZone"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
-            {array}
+            {/* To add line numbers: 
+                1) separate BlockZone into left and right columns
+                2) left column is line numbers (list of divs from 1 to blockTable.length)
+                3) right column is properties.blockTable.getComponent() */}
+            {properties.blockTable.getBlockTableComponent()}
         </div>
     );
 }

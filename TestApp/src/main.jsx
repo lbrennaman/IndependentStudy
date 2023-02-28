@@ -6,27 +6,19 @@ import BlockZoneController from './BlockZone';
 import EditorController from './Editor';
 
 import BlockController from './Block';
-
-function setEditorLines(blocks) {
-    var array = [];
-    for (var i = 0; i < blocks.length; i++) {
-        array.push(blocks[i].getValue());
-    }
-    return array;
-}
+import BlockTableController from './BlockTable';
 
 // Build the main view controller
 function MainView(properties) {
 
     // Define state variables via hooks
     // Shareable data
-    const [search, updateSearch] = useState("");                                    // DragZone search bar
-    const [blockList, updateBlockList] = useState([new BlockController()]);         // DragZone blockList
-    const [selected, updateSelected] = useState(null);                              // DragZone/BlockZone block in focus
-    const [input, updateInput] = useState("");                                      // DragZone/BlockZone current textarea input of block in focus
-    const [file, updateFile] = useState(null);                                      // Current file to read from/write to
-    const [blockTable, updateBlockTable] = useState([new BlockController()]);       // BlockZone current list of block objects
-    const [editorLines, updateEditorLines] = useState(setEditorLines(blockTable));  // Editor current list of text editor lines
+    const [search, updateSearch] = useState("");                                        // DragZone search bar
+    const [blockList, updateBlockList] = useState([new BlockController()]);             // DragZone blockList
+    const [selected, updateSelected] = useState(null);                                  // DragZone/BlockZone block in focus
+    const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
+    const [file, updateFile] = useState(null);                                          // Current file to read from/write to
+    const [blockTable, updateBlockTable] = useState(new BlockTableController());        // BlockZone current list of block objects
 
     // Subcomponent controllers
     const [dragZoneController, updateDragZoneController] = useState(new DragZoneController({
@@ -45,8 +37,8 @@ function MainView(properties) {
     }));
 
     const [editorController, updateEditorController] = useState(new EditorController({
-        updateEditorLines: updateEditorLines,
-        editorLines: editorLines
+        updateBlockTable: updateBlockTable,
+        editorLines: blockTable.getEditorLinesComponent()
     }));
 
     return (
