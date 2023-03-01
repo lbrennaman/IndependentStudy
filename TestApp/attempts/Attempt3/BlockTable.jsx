@@ -27,9 +27,7 @@ function EditorLines(properties) {
     );
 }
 
-export function BlockTableController(properties) {
-    const [blockComponent, updateBlockComponent] = useState(<BlockTable blockTable={blockTable}/>);
-    const [editorComponent, updateEditorComponent] = useState(<EditorComponent)
+export class BlockTableController {
     constructor(settings = {}) {
         this.blockTable = [new BlockController()];
         this.blockTableComponent = <BlockTable blockTable={this.blockTable}/>

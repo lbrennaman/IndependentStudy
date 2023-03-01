@@ -1,11 +1,8 @@
-import { useState } from 'react';
-
-export function DragZone(properties) {
-    var blocks = [];
+function DragZone(properties) {
+    var array = [];
     for (var i = 0; i < properties.blockList.length; i++) {
-        blocks[i].push(properties.blockList[i]);
+        array.push(properties.blockList[i].getComponent())
     }
-
     return(
         <div id={"DragZone"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
             <div id={"DragZoneSplitter"} className={"row p-0 m-0"} style={{height: '30px', width: '100%'}}>
@@ -31,11 +28,26 @@ export function DragZone(properties) {
             </div>
             <div id={"DragZoneBlockListViewContainerRow"} className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
                 <div id={"DragZoneBlockListViewContainer"} className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%'}}>
-                    {blocks}
+                    {array}
                 </div>
             </div>
         </div>
     );
 }
 
-export default DragZone;
+export class DragZoneController {
+    constructor(settings = {}) {
+        this.component = <DragZone 
+            blockList={settings.blockList} 
+            updateSearch={settings.updateSearch} 
+            updateBlockList={settings.updateBlockList}
+            updateSelected={settings.updateSelected}
+            updateInput={settings.updateInput}/>
+    }
+
+    getComponent() {
+        return this.component;
+    }
+}
+
+export default DragZoneController;

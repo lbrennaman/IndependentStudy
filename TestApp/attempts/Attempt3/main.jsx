@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import DragZone from './DragZone';
-import Workspace from './Workspace';
+import DragZoneController from './DragZone';
+import BlockZoneController from './BlockZone';
+import EditorController from './Editor';
+
+import BlockController from './Block';
+import BlockTableController from './BlockTable';
 
 // Build the main view controller
 function MainView(properties) {
@@ -10,42 +14,38 @@ function MainView(properties) {
     // Define state variables via hooks
     // Shareable data
     const [search, updateSearch] = useState("");                                        // DragZone search bar
-    const [blockList, updateBlockList] = useState([]);             // DragZone blockList
+    const [blockList, updateBlockList] = useState([new BlockController()]);             // DragZone blockList
     const [selected, updateSelected] = useState(null);                                  // DragZone/BlockZone block in focus
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [workspace, updateWorkspace] = useState(<Workspace/>);
 
     // Subcomponent controllers
-    const [dragZone, updateDragZone] = useState(
-        <DragZone 
-        blockList={blockList}
-        updateSearch={updateSearch}
-        updateBlockList={updateBlockList}
-        updateSelected={updateSelected}
-        updateInput={updateInput}
-        />
-    );
+    const [dragZoneController, updateDragZoneController] = useState(new DragZoneController({
+        updateSearch: updateSearch, 
+        updateBlockList: updateBlockList,
+        updateSelected: updateSelected,
+        updateInput: updateInput,
+        blockList: blockList
+    }));
 
+    const [blockZoneController, updateBlockZoneController] = useState(new BlockZoneController({
+        updateSelected: updateSelected,
+        updateInput: updateInput,
+        updateBlockTable: updateBlockTable,
+        blockTable: blockTable
+    }));
 
-    useEffect(() => {
-        updateDragZone(
-            <DragZone
-            blockList={blockList}
-            updateSearch={updateSearch}
-            updateBlockList={updateBlockList}
-            updateSelected={updateSelected}
-            updateInput={updateInput}
-            />
-        );
-    }, [selected, input]);
+    const [editorController, updateEditorController] = useState(new EditorController({
+        updateBlockTable: updateBlockTable,
+        editorLines: blockTable.getEditorLinesComponent()
+    }));
 
     return (
         <div className={"row mh-100"} style={{height: '100%'}}>                                                     {/* Main Col Splitter */}
             <div className={"d-flex col-2 p-0 m-0"} style={{border: '2px solid red', height: '100%'}}>              {/* DragZone Column */}
-                {dragZone}
+                {dragZoneController.getComponent()}
             </div>
-            {workspace}
+            {workspaceController.getComponent()}
         </div>
     )
 }
