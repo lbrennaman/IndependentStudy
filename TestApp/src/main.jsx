@@ -15,7 +15,7 @@ function MainView(properties) {
     const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                                  
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [blockList, updateBlockList] = useState([<DragZoneBlock blockNumber={0} values={["Set", "text"]} updateSelected={updateDragZoneSelected}/>]);
+    const [blockList, updateBlockList] = useState([<DragZoneBlock key={"DragZoneBlock: 0"} blockNumber={0} values={["Set", "text"]} updateSelected={updateDragZoneSelected}/>]);
     const [workspace, updateWorkspace] = useState(<Workspace updateSelected={updateBlockZoneSelected} updateInput={updateInput}/>);
 
     // Subcomponent controllers
@@ -27,7 +27,6 @@ function MainView(properties) {
         updateInput={updateInput}
         />
     );
-
 
     useEffect(() => {
         console.log("UPDATE SELECTED/INPUT");

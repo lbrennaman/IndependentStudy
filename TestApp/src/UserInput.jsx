@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 function UserInput(properties) {
     return(
-        <form id={"Form"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
-            <textarea id={"Bar"} className={"p-0 m-0"}
+        <form id={"UserInputForm"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
+            <textarea id={"UserInputTextArea"} className={"p-0 m-0"}
                 onInput={(event) => properties.setValue(event.target.value)}
                 style={{
                     height: '100%', 

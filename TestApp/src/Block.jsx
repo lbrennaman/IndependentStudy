@@ -45,7 +45,7 @@ export function Block(properties) {
     // This requires each index to be directly related to a React hook, which is impossible in the above declaration of stringRepresentation.
     // The following lines use a custom hook as a workaround to this issue by creating a React hook variable for each index of stringRepresenation, and each index
     // of stringRepresentation is properly updated upon updating the hook variable due to the subsequent definition of values
-    var valueHandler = [];
+    const valueHandler = [];
     for (var i = 0; i < properties.values.length; i++) {
         valueHandler.push(useValueHandler(stringRepresentation, i, updateStringRepresentation));
     }

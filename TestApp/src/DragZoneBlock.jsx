@@ -3,7 +3,7 @@ import Block from './Block';
 
 export function DragZoneBlock(properties) {
     const [value, updateValue] = useState(properties.value);
-    const [element, setElement] = useState(<Block key={"DragZoneBlock: " + properties.blockNumber} values={properties.values} updateValue={updateValue}/>);
+    const [element, setElement] = useState(<Block values={properties.values} updateValue={updateValue}/>);
 
     useEffect(() => {
         console.log("DragZoneBlock Value Updated: ", value);
