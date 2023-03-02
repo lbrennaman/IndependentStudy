@@ -4,12 +4,20 @@ import UserInput from './UserInput';
 // Custom hook to properly update subcomponent values of a block
 function useValueHandler(list, index, update) {
     // Create a React hook variable to store a value and create a function to update that value
-    const [value, updateValue] = useState("");
+    const [value, updateValue] = useState(list[index]);
 
     // When the value is updated, update the corresponding index of list
     useEffect(() => {
-        var copy = list;
+        // Hard copy list
+        var copy = [];
+        for (var i = 0; i < list.length; i++) {
+            copy.push(list[i]);
+        }
+
+        // Replace index of list with value to update
         copy[index] = value;
+
+        // Update the list using the copy
         update(copy);
     }, [value]);
 
@@ -54,6 +62,17 @@ export function Block(properties) {
         }
         return array;
     });
+
+    useEffect(() => {
+        console.log("String rep updated");
+        properties.updateValue(() => {
+            var string = "";
+            for (var i = 0; i < stringRepresentation.length; i++) {
+                string += stringRepresentation[i];
+            }
+            return string;
+        })
+    }, [stringRepresentation])
 
     var element = null;
     for (var i = properties.values.length - 1; i >= 0; i--) {
