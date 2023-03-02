@@ -156,4 +156,34 @@ class Node {
     }
 }
 
+/*
+[Math Ops] = [+, -, /, *, %]
+[Math Assign Ops] = [=, +=, -=, /=, *=, %=]
+[Bit Assign Ops] = [&=, |=. ^=. <<=, >>=]
+[Bool ops] = [&&, ||, ==, !=, >, <, >=, <=, <=>,!]
+[Bitwise Ops] = [&, |, ^, <<, >>]
+[Inc/Dec Ops] = [++, --]
+[Ptr Ops] = [*, &, new_, delete_]
+[Misc Ops] = [::, ?, ",", <<, >>]
+
+    {Left Op} = [null, [Math Ops], [Assign ops], [Bool Ops], [Bitwise Ops], [Inc/Dec ops], [Ptr ops: *, &, new_, delete_,], "::", "?", ","];
+    {Right Op} = [null, [Array access: [[UserInput]] ], ".", "->", "++", "--", turnary else: ":", ]
+
+[Extension Block] = {Left Op}[User Input]{Right Op}[Extender]
+*/
+
+/* Was used in an attempt to use Regex, but .includes() does what I was trying to do easier than coding it myself
+function escapeRegexChars(regexString) {
+    var returnString = "";
+    for (var i = 0; i < regexString.length; i++) {
+        if (regexString[i] == "*" || regexString[i] == "." || regexString[i] == "+" || regexString[i] == "[") {
+            returnString += "\\";
+        } 
+        returnString += regexString[i];
+    }
+    return returnString;
+}
+*/
+
+
 export default LinkedList;
