@@ -5,15 +5,6 @@ import Block from './Block';
 import Editor from './Editor';
 import UserInput from './UserInput';
 
-function handleKeyDown(event, blocks, updateBlocks, index) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        console.log(blocks);
-        console.log(index);
-        console.log(blocks[index]);
-    }
-}
-
 // React custom hook used to handle the update procedure for the lines of the editor
 export function useEditorUpdater(editorLines, lineNumber, updateInput, updateEditor) {
     // Hold the value of the current UserInput (if this line's element is a UserInput)
@@ -49,8 +40,15 @@ export function useEditorUpdater(editorLines, lineNumber, updateInput, updateEdi
 }
 
 export function Workspace(properties) {
+    // Remember which line is in focus: defaults to line 0 since only line 0 exists upon instantiation
+    const [selected, updateSelected] = useState(0);
+
+    const [newLine, updateNewLine] = useState(0);
+
+    // Keep track of the value of each line in the text editor
     const [editorLines, updateEditorLines] = useState([]);
 
+    // Keep track of the text editor component
     const [editor, updateEditor] = useState(
         <Editor 
             editorLines={editorLines}
@@ -61,13 +59,14 @@ export function Workspace(properties) {
     const editorLineUpdater = [];
     editorLineUpdater.push(useEditorUpdater(editorLines, 0, properties.updateInput, updateEditor));
 
+    // Initialize the list of blocks to display in the BlockZone
     const [blocks, updateBlocks] = useState([
         <BlockZoneLine 
             key={"BlockZone: " + 0} 
             editorLines={editorLines} 
             updateEditorLines={updateEditorLines} 
             updateEditor={updateEditor}
-            updateSelected={properties.updateSelected}
+            updateSelected={updateSelected}
             updateInput={properties.updateInput} 
             lineNumber={0}
 
@@ -88,7 +87,7 @@ export function Workspace(properties) {
     );
 
     return(
-        <div className={"d-flex col-10 p-0 m-0"} onKeyDown={(event) => handleKeyDown(event, blocks, updateBlocks, properties.selected)}>
+        <div className={"d-flex col-10 p-0 m-0"}>
             <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}> 
                 <div className={"d-flex col-6 p-0 m-0"} style={{height: '100%', border: '2px solid blue'}}>
                     {blockZone}

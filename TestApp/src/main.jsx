@@ -11,12 +11,11 @@ function MainView(properties) {
     // Define state variables via hooks
     // Shareable data
     const [search, updateSearch] = useState("");                                        // DragZone search bar
-    const [dragZoneSelected, updateDragZoneSelected] = useState(null);
-    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                                  
+    const [dragZoneSelected, updateDragZoneSelected] = useState(null);                                 
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
     const [blockList, updateBlockList] = useState([<DragZoneBlock key={"DragZoneBlock: 0"} blockNumber={0} values={["Set", "text"]} updateSelected={updateDragZoneSelected}/>]);
-    const [workspace, updateWorkspace] = useState(<Workspace updateSelected={updateBlockZoneSelected} updateInput={updateInput}/>);
+    const [workspace, updateWorkspace] = useState(<Workspace updateInput={updateInput}/>);
 
     // Subcomponent controllers
     const [dragZone, updateDragZone] = useState(
@@ -30,7 +29,6 @@ function MainView(properties) {
 
     useEffect(() => {
         console.log("UPDATE SELECTED/INPUT");
-        console.log("BlockZone Selected: ", blockZoneSelected);
         console.log("DragZone Selected: ", dragZoneSelected)
         console.log("Input: ", input);
 
@@ -42,7 +40,7 @@ function MainView(properties) {
             updateInput={updateInput}
             />
         );
-    }, [blockZoneSelected, dragZoneSelected, input]);
+    }, [dragZoneSelected, input]);
 
     return (
         <div className={"row mh-100"} style={{height: '100%'}}>                                                     {/* Main Col Splitter */}
