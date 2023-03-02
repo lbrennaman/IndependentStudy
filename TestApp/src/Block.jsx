@@ -1,59 +1,87 @@
 import { useState, useEffect } from 'react';
-import Editor from './Editor'
-import UserInput from './UserInput'
+import UserInput from './UserInput';
 
-export function Block(properties) {
-    const [leftValue, updateLeftValue] = useState(properties.leftValue);
-    const [rightValue, updateRightValue] = useState(properties.rightValue);
-    const [leftOp, updateLeftOp] = useState(properties.leftOp);
-    const [rightOp, updateRightOp] = useState(properties.rightOp);
-    const [leftElement, setLeftElement] = useState(
-        <UserInput setValue={updateLeftValue} handleKeyDown={properties.handleKeyDown} lineNumber={properties.lineNumber}/>);
-    const [rightElement, setRightElement] = useState(
-        <UserInput setValue={updateRightValue} handleKeyDown={properties.handleKeyDown} lineNumber={properties.lineNumber}/>);
+// Custom hook to properly update subcomponent values of a block
+function useValueHandler(list, index, update) {
+    // Create a React hook variable to store a value and create a function to update that value
+    const [value, updateValue] = useState("");
 
+    // When the value is updated, update the corresponding index of list
     useEffect(() => {
-        // Set this index of editorLines to leftValue + rightValue
-        // UpdateEditorLines to this new editorLines
-        var copy = properties.editorLines;
-        if (leftValue && rightValue) {
-            copy[properties.lineNumber] = leftValue + rightValue;
-        } else if (leftValue) {
-            copy[properties.lineNumber] = leftValue;
-        } else if (rightValue) {
-            copy[properties.lineNumber] = rightValue;
-        } else {
-            copy[properties.lineNumber] = "";
-        }
-        properties.updateEditor(
-            <Editor 
-                editorLines={properties.editorLines}
-            />);
-    }, [leftValue, rightValue])
+        var copy = list;
+        copy[index] = value;
+        update(copy);
+    }, [value]);
 
-    return(
-        <div id={properties.id} className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%', border: '2px solid yellow'}}> {/* Block Container/Border */}
-            <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>                                     {/* Block Row Splitter */}
-                <div className={"d-flex col p-0 m-0"} style={{height: '100%'}}>                                         {/* Block Left Column */}
-                    <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>                             {/* Block Left Column Splitter */}
-                        <div className={"d-flex col p-0 m-0"} style={{height: '100%', width: '100%'}}>                  {/* Block Left Column Left Operator */}
-                            {leftOp}                                                                                    {/* Left Op */}
-                        </div>
-                        <div className={"d-flex col p-0 m-0"} style={{height: '100%', width: '100%'}}>                  {/* Block Left Column UserInput*/}
-                            {leftElement}                                                                {/* Left Element*/}
-                        </div>
-                        <div className={"d-flex col p-0 m-0"} style={{height: '100%', width: '100%'}}>                  {/* Block Left Column Right Operator*/}
-                            {rightOp}                                                                                   {/* Right Op */}
-                        </div>
-                    </div>
-                </div>
-                <div className={"d-flex col p-0 m-0"} style={{height: '100%'}}>                                         {/* Block Right Column*/}
-                    {rightElement}                                                                       {/* Right Element */}
-                </div>
-            </div>
-        </div>
-    );
+    // Return this value and its update method so that it can be accessed from outside sources
+    return [value, updateValue];
 }
 
+export function Block(properties) {
+    // The format of a block is values={[value, <UserInput/>, value, <UserInput/>, etc...]}
+    // If this block has no values, then there is no block. Return null
+    if (properties.values.length < 1) {
+        return null;
+    }
+
+    // Store an array containing the string representation of each block (each value of each subcomponent in order)
+    const [stringRepresentation, updateStringRepresentation] = useState(() => {
+        var array = [];
+        for (var i = 0; i < properties.values.length; i++) {
+            array.push(properties.values[i]);
+        }
+        return array;
+    });
+
+    // In order to update the stringRepresentation properly, each index of stringRepresentation must be updated when the value of each subcomponent is updated.
+    // This requires each index to be directly related to a React hook, which is impossible in the above declaration of stringRepresentation.
+    // The following lines use a custom hook as a workaround to this issue by creating a React hook variable for each index of stringRepresenation, and each index
+    // of stringRepresentation is properly updated upon updating the hook variable due to the subsequent definition of values
+    var valueHandler = [];
+    for (var i = 0; i < properties.values.length; i++) {
+        valueHandler.push(useValueHandler(stringRepresentation, i, updateStringRepresentation));
+    }
+
+    // Define the array of values that this block represents and directly tie each index to a valueHandler to update each respective index of stringRepresentation
+    const [values, updateValues] = useState(() => {
+        var array = [];
+        for (var i = 0; i < properties.values.length; i++) {
+            if (i % 2 == 1) {
+                array.push(<UserInput setValue={valueHandler[i][1]}/>)
+            } else {
+                array.push(properties.values[i]);
+            }
+        }
+        return array;
+    });
+
+    var element = null;
+    for (var i = properties.values.length - 1; i >= 0; i--) {
+        if (i == properties.values.length - 1) {
+            element = (
+                <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
+                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                        {values[i]}
+                    </div>
+                </div>
+            )
+        } else {
+            element = (
+                <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
+                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                        {values[i]}
+                    </div>
+                    <div className={"col p-0 m-0"} style={{height: '100%'}}>
+                        {element}
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    return(
+        element
+    );
+}
 
 export default Block;

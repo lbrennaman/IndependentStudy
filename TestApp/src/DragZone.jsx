@@ -3,7 +3,7 @@ import { useState } from 'react';
 export function DragZone(properties) {
     var blocks = [];
     for (var i = 0; i < properties.blockList.length; i++) {
-        blocks[i].push(properties.blockList[i]);
+        blocks.push(properties.blockList[i]);
     }
 
     return(

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Block from './Block';
+import BlockZoneLine from './BlockZoneLine';
 import BlockZone from './BlockZone';
 import Editor from './Editor';
 
@@ -9,15 +9,26 @@ export function Workspace(properties) {
     const [editor, updateEditor] = useState(
         <Editor 
             editorLines={editorLines}
-        />);
+        />
+    );
 
-    const [blocks, updateBlocks] = useState(
-        [<Block id={"BlockZone: " + 0} editorLines={editorLines} updateEditorLines={updateEditorLines} updateEditor={updateEditor} lineNumber={0}/>]);
+    const [blocks, updateBlocks] = useState([
+        <BlockZoneLine 
+            key={"BlockZone: " + 0} 
+            editorLines={editorLines} 
+            updateEditorLines={updateEditorLines} 
+            updateEditor={updateEditor}
+            updateSelected={properties.updateSelected}
+            updateInput={properties.updateInput} 
+            lineNumber={0}
+        />
+    ]);
 
     const [blockZone, updateBlockZone] = useState(
         <BlockZone 
             blocks={blocks}
-        />);
+        />
+    );
 
     return(
         <div className={"col-10 p-0 m-0"}>                                                                      {/* BlockZone/Editor Container */}

@@ -5,7 +5,6 @@ function UserInput(properties) {
         <form id={"Form"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
             <textarea id={"Bar"} className={"p-0 m-0"}
                 onInput={(event) => properties.setValue(event.target.value)}
-                onKeyDown={(event) => properties.handleKeyDown(event, properties.lineNumber)}
                 style={{
                     height: '100%', 
                     width:'100%', 
