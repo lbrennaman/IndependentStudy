@@ -14,8 +14,9 @@ function MainView(properties) {
     const [dragZoneSelected, updateDragZoneSelected] = useState(null);                                 
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [blockList, updateBlockList] = useState([<DragZoneBlock key={"DragZoneBlock: 0"} blockNumber={0} values={["Set", "text"]} updateSelected={updateDragZoneSelected}/>]);
-    const [workspace, updateWorkspace] = useState(<Workspace updateInput={updateInput}/>);
+    const [blockList, updateBlockList] = useState([["set", ""], ["Example 2", "", "End;"]]);
+
+    const [workspace, updateWorkspace] = useState(<Workspace updateInput={updateInput} blockZone={blockZone} editor={editor}/>);
 
     // Subcomponent controllers
     const [dragZone, updateDragZone] = useState(
@@ -24,6 +25,7 @@ function MainView(properties) {
         updateSearch={updateSearch}
         updateBlockList={updateBlockList}
         updateInput={updateInput}
+        updateSelected={updateDragZoneSelected}
         />
     );
 
@@ -38,6 +40,7 @@ function MainView(properties) {
             updateSearch={updateSearch}
             updateBlockList={updateBlockList}
             updateInput={updateInput}
+            updateSelected={updateDragZoneSelected}
             />
         );
     }, [dragZoneSelected, input]);

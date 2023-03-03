@@ -55,7 +55,7 @@ export function Block(properties) {
         var array = [];
         for (var i = 0; i < properties.values.length; i++) {
             if (i % 2 == 1) {
-                array.push(<UserInput setValue={valueHandler[i][1]}/>)
+                array.push(<UserInput updateValue={valueHandler[i][1]}/>)
             } else {
                 array.push(properties.values[i]);
             }

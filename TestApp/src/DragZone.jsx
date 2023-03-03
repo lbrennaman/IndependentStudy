@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import DragZoneBlock from './DragZoneBlock';
 
 export function DragZone(properties) {
     var blocks = [];
     for (var i = 0; i < properties.blockList.length; i++) {
-        blocks.push(properties.blockList[i]);
+        blocks.push(<DragZoneBlock key={"DragZoneBlock: " + i} blockNumber={i} values={properties.blockList[i]} updateSelected={properties.updateSelected}/>);
     }
 
     return(
