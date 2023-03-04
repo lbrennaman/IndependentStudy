@@ -11,7 +11,7 @@ export function DragZoneBlock(properties) {
 
     return(
         <div id={"DragZoneBlock: " + properties.blockNumber} 
-            onMouseDown={(event) => properties.updateSelected(properties.blockNumber)}
+            onMouseDown={(event) => properties.updateSelected(properties.values)}
             className={"container-fluid p-0 m-0"} 
             style={{height: '30px', width: '100%', border: '2px solid yellow'}}> {element} </div>
     );

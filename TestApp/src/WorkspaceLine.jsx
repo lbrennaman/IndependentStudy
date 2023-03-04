@@ -4,7 +4,6 @@ import Block from './Block';
 import UserInput from './UserInput';
 
 function useElement(properties, updateValue) {
-    console.log(properties.component == UserInput);
     if (properties.component == UserInput) {
         const [component, updateComponent] = useState(<properties.component updateValue={updateValue}/>);
         return {component: component, updateComponent: updateComponent};

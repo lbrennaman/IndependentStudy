@@ -4,6 +4,7 @@ function UserInput(properties) {
     return(
         <form id={"UserInputForm"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
             <textarea id={"UserInputTextArea"} className={"p-0 m-0"}
+                defaultValue={properties.value}
                 onInput={(event) => properties.updateValue(event.target.value)}
                 style={{
                     height: '100%', 
@@ -15,7 +16,9 @@ function UserInput(properties) {
                     boxShadow: 'none',
                     whiteSpace: 'pre',
                     overflowWrap: 'normal',
-                    overflowX: 'auto'
+                    overflowX: 'auto',
+                    backgroundColor: '#343a40',
+                    color: 'white'
                 }}>
             </textarea>
         </form>

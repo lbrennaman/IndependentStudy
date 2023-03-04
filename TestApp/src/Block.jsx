@@ -22,7 +22,7 @@ function useValueHandler(list, index, update) {
     }, [value]);
 
     // Return this value and its update method so that it can be accessed from outside sources
-    return [value, updateValue];
+    return {value: value, updateValue: updateValue};
 }
 
 export function Block(properties) {
@@ -45,6 +45,8 @@ export function Block(properties) {
     // This requires each index to be directly related to a React hook, which is impossible in the above declaration of stringRepresentation.
     // The following lines use a custom hook as a workaround to this issue by creating a React hook variable for each index of stringRepresenation, and each index
     // of stringRepresentation is properly updated upon updating the hook variable due to the subsequent definition of values
+
+    // NOTE: DO NOT USE HOOKS WITHIN FUNCTIONS
     const valueHandler = [];
     for (var i = 0; i < properties.values.length; i++) {
         valueHandler.push(useValueHandler(stringRepresentation, i, updateStringRepresentation));
@@ -55,7 +57,7 @@ export function Block(properties) {
         var array = [];
         for (var i = 0; i < properties.values.length; i++) {
             if (i % 2 == 1) {
-                array.push(<UserInput updateValue={valueHandler[i][1]}/>)
+                array.push(<UserInput updateValue={valueHandler[i].updateValue}/>)
             } else {
                 array.push(properties.values[i]);
             }

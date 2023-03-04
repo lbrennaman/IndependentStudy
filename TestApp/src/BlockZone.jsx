@@ -7,7 +7,7 @@ export function BlockZone(properties) {
                 1) separate BlockZone into left and right columns
                 2) left column is line numbers (list of divs from 1 to blockTable.length)
                 3) right column is properties.blockTable.getComponent() */}
-            {properties.blocks}
+            {properties.children}
         </div>
     );
 }
