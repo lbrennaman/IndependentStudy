@@ -8,7 +8,6 @@ import BlockZone from './BlockZone';
 import Editor from './Editor';
 
 export function Workspace(properties) {
-    /*
     const [value, updateValue] = useState("");
     const [index, updateIndex] = useState(0);
 
@@ -16,6 +15,7 @@ export function Workspace(properties) {
     for (var i = 0; i < properties.blockList.length; i++) {
         if (properties.blockList[i].type == UserInput) {
             console.log("Constructing blocklist[i]: ", properties.blockList[i].value);
+
             blockList.push(
                 <div key={"BlockZone Row: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%'}}>
                     <UserInput 
@@ -83,7 +83,6 @@ export function Workspace(properties) {
             return array;
         })
     }, [value]);
-    */
 
     return(
         <div id={"Workspace"} className={"d-flex col-10 p-0 m-0"} style={{height: '100%'}}>

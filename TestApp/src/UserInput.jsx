@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
 function UserInput(properties) {
+    console.log("USERINPUT " + properties.index + " value: ", properties.value);
     return(
         <form id={"UserInputForm"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>
             <textarea id={"UserInputTextArea"} className={"p-0 m-0"}
-                defaultValue={properties.value}
+                value={properties.value}
                 onInput={(event) => properties.updateValue(event.target.value)}
                 onFocus={(event) => properties.updateIndex(properties.index)}
                 onKeyDown={(event) => properties.handleKeyDown(event)}
