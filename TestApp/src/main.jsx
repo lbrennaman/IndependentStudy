@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import DragZoneBlock from './DragZoneBlock';
 import DragZone from './DragZone';
 import Workspace from './Workspace';
+import WorkspaceLine from './WorkspaceLine';
+import UserInput from './UserInput';
+import Block from './Block';
 
 // Build the main view controller
 function MainView(properties) {
@@ -11,19 +13,30 @@ function MainView(properties) {
     // Define state variables via hooks
     // Shareable data
     const [search, updateSearch] = useState("");                                        // DragZone search bar
-    const [dragZoneSelected, updateDragZoneSelected] = useState(null);                                 
+    const [dragZoneSelected, updateDragZoneSelected] = useState(null);
+    const [blockZoneSelected, updateBlockZoneSelected] = useState(0);                                 
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [blockList, updateBlockList] = useState([<DragZoneBlock key={"DragZoneBlock: 0"} blockNumber={0} values={["Set", "text"]} updateSelected={updateDragZoneSelected}/>]);
-    const [workspace, updateWorkspace] = useState(<Workspace updateInput={updateInput}/>);
+    const [blockValues, updateBlockValues] = useState([["set", ""], ["Example 2", "", "End;"]]);
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "", "Third"]}]);
+
+    const [workspace, updateWorkspace] = useState(
+        <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput}/>
+    );
+
+    useEffect(() => {
+        console.log("BZVALUES UPDATED: ", bzValues);
+        updateWorkspace(<Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput}/>);
+    }, [bzValues]);
 
     // Subcomponent controllers
     const [dragZone, updateDragZone] = useState(
         <DragZone 
-        blockList={blockList}
+        blockList={blockValues}
         updateSearch={updateSearch}
-        updateBlockList={updateBlockList}
+        updateBlockList={updateBlockValues}
         updateInput={updateInput}
+        updateSelected={updateDragZoneSelected}
         />
     );
 
@@ -32,12 +45,15 @@ function MainView(properties) {
         console.log("DragZone Selected: ", dragZoneSelected)
         console.log("Input: ", input);
 
+        // Change selected WorkspaceLine to block whose values = dragZoneSelected
+
         updateDragZone(
             <DragZone
-            blockList={blockList}
+            blockList={blockValues}
             updateSearch={updateSearch}
-            updateBlockList={updateBlockList}
+            updateBlockList={updateBlockValues}
             updateInput={updateInput}
+            updateSelected={updateDragZoneSelected}
             />
         );
     }, [dragZoneSelected, input]);

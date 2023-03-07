@@ -1,103 +1,208 @@
 import { useState, useEffect } from 'react';
-import BlockZoneLine from './BlockZoneLine';
-import BlockZone from './BlockZone';
+
+import WorkspaceLine from './WorkspaceLine';
 import Block from './Block';
-import Editor from './Editor';
 import UserInput from './UserInput';
 
-// React custom hook used to handle the update procedure for the lines of the editor
-export function useEditorUpdater(editorLines, lineNumber, updateInput, updateEditor) {
-    // Hold the value of the current UserInput (if this line's element is a UserInput)
-    const [value, updateValue] = useState("");
-
-    // When the value of the current UserInput changes, ensure the corresponding editor line is updated as well
-    useEffect(() => {
-        // Hard copy editorLines
-        var copy = [];
-        for (var i = 0; i < editorLines.length; i++) {
-            copy.push(editorLines[i]);
-        }
-
-        // If there is a value, update the editorLine and current input
-        if (value) {
-            copy[lineNumber] = value;
-            updateInput(value);
-        } else {
-            copy[lineNumber] = "";
-            updateInput("");
-        }
-
-        // Update the editor to reflect this change
-        updateEditor(
-            <Editor 
-                editorLines={copy}
-            />);
-
-    }, [value]);
-
-    // Return this value and its update function
-    return {value: value, updateValue: updateValue};
-}
+import BlockZone from './BlockZone';
+import Editor from './Editor';
 
 export function Workspace(properties) {
-    // Remember which line is in focus: defaults to line 0 since only line 0 exists upon instantiation
-    const [selected, updateSelected] = useState(0);
+    const [value, updateValue] = useState("");
+    const [index, updateIndex] = useState(0);
 
-    const [newLine, updateNewLine] = useState(0);
+    // Parameters can be cleaned by using JSON: settings = {list: properties.blockList, index: index, updateBlockList: properties...}, pass settings to functions
+    const blockList = createBlockList(properties.blockList, index, properties.updateBlockList, updateValue, updateIndex);
+    const editorLines = createEditorLines(properties.blockList, index, properties.updateBlockList, updateValue, updateIndex);
 
-    // Keep track of the value of each line in the text editor
-    const [editorLines, updateEditorLines] = useState([]);
+    useEffect(() => {
+        console.log("Update Index: ", index);
+    }, [index]);
 
-    // Keep track of the text editor component
-    const [editor, updateEditor] = useState(
-        <Editor 
-            editorLines={editorLines}
-        />
-    );
+    useEffect(() => {
+        properties.updateBlockList(() => {
+            var array = [];
+            var i = 0;
 
-    // Handles the update procedure for the editor's corresponding line
-    const editorLineUpdater = [];
-    editorLineUpdater.push(useEditorUpdater(editorLines, 0, properties.updateInput, updateEditor));
+            // Save indeces from [0, index), if index == 0, skip to updating index
+            for (i; i < index; i++) {
+                array.push(properties.blockList[i]);
+            }
 
-    // Initialize the list of blocks to display in the BlockZone
-    const [blocks, updateBlocks] = useState([
-        <BlockZoneLine 
-            key={"BlockZone: " + 0} 
-            editorLines={editorLines} 
-            updateEditorLines={updateEditorLines} 
-            updateEditor={updateEditor}
-            updateSelected={updateSelected}
-            updateInput={properties.updateInput} 
-            lineNumber={0}
+            // Update index with current value being typed, ensure type of block remains the same: update array[index]
+            array.push({type: properties.blockList[index].type, value: value});
+            i++; // Updated index, move to index + 1
 
-            // Examples of setting element to either a UserInput or element
-            // element={<UserInput setValue={editorLineUpdater[0].updateValue} lineNumber={properties.lineNumber}/>}
-            // element={<Block key={"DragZoneBlock: " + properties.blockNumber} values={["set ", ""]} updateValue={blockValueUpdater.updateValue}/>}
-            // element={<Block key={"DragZoneBlock: " + properties.blockNumber} values={["int main(", "", ") {"]} updateValue={editorLineUpdater.updateValue}/>}
+            // Save indeces from [index + 1, end of array]
+            for (i; i < properties.blockList.length; i++) {
+                array.push(properties.blockList[i]);
+            }
 
-            element={<UserInput setValue={editorLineUpdater[0].updateValue} lineNumber={properties.lineNumber}/>}
-        />
-    ]);
-
-    // Create the blockzone using the list of blocks
-    const [blockZone, updateBlockZone] = useState(
-        <BlockZone 
-            blocks={blocks}
-        />
-    );
+            return array;
+        })
+    }, [value]);
 
     return(
-        <div className={"d-flex col-10 p-0 m-0"}>
-            <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}> 
-                <div className={"d-flex col-6 p-0 m-0"} style={{height: '100%', border: '2px solid blue'}}>
-                    {blockZone}
+        <div id={"Workspace"} className={"d-flex col-10 p-0 m-0"} style={{height: '100%'}}>
+            <div id={"Workspace Splitter"} className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
+                <div id={"BlockZone Container"} className={"d-flex col-6 p-0 m-0"} style={{height: '100%'}}>
+                    <BlockZone>
+                        {blockList}
+                    </BlockZone>
                 </div>
-                <div className={"d-flex col-6 p-0 m-0"} style={{height: '100%', border: '2px solid blue'}}> 
-                    {editor}
+                <div id={"Editor Container"} className={"d-flex col-6 p-0 m-0"} style={{height: '100%'}}>
+                    <Editor>
+                        {editorLines}
+                    </Editor>
                 </div>
             </div>
         </div>
     );
+}
+
+// insertNewLine function
+// ------------------------------------------------------------------------------------------------------------------
+// list: properties.blockList; the blockList as stored in the parent component (Main)
+// index: the current index that is selected, as stored by this component
+function insertNewLine(list, index) {
+    var array = [];
+    var i = 0;
+
+    // Copy lines from [0, index] back into the array
+    for (i; i < index + 1; i++) {
+        array.push(list[i]);
+    }
+
+    // Push a new line into the index directly after the current index (array[index + 1].insert(new line))
+    array.push({type: UserInput, value: "NewLine"});
+
+    // Copy the remaining lines [index + 1, length - 1] back into the array
+    for (i; i < list.length; i++) {
+        array.push(list[i]);
+    }
+
+    return array;
+}
+
+// handleKeyDown function
+// ------------------------------------------------------------------------------------------------------------------
+// event: the event that triggered this function (meant to be onKeyDown)
+// list: properties.blockList; the blockList as stored in the parent component (Main)
+// index: the current index that is selected, as stored by this component
+// updateBlockList: the update function to update the blockList stored in the parent component
+function handleKeyDown(event, list, index, updateBlockList) {
+    // When enter is pressed, add a new line to the blockList
+    if (event.key === 'Enter') {
+        // Prevent default behavior for the enter key (normally creates a new line in textarea/input field)
+        event.preventDefault();
+
+        // Update the blockList using the return value of the following function
+        updateBlockList(insertNewLine(list, index));
+    }
+}
+
+// createBlockList function
+// ------------------------------------------------------------------------------------------------------------------
+// list: properties.blockList; the blockList as stored in the parent component (Main)
+// index: the current index that is selected, as stored by this component
+// updateBlockList: the update function to update the blockList stored in the parent component
+// updateValue: the update function to update the current value being modified in this component
+// updateIndex: the update function to update the current index that is selected, as stored by this component
+function createBlockList(list, index, updateBlockList, updateValue, updateIndex) {
+    var blockList = [];
+
+    // Iterate through the blockList data and add the appropriate component to the list of blocks to display in the BlockZone
+    for (var i = 0; i < list.length; i++) {
+        // If a block has not been placed in this line of the BlockZone, the line is still a UserInput (which may have a value)
+        if (list[i].type == UserInput) {
+            blockList.push(
+                <div key={"BlockZone Row: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
+                    <UserInput 
+                        value={list[i].value} 
+                        index={i} 
+                        updateValue={updateValue} 
+                        updateIndex={updateIndex}
+                        handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
+                    />
+                </div>
+            );
+        } else { // Otherwise, it is some type of block. Push a block with the given array of values
+            // Add blocks
+            blockList.push(
+                <div key={"BlockZone Row: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
+                    <Block 
+                        values={list[i].value} 
+                        index={i} 
+                        updateValue={(value) => {
+                            console.log("BlockZone updateValue fired!");
+
+                            // Must create a function to set list[i].value[j] to value 
+                            // The problem with this is knowing where j is. Index 1, 3, 5? Must have some reference to this index
+                        }} 
+                        updateIndex={updateIndex}
+                        handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
+                    />
+                </div>
+            );
+        }
+    }
+    return blockList;
+}
+
+// createEditorLines function
+// ----------------------------------------------------------------------------------------------------------------
+// list: properties.blockList; the blockList as stored in the parent component (Main)
+// index: the current index that is selected, as stored by this component
+// updateBlockList: the update function to update the blockList stored in the parent component
+// updateValue: the update function to update the current value being modified in this component
+// updateIndex: the update function to update the current index that is selected, as stored by this component
+function createEditorLines(list, index, updateBlockList, updateValue, updateIndex) {
+    var editorLines = [];
+
+    // Iterate through the blockList data and write the proper string data to the corresponding line of the text editor
+    for (var i = 0; i < list.length; i++) {
+        // If the type of data is a UserInput component, the data is already a string, so add it to the editor
+        if (list[i].type == UserInput) {
+            editorLines.push(
+                <div key={"Editor Line: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
+                    <UserInput 
+                        value={list[i].value} 
+                        index={i} 
+                        updateValue={updateValue} 
+                        updateIndex={updateIndex}
+                        handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
+                    />
+                </div>
+            );
+        } else {
+            // The type of data is a Block, so take list[i].value and concatenate the array into their string representation
+            var stringRepresentation = "";
+            for (var j = 0; j < list[i].value.length; j++) {
+                stringRepresentation += list[i].value[j];
+            }
+            editorLines.push(
+                <div key={"Editor Line: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
+                    <UserInput 
+                        value={stringRepresentation} 
+                        index={i} 
+                        updateValue={(value) => {
+                            console.log("Editor line block's updateValue fired!"); 
+                            
+                            // Cannot updateValue like normal since a block's value is an array. UserInput stores a single string, so attempting to updateValue
+                            // will override the array with a string.
+
+                            // Options: 
+                            // 1) do not provide the capability to create blocks from code
+                            // 2) find a way to keep list[i].value an array and update list[i].value[j]
+                        }} 
+                        updateIndex={updateIndex}
+                        handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
+                    />
+                </div>
+            );
+        }
+    }
+    return editorLines;
 }
 
 export default Workspace;
