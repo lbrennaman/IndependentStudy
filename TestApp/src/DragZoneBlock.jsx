@@ -5,15 +5,19 @@ export function DragZoneBlock(properties) {
     const [value, updateValue] = useState(properties.value);
     const [element, setElement] = useState(<Block values={properties.values} updateValue={updateValue} updateIndex={{i: () => {return null}, j: () => {return null} }}/>);
 
+    /* Debugging purposes
     useEffect(() => {
         console.log("DragZoneBlock Value Updated: ", value);
     }, [value])
+    */
 
     return(
         <div id={"DragZoneBlock: " + properties.blockNumber} 
             onMouseDown={(event) => properties.updateSelected(properties.values)}
             className={"container-fluid p-0 m-0"} 
-            style={{height: '30px', width: '100%', border: '2px solid yellow'}}> {element} </div>
+            style={{height: '30px', width: '100%', border: '2px solid yellow'}}> 
+            {element} 
+        </div>
     );
 }
 

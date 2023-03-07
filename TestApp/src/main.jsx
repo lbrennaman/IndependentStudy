@@ -19,16 +19,17 @@ function MainView(properties) {
     const [blockValues, updateBlockValues] = useState([["set", ""], ["Example 2", "", "End;"]]);
     const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "", "Third", ""]}]);
 
+    // The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput}/>
     );
 
+    // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
     useEffect(() => {
-        console.log("BZVALUES UPDATED: ", bzValues);
         updateWorkspace(<Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput}/>);
     }, [bzValues]);
 
-    // Subcomponent controllers
+    // The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
     const [dragZone, updateDragZone] = useState(
         <DragZone 
         blockList={blockValues}
@@ -39,13 +40,8 @@ function MainView(properties) {
         />
     );
 
+    /* Not currently needed
     useEffect(() => {
-        console.log("UPDATE SELECTED/INPUT");
-        console.log("DragZone Selected: ", dragZoneSelected)
-        console.log("Input: ", input);
-
-        // Change selected WorkspaceLine to block whose values = dragZoneSelected
-
         updateDragZone(
             <DragZone
             blockList={blockValues}
@@ -56,6 +52,7 @@ function MainView(properties) {
             />
         );
     }, [dragZoneSelected, input]);
+    */
 
     return (
         <div className={"row mh-100"} style={{height: '100%'}}>                                                     {/* Main Col Splitter */}
