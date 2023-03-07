@@ -125,9 +125,25 @@ function createBlockList(list, index, updateBlockList, updateValue, updateIndex)
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>
-            )
+            );
         } else { // Otherwise, it is some type of block. Push a block with the given array of values
             // Add blocks
+            blockList.push(
+                <div key={"BlockZone Row: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
+                    <Block 
+                        values={list[i].value} 
+                        index={i} 
+                        updateValue={(value) => {
+                            console.log("BlockZone updateValue fired!");
+
+                            // Must create a function to set list[i].value[j] to value 
+                            // The problem with this is knowing where j is. Index 1, 3, 5? Must have some reference to this index
+                        }} 
+                        updateIndex={updateIndex}
+                        handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
+                    />
+                </div>
+            );
         }
     }
     return blockList;
@@ -160,6 +176,30 @@ function createEditorLines(list, index, updateBlockList, updateValue, updateInde
             );
         } else {
             // The type of data is a Block, so take list[i].value and concatenate the array into their string representation
+            var stringRepresentation = "";
+            for (var j = 0; j < list[i].value.length; j++) {
+                stringRepresentation += list[i].value[j];
+            }
+            editorLines.push(
+                <div key={"Editor Line: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
+                    <UserInput 
+                        value={stringRepresentation} 
+                        index={i} 
+                        updateValue={(value) => {
+                            console.log("Editor line block's updateValue fired!"); 
+                            
+                            // Cannot updateValue like normal since a block's value is an array. UserInput stores a single string, so attempting to updateValue
+                            // will override the array with a string.
+
+                            // Options: 
+                            // 1) do not provide the capability to create blocks from code
+                            // 2) find a way to keep list[i].value an array and update list[i].value[j]
+                        }} 
+                        updateIndex={updateIndex}
+                        handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
+                    />
+                </div>
+            );
         }
     }
     return editorLines;

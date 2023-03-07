@@ -18,7 +18,7 @@ function MainView(properties) {
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
     const [blockValues, updateBlockValues] = useState([["set", ""], ["Example 2", "", "End;"]]);
-    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]);
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "", "Third"]}]);
 
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput}/>
