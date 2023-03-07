@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import WorkspaceLine from './WorkspaceLine';
 import Block from './Block';
 import UserInput from './UserInput';
 
@@ -10,13 +9,14 @@ import Editor from './Editor';
 export function Workspace(properties) {
     const [value, updateValue] = useState("");
     const [index, updateIndex] = useState(0);
+    const [index_j, updateIndex_j] = useState(null);
 
     // Parameters can be cleaned by using JSON: settings = {list: properties.blockList, index: index, updateBlockList: properties...}, pass settings to functions
-    const blockList = createBlockList(properties.blockList, index, properties.updateBlockList, updateValue, updateIndex);
-    const editorLines = createEditorLines(properties.blockList, index, properties.updateBlockList, updateValue, updateIndex);
+    const blockList = createBlockList(properties.blockList, index, properties.updateBlockList, updateValue, {i: updateIndex, j: updateIndex_j});
+    const editorLines = createEditorLines(properties.blockList, index, properties.updateBlockList, updateValue, {i: updateIndex, j: updateIndex_j});
 
     useEffect(() => {
-        console.log("Update Index: ", index);
+        console.log("Update Index i: ", index);
     }, [index]);
 
     useEffect(() => {
@@ -121,7 +121,7 @@ function createBlockList(list, index, updateBlockList, updateValue, updateIndex)
                         value={list[i].value} 
                         index={i} 
                         updateValue={updateValue} 
-                        updateIndex={updateIndex}
+                        updateIndex={updateIndex.i}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>
@@ -133,12 +133,7 @@ function createBlockList(list, index, updateBlockList, updateValue, updateIndex)
                     <Block 
                         values={list[i].value} 
                         index={i} 
-                        updateValue={(value) => {
-                            console.log("BlockZone updateValue fired!");
-
-                            // Must create a function to set list[i].value[j] to value 
-                            // The problem with this is knowing where j is. Index 1, 3, 5? Must have some reference to this index
-                        }} 
+                        updateValue={updateValue} 
                         updateIndex={updateIndex}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
@@ -169,7 +164,7 @@ function createEditorLines(list, index, updateBlockList, updateValue, updateInde
                         value={list[i].value} 
                         index={i} 
                         updateValue={updateValue} 
-                        updateIndex={updateIndex}
+                        updateIndex={updateIndex.i}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>
@@ -195,7 +190,7 @@ function createEditorLines(list, index, updateBlockList, updateValue, updateInde
                             // 1) do not provide the capability to create blocks from code
                             // 2) find a way to keep list[i].value an array and update list[i].value[j]
                         }} 
-                        updateIndex={updateIndex}
+                        updateIndex={updateIndex.i}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>

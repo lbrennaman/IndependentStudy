@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 
 import DragZone from './DragZone';
 import Workspace from './Workspace';
-import WorkspaceLine from './WorkspaceLine';
 import UserInput from './UserInput';
 import Block from './Block';
 
@@ -18,7 +17,7 @@ function MainView(properties) {
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
     const [blockValues, updateBlockValues] = useState([["set", ""], ["Example 2", "", "End;"]]);
-    const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "", "Third"]}]);
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "", "Third", ""]}]);
 
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput}/>
