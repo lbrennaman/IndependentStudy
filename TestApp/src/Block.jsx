@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
+import * as helper from './Helper';
 import UserInput from './UserInput';
 
+// Recursive React Component
 function BlockChild(properties) {
+    // Copy array from index [1, length - 1]
     var copy = [];
     for (var i = 1; i < properties.values.length; i++) {
         copy.push(properties.values[i]);
     }
 
+    // If the array has more than one string left, return a row with two columns: left -> values[0], right -> value[1 -> length - 1]
     if (properties.values.length > 1) {
         return(
             <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
@@ -18,7 +22,7 @@ function BlockChild(properties) {
                 </div>
             </div>
         );
-    } else {
+    } else { // Else, return a div with that remaining string
         return(
             <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
                 <div className={"col p-0 m-0"} style={{height: '100%'}}>
@@ -36,6 +40,9 @@ export function Block(properties) {
         return null;
     }
 
+    // The index of the current UserInput in focus
+    const [index, updateIndex] = useState(null);
+
     // Create a new array by replacing even indeces with UserInputs
     var array = [];
     for (var i = 0; i < properties.values.length; i++) {
@@ -43,9 +50,20 @@ export function Block(properties) {
             array.push(
                 <UserInput 
                     value={properties.values[i]} 
-                    index={properties.index} 
-                    updateValue={properties.updateValue} 
-                    updateIndex={properties.updateIndex}
+                    index={i}
+                    updateValue={(value) => {
+                        // If this block's index is not null, meaning this block has an index in focus, allow the blockList to be updated
+                        if (index != null) {
+                            properties.updateValue(helper.replaceArrayIndex(properties.values, index, value));
+                        }
+                    }} 
+                    updateIndex={(index_j) => {
+                        // Allow focusing on the UserInput to update the line number like normal
+                        properties.updateIndex(properties.index);
+
+                        // Update the index of this block to track which UserInput is in focus
+                        updateIndex(index_j);
+                    }}
                     handleKeyDown={properties.handleKeyDown}
                 />
             );
@@ -55,7 +73,10 @@ export function Block(properties) {
     }
 
     return(
-        <div id={"Block Container"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
+        <div id={"Block Container"} 
+            className={"container-fluid p-0 m-0"} 
+            style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'auto'}} 
+            onMouseDown={(event) => properties.updateIndex(properties.index)}>
             <BlockChild values={array}/>
         </div>
     );

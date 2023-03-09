@@ -18,7 +18,7 @@ function UserInput(properties) {
                     boxShadow: 'none',
                     whiteSpace: 'pre',
                     overflowWrap: 'normal',
-                    overflowX: 'auto',
+                    overflowX: 'hidden',
                     backgroundColor: '#343a40',
                     color: 'white'
                 }}>
