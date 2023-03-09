@@ -1,6 +1,16 @@
 import Block from './Block';
 import UserInput from './UserInput';
 
+// wasInserted function: determine whether a character was inserted into a string or not at a given index
+export function wasInserted(str1, str2, index) {
+    return (subString(str1, 0, index - 1) == subString(str2, 0, index - 1)) && (subString(str1, index + 1, str1.length - 1) == subString(str2, index, str2.length - 1));
+}
+
+// wasDeleted function: determine whether a character was deleted into a string or not at a given index
+export function wasDeleted(str1, str2, index) {
+    return (subString(str1, 0, index - 1) == subString(str2, 0, index - 1)) && (subString(str1, index, str1.length - 1) == subString(str2, index + 1, str2.length - 1));
+}
+
 // arrayToString function: concatenate elements to form a single string
 export function arrayToString(array) {
     var copy = "";
@@ -187,78 +197,95 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
                         value={stringRepresentation} 
                         index={i} 
                         updateValue={(value) => {
-                            console.log("Editor line block's updateValue fired! The retrieved value: ", value); 
-                            
-                            // Cannot updateValue like normal since a block's value is an array. UserInput stores a single string, so attempting to updateValue
-                            // will override the array with a string.
+                            // Value will be equal to stringRepresentation with a character removed/inserted into a random index
+                            // ---------------------------------------------------------------------------------------------------------------------------------------
+                            // Method 1:
+                            // ---------------------------------------------------------------------------------------------------------------------------------------
+                            //
+                            // Iterate through both the stringRepresentation and value at the same time
+                            // The value[current] that differs from stringRepresentation[current] is the index that has been altered
+                            //      Insert Ex. 
+                            //                  stringRep = abcdef
+                            //                  value =     abckdef
+                            //      Delete Ex.
+                            //                  stringRep = abcdef
+                            //                  value =     abdef
+                            //      Replace Ex.
+                            //                  stringRep = abcdef
+                            //                  value =     abvdef
+                            //
+                            // A character was inserted into value[current] if 
+                            // --> subString(value, 0, current - 1) == subString(stringRep, 0, current - 1) &&
+                            // --> subString(value, current + 1, length - 1) == subString(stringRep, current, length - 1)
+                            // A character was deleted from value[current] if
+                            // --> subString(value, 0, current - 1) == subString(stringRep, 0, current - 1) &&
+                            // --> subString(value, current, length - 1) == subString(stringRep, current + 1, length - 1)
+                            // A character was replaced from value[current] if the other two conditions are false
+                            //
+                            // If it needs to be known whether the value is an insertion or deletion before iteration,
+                            // --> A character was inserted if value.length > stringRep.length
+                            // --> A character was deleted if value.length < stringRep.length
+                            // --> A character was replaced if value.length == stringRep.length
+                            //
+                            // To update list[index].value properly, the change in the current index must be properly reflected into its corresponding array
+                            // For an array of length 3, it has indeces [0, ..., n - 1], [n, ..., n + (m - 1)], [n + m, ..., n + m + (o - 1)]
+                            // If the current index is between n and n + (m - 1), then array[1] should be updated with subString(value, array[1] start, array[2] start - 1)
+                            //
+                            // Problem found: if a character is inserted between two strings, which string appends the character?
+                            // The inserted character should only affect array odd indeces, so if a character is inserted in between an odd and even index, 
+                            // the odd should index should be the one updated. 
+                            //
+                            // ---------------------------------------------------------------------------------------------------------------------------------------
+                            // Method 2: 
+                            // ---------------------------------------------------------------------------------------------------------------------------------------
+                            //
+                            // There are n strings in list[index].value, each of varying length
+                            // String n remains the same if string == subString(value, start, start + offset),
+                            // --> when start == total combined length of previous strings - (1 * number of previous strings) and offset = length of current string - 1
+                            // Otherwise, the current string differs from the subString of value, meaning that the current string has been altered
+                            // Note that all substrings after the affected index will not match their corresponding string
+                            // In that case, updateValue(replaceArrayIndex(list[index].value, index of string, corresponding substring of value))
+                            //
+                            // ---------------------------------------------------------------------------------------------------------------------------------------
 
-                            // Options: 
-                            // 1) do not provide the capability to create blocks from code
-                            // 2) find a way to keep list[i].value an array and update list[i].value[j]
-
-                            // An algorithm that updates the proper list[i].value[j] must accomplish the following:
-                            // 1) The algorithm must not allow any indeces besides i and j to be altered
-                            // 2) Must be able to map indeces {[x, y]1, [x, y]2, ..., [x, y]n} -> {j1, j2, ..., jn}
-
-                            // Algorithm:
-                            // Loop through each character in value and copy each character into a new string while looping through j indeces using a counter k
-                            // If copy matches list[index].value[k][l], increment k
-                            // If copy does not match list[index].value[k][l], set list[index].value[k] to value
-
-                            //updateValue(replaceArrayIndex(list[index].value, index, value));
-                            var copyString = "";
-                            var copyArray = [];
-
-                            // split value into an array and see if it equals list[index].value
-                            var val_i = 0;
-                            for (var k = 0; k < list[index].value.length; k++) {
-                                if (list[index].value[k]) {
-                                    console.log("For ", list[index].value[k], " k = ", k, ": ", list[index].value[k], " exists.");
-                                    for (var l = 0; l < list[index].value[k].length; l++) {
-                                        if (list[index].value[k][l] == value[val_i]) {
-                                            console.log("For ", list[index].value[k], " k = ", k, " l = ", l, ": ", list[index].value[k][l], " == ", value[val_i]);
-                                            copyString += value[val_i];
-                                            val_i++;
-                                        }
-                                    }
-
-                                    if (copyString == list[index].value[k]) {
-                                        console.log("Made it through successfully. ", copyString, " == ", list[index].value[k]);
-                                        if (k == list[index].value.length - 1) {
-                                            if (value[val_i]) {
-                                                copyString += value[val_i];
-                                            }
-                                        }
-                                        copyArray.push(copyString);
-                                        copyString = "";
+                            // Method 1
+                            var found = false;
+                            var array = list[index].value;
+                            for (var current = 0; current < value.length; current++) {
+                                // The value[current] that differs from stringRepresentation[current] is the index that has been altered
+                                if (value[current] != stringRepresentation[current] && !found) {
+                                    // Check conditions for insertion/deletion/replacement
+                                    if (wasInserted(value, stringRepresentation, current)) {
+                                        console.log("INSERTION");
+                                    } else if (wasDeleted(value, stringRepresentation, current)) {
+                                        console.log("DELETION");
                                     } else {
-                                        console.log("Somehow unsuccessful: ", copyString);
+                                        console.log("REPLACEMENT");
                                     }
-                                } else {
-                                    console.log("For ", list[index].value[k], " k = ", k, ": ", list[index].value[k], " does not exist. Do nothing.");
-                                    if (list[index].value[k + 1]) {
-                                        if (list[index].value[k + 1][0] != value[val_i]) {
-                                            copyArray.push(value[val_i]);
-                                            copyString = "";
-                                            val_i++;
-                                        } else {
-                                            copyArray.push("");
-                                            copyString = "";
-                                        }
-                                    } else {
-                                        if (value[val_i]) {
-                                            copyArray.push(value[val_i]);
-                                            copyString = "";
-                                            val_i++;
-                                        } else {
-                                            copyArray.push("");
-                                            copyString = "";
-                                        }
-                                    }
+
+                                    found = true;
                                 }
                             }
 
-                            updateValue(copyArray);
+                            // Method 2
+                            /*
+                            var array = list[index].value;
+                            var count = 0;
+                            var start = 0;
+                            var offset = 0;
+                            array.forEach((string) => {
+                                if (string) {
+                                    if (string != subString(value, start, start + offset)) {
+                                        updateValue(replaceArrayIndex(array, count, value));
+                                    }
+                                } else {
+                                    // In the case of which list[index].value has a null index, whether or not this string is altered depends on the next string
+                                }
+
+                                // Finally, increment string count
+                                count++;
+                            });
+                            */
                         }} 
                         updateIndex={updateIndex.i}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
