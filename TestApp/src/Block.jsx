@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import * as helper from './WorkspaceHelper';
+import * as helper from './Helper';
 import UserInput from './UserInput';
 
 // Recursive React Component
@@ -59,13 +59,10 @@ export function Block(properties) {
                     }} 
                     updateIndex={(index_j) => {
                         // Allow focusing on the UserInput to update the line number like normal
-                        properties.updateIndex.i(properties.index);
+                        properties.updateIndex(properties.index);
 
                         // Update the index of this block to track which UserInput is in focus
                         updateIndex(index_j);
-
-                        // Update this index for the Workspace so that it is aware of which index to change
-                        properties.updateIndex.j(index_j);
                     }}
                     handleKeyDown={properties.handleKeyDown}
                 />
@@ -78,8 +75,8 @@ export function Block(properties) {
     return(
         <div id={"Block Container"} 
             className={"container-fluid p-0 m-0"} 
-            style={{height: '100%', width: '100%'}} 
-            onMouseDown={(event) => properties.updateIndex.i(properties.index)}>
+            style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'auto'}} 
+            onMouseDown={(event) => properties.updateIndex(properties.index)}>
             <BlockChild values={array}/>
         </div>
     );

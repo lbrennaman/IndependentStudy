@@ -70,6 +70,27 @@ export function replaceArrayIndex(array, index, value) {
     return copy;
 }
 
+// deleteArrayIndex function: return a copy of a given array without the specified index
+export function deleteArrayIndex(array, index) {
+    var copy = [];
+    var i = 0;
+
+    // Copy indeces from [0, index)
+    for (i; i < index; i++) {
+        copy.push(array[i]);
+    }
+
+    // Move past index
+    i++; 
+
+    // Save remaining indeces from [index_i + 1, length - 1]
+    for (i; i < array.length; i++) {
+        copy.push(array[i]);
+    }
+
+    return copy;
+}
+
 // insertIntoArray function: insert a value into an array at the given index
 // ------------------------------------------------------------------------------------------------------------------
 // array: the array of items to insert the given value into
@@ -100,7 +121,7 @@ export function insertIntoArray(array, index, value) {
 // list: properties.blockList; the blockList as stored in the parent component (Main)
 // index: the current index that is selected, as stored by this component
 export function insertNewLine(list, index) {
-    return insertIntoArray(list, index, {type: UserInput, value: "NewLine"});
+    return insertIntoArray(list, index, {type: UserInput, value: ''});
 }
 
 // handleKeyDown function
@@ -117,6 +138,8 @@ export function handleKeyDown(event, list, index, updateBlockList) {
 
         // Update the blockList using the return value of the following function
         updateBlockList(insertNewLine(list, index));
+    } else if (list.length > 1 && event.key === 'Delete') { // If the user hits "Delete", delete the index so long as the editor has more than 1 line
+        updateBlockList(deleteArrayIndex(list, index));
     }
 }
 
@@ -140,7 +163,7 @@ export function createBlockList(list, index, updateBlockList, updateValue, updat
                         value={list[i].value} 
                         index={i} 
                         updateValue={updateValue} 
-                        updateIndex={updateIndex.i}
+                        updateIndex={updateIndex}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>
@@ -183,7 +206,7 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
                         value={list[i].value} 
                         index={i} 
                         updateValue={updateValue} 
-                        updateIndex={updateIndex.i}
+                        updateIndex={updateIndex}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>
@@ -249,6 +272,7 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
                             // ---------------------------------------------------------------------------------------------------------------------------------------
 
                             // Method 1
+                            /*
                             var found = false;
                             var array = list[index].value;
                             for (var current = 0; current < value.length; current++) {
@@ -266,6 +290,7 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
                                     found = true;
                                 }
                             }
+                            */
 
                             // Method 2
                             /*
@@ -287,7 +312,7 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
                             });
                             */
                         }} 
-                        updateIndex={updateIndex.i}
+                        updateIndex={updateIndex}
                         handleKeyDown={(event) => handleKeyDown(event, list, index, updateBlockList)}
                     />
                 </div>

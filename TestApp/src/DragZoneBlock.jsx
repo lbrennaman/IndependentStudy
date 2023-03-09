@@ -3,7 +3,13 @@ import Block from './Block';
 
 export function DragZoneBlock(properties) {
     const [value, updateValue] = useState(properties.value);
-    const [element, setElement] = useState(<Block values={properties.values} updateValue={updateValue} updateIndex={{i: () => {return null}, j: () => {return null} }}/>);
+    const [element, setElement] = useState(
+        <Block 
+            values={properties.values} 
+            updateValue={updateValue} 
+            updateIndex={ () => { return null }}
+        />
+    );
 
     /* Debugging purposes
     useEffect(() => {
