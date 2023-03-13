@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import * as helper from './Helper';
-import { SearchBlocks } from './Search';
+import { getBlocks } from './Search';
 
 import DragZone from './DragZone';
 import Workspace from './Workspace';
 import UserInput from './UserInput';
 import Block from './Block';
+
 
 // Build the main view controller
 function MainView(properties) {
@@ -62,33 +63,35 @@ function MainView(properties) {
         console.log("Updated input: ", input);
 
         // Update dragZone blockList using updated input
-        if (input != null && typeof(input) === 'string') {
+        if (input != "" && typeof(input) === 'string') {
             // Algorithm to get the blockList by using the input to filter SearchBlocks
-            var copy = [];
-            for (var i = 0; i < SearchBlocks.length; i++) {
-                for (var j = 0; j < SearchBlocks[i].length; j++) {
-                    copy.push(SearchBlocks[i][j]);
-                }
-            }
+            var searchBlocks = getBlocks(input);
 
             // If search bar is not null, use search bar value to further filter SearchBlocks
             // TODO
 
             // Update dragzone blocks
-            updateBlockValues(copy);
-
-            // Update dragzone
-            updateDragZone(
-                <DragZone
-                blockList={blockValues}
-                updateSearch={updateSearch}
-                updateBlockList={updateBlockValues}
-                updateInput={updateInput}
-                updateSelected={updateDragZoneSelected}
-                />
-            );
+            updateBlockValues(searchBlocks);
+        } else {
+            updateBlockValues([]);
         }
     }, [input]);
+
+    // When blockValues are updated, update DragZone
+    useEffect(() => {
+        console.log("New blockValues: ", blockValues);
+
+        // Update dragzone
+        updateDragZone(
+            <DragZone
+            blockList={blockValues}
+            updateSearch={updateSearch}
+            updateBlockList={updateBlockValues}
+            updateInput={updateInput}
+            updateSelected={updateDragZoneSelected}
+            />
+        );
+    }, [blockValues])
     
 
     return (
