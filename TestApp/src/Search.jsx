@@ -47,20 +47,24 @@ export function getBlocks(input, filter) {
     // Compare input to each type of SearchBlock
     // Iterate through each type in SearchBlocks
     for (var i = 0; i < SearchBlocks.length; i++) {
-        // Iterate through each string/array in type i
+        // Iterate through each string/array in SearchBlocks[i]
         for (var j = 0; j < SearchBlocks[i].type.length; j++) {
-            // If type i is an array,
+            // If the current index (SearchBlocks[i].type[j]) is an array,
             if (typeof(SearchBlocks[i].type[j]) !== 'string') {
-                // Iterate through each string in type i
+                // Iterate through each string in the current array: SearchBlocks[i].type[j]
                 for (var k = 0; k < SearchBlocks[i].type[j].length; k++) {
                     // console.log("Index: ", SearchBlocks[i].type[j][k], " input: ", input, " include: ", SearchBlocks[i].type[j][k].includes(input));
-                    if (SearchBlocks[i].type[j][k].includes(input)) {
+                    if (SearchBlocks[i].type[j][k].includes(input.toLowerCase())) {
                         console.log("Array:, ", SearchBlocks[i].type[j], " Index: ", SearchBlocks[i].type[j][k], " includes ", input);
+
+                        // If an index of an array has matched a string, then the [i].array will contain a [array] in the block
+                        // Push all possible blocks
+                        // Example: if block = [type] '' ; and input = i, push "int ;", "string ;", etc.
                         array.push(SearchBlocks[i].array);
                     }
                 }
             } else { // Else, type i is a string
-                if (SearchBlocks[i].type[j].includes(input)) {
+                if (SearchBlocks[i].type[j].includes(input.toLowerCase())) {
                     // console.log("Array:, ", SearchBlocks[i], " Index: ", SearchBlocks[i].type[j], " includes ", input);
                     array.push(SearchBlocks[i].array);
                 }

@@ -321,3 +321,35 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
     }
     return editorLines;
 }
+
+export function createDragZoneList(list, updateSelected) {
+    var array = [];
+
+    // If there is no list, do not continue, return null
+    if (list == null) {
+        return null;
+    } else { // Else, if there is a list, iterate through list and create a block using its values
+        for (var i = 0; i < list.length; i++) {
+            // Push a div (container) with a block inside of it
+            array.push(
+                <div key={"Dragzone Row: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}
+                    onMouseDown={ 
+                        (event) => { 
+                            updateSelected(properties.values); 
+                        }
+                    }
+                >
+                    <Block 
+                        values={list[i]} 
+                        index={i} 
+                        updateValue={() => { return null }} 
+                        updateIndex={() => { return null }}
+                        handleKeyDown={(event) => { return null }}
+                    />
+                </div>
+            );
+        }
+    }
+
+    return array;
+}

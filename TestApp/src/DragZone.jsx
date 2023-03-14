@@ -1,14 +1,10 @@
 import { useState } from 'react';
+
+import * as helper from './Helper';
 import UserInput from './UserInput';
-import DragZoneBlock from './DragZoneBlock';
 
 export function DragZone(properties) {
-    var blocks = [];
-    if (properties.blockList != null) {
-        for (var i = 0; i < properties.blockList.length; i++) {
-            blocks.push(<DragZoneBlock key={"DragZoneBlock: " + i} blockNumber={i} values={properties.blockList[i]} updateSelected={properties.updateSelected}/>);
-        }
-    }
+    var blockList = helper.createDragZoneList(properties.blockList, properties.updateSelected);
 
     return(
         <div id={"DragZone"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
@@ -27,7 +23,7 @@ export function DragZone(properties) {
             </div>
             <div id={"DragZoneBlockListViewContainerRow"} className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
                 <div id={"DragZoneBlockListViewContainer"} className={"container-fluid p-0 m-0"} style={{height: '30px', width: '100%'}}>
-                    {blocks}
+                    {blockList}
                 </div>
             </div>
         </div>
