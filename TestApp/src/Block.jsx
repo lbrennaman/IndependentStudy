@@ -75,7 +75,7 @@ export function Block(properties) {
     return(
         <div id={"Block Container"} 
             className={"container-fluid p-0 m-0"} 
-            style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'auto'}} 
+            style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'hidden'}} 
             onMouseDown={(event) => properties.updateIndex(properties.index)}>
             <BlockChild values={array}/>
         </div>

@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import * as helper from './Helper';
 import UserInput from './UserInput';
 
 export function DragZone(properties) {
-    var blockList = helper.createDragZoneList(properties.blockList, properties.updateSelected);
+    const [index, updateIndex] = useState(null);
+
+    // Create the list of blocks to display in the dragzone
+    var blockList = helper.createDragZoneList(properties.blockList, properties.updateSelected, updateIndex);
+
+    // When a block is clicked (and index is updated), update the selected block to the clicked block
+    useEffect(() => {
+        if (index != null) {
+            properties.updateSelected(properties.blockList[index]);
+        }
+    }, [index]);
 
     return(
         <div id={"DragZone"} className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
