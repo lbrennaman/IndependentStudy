@@ -2,25 +2,6 @@
 // Ex. Arrays containing "[]" need to be replaced, and the functions in this file are meant to return
 //     a new array after replacing those "[]". For example, [type] should be replaced with a type from 
 //     the list of types for the current programming language
-
-/*
-const SearchBlocks = [
-    {type: ['main'], array: ['int main(', '', ') {']},
-    {type: ['include'], array: ['#include<', '', '>']},
-    {type: ['using'], array: ['using namespace ', '', ';']},
-    {type: [typeList, assign_op], array: ['[type]', '', '[assignment_op]', '', '[assignment_ex]']},
-    {type: [typeList, 'function', 'definition'], array: ['[type]', '', '(', '', ') {']},
-    {type: [typeList, 'prototype', 'function'], array: ['[type]', '', '(', '', ');']},
-    {type: ['class', 'definition'], array: ['class ', '', '{']},
-    {type: ['template', 'class', 'definition'], array: ['template<class ', '', '> class ', '', '{']},
-    {type: ['template', 'method', 'definition'], array: ['template<class ', '', '> ', '', '<', '', '>::', '', '(', '', ') {']},
-    {type: ['prototype', 'template'], array: ['template<class ', '', '> ', '', '<', '', '>::', '', '(', '', ');']},
-    {type: ['if'], array: ['if (', '', ') {']},
-    {type: ['for', 'loop'], array: ['for ([type]', '', '; ', '', '; ', '', ') {']},
-    {type: ['while', 'loop'], array: ['while (', '', ') {']}    
-];
-*/
-
 const SearchBlocks = [
     {type: ['main'], array: ['int main(', '', ') {']},
     {type: ['include'], array: ['#include<', '', '>']},
@@ -92,7 +73,7 @@ export function getBlocks(input, filter) {
     // Compare input to each type of SearchBlock
     // Iterate through each type in SearchBlocks
     for (var i = 0; i < SearchBlocks.length; i++) {
-        var matched = false;
+        var matched = false; // Ensure that only one string from each type can be a match
 
         // Iterate through each string/array in SearchBlocks[i]
         for (var j = 0; j < SearchBlocks[i].type.length; j++) {
@@ -100,47 +81,23 @@ export function getBlocks(input, filter) {
                 if (SearchBlocks[i].type[j].includes(input.toLowerCase())) {
                     matched = true;
 
-                    console.log("This type is a string! i: ", i, " j: ", j, " SearchBlocks[i].type: ", SearchBlocks[i].type);
-                    console.log("Array:, ", SearchBlocks[i], " Index: ", SearchBlocks[i].type[j], " includes ", input);
-                    array.push(SearchBlocks[i].array);
+                    // If filter is not null, only push the matched array if the a string in the array includes the filter
+                    if (filter != null) {
+                        var filterMatch = false; // Ensure that the array can only be pushed once after the filter is matched for the first time
+                        for (var k = 0; k < SearchBlocks[i].array.length; k++) {    // Iterate through the matched block's array
+                            if (!filterMatch) {                                     // If the array has not been found to include the filter
+                                if (SearchBlocks[i].array[k].includes(filter)) {    // If the array includes the filter
+                                    filterMatch = true;                             // Prevent the array from being pushed multiple times by showing it has been matched
+                                    array.push(SearchBlocks[i].array);              // Push the array only once
+                                }                                                   // Do not do anything if the array does not include the filter
+                            }                                                       // Do not do anything if the filter has already been matched
+                        }
+                    } else {
+                        array.push(SearchBlocks[i].array);
+                    }
                 }
             }
         }
     }
     return array;
 }
-
-// Iterate through all blocks and replace all occurrences of "indicator" using the entries in the given array
-// array: array to iterate through in search of indicators
-// indicator: string specifying what substring to replace
-// values: list containing all values to replace indicator with
-// specifier: specific value from values to replace indicator with if specified
-/*
-function replaceIndicator(array, indicator, values, specifier = null) {
-    if (array == null || values == null) {
-        console.log("ReplaceIndicator error: either array or list of values were null!");
-        return [];
-    }
-
-    var replacedArray = [];
-    for (var i = 0; i < array.length; i++) {
-        var copy = array[i];
-
-        if (copy.includes(indicator)) {
-            for (var j = 0; j < values.length; j++) {
-                if (specifier != null) {
-                    if (values[j].includes(specifier)) {
-                        // Copy array indeces from [0, i) into temp; replace index i with copy; copy array indeces (i, length - 1] into temp
-                        replacedArray.push(helper.replaceArrayIndex(array, i, copy.replace(indicator, values[j])));
-                    }
-                } else {
-                    // Copy array indeces from [0, i) into temp; replace index i with copy; copy array indeces (i, length - 1] into temp
-                    replacedArray.push(helper.replaceArrayIndex(array, i, copy.replace(indicator, values[j])));
-                }
-            }
-        }
-    }
-
-    return replacedArray;
-}
-*/

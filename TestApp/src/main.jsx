@@ -60,22 +60,19 @@ function MainView(properties) {
 
     // Update the dragzone depending on the current textarea input
     useEffect(() => {
-        console.log("Updated input: ", input);
+        console.log("Updated input or search. Input: ", input, " Search: ", search);
 
         // Update dragZone blockList using updated input
         if (input != "" && typeof(input) === 'string') {
             // Algorithm to get the blockList by using the input to filter SearchBlocks
-            var searchBlocks = getBlocks(input);
-
-            // If search bar is not null, use search bar value to further filter SearchBlocks
-            // TODO
+            var searchBlocks = getBlocks(input, search);
 
             // Update dragzone blocks
             updateBlockValues(searchBlocks);
         } else {
             updateBlockValues([]);
         }
-    }, [input]);
+    }, [input, search]);
 
     // When blockValues are updated, update DragZone
     useEffect(() => {
