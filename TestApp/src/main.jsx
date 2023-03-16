@@ -8,7 +8,7 @@ import DragZone from './DragZone';
 import Workspace from './Workspace';
 import UserInput from './UserInput';
 import Block from './Block';
-
+import FileWriter from './FileWriter';
 
 // Build the main view controller
 function MainView(properties) {
@@ -21,7 +21,7 @@ function MainView(properties) {
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
     const [blockValues, updateBlockValues] = useState(null);
-    const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "x", "Third", "z"]}]);
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]);
 
     // The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
@@ -88,11 +88,27 @@ function MainView(properties) {
     
 
     return (
-        <div className={"row mh-100"} style={{height: '100%', overflow: 'hidden'}}>   
-            <div className={"d-flex col-2 p-0 m-0"} style={{border: '2px solid red', height: '100%'}}>  
-                {dragZone}
+        <div className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
+            <div className={"row mh-100 p-0 m-0"} style={{height: '30px', overflow: 'hidden'}}> 
+                <div className={"d-flex col-2 p-0 m-0"}  style={{height: '100%', width: '17%'}}>  
+                </div>
+                <div className={"d-flex col-10 p-0 m-0"}  style={{height: '100%', width: '83%'}}>  
+                    <div className={"row mh-100 p-0 m-0"} style={{height: '30px', width: '100%', overflow: 'hidden'}}> 
+                        <div className={"d-flex col p-0 m-0"}  style={{height: '100%', width: '50%'}}>  
+                        </div>
+                        <div className={"d-flex col p-0 m-0"}  style={{height: '100%', width: '50%'}}>  
+                            {/* Use a button and a UserInput to write to a file. User input provides file name, button writes to file.*/}
+                            <FileWriter/>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {workspace}
+            <div className={"row mh-100 p-0 m-0"} style={{height: '100%', overflow: 'hidden'}}>   
+                <div className={"d-flex col-2 p-0 m-0"} style={{border: '2px solid red', height: '100%'}}>  
+                    {dragZone}
+                </div>
+                {workspace}
+            </div>
         </div>
     )
 }
