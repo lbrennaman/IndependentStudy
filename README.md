@@ -1,6 +1,27 @@
 # IndependentStudy
 A code editor providing a visual aspect to coding rather than allowing a user to code just through keyboard input.
 
+## 3/16/23 Edits:
+At this point the editor is being made to directly translate blocks representing c++ code to actual c++ statements so that the project can be finished by the end of
+the semester. I could continue to take the editor in a direction in which I believe could be beneficial to programming, but that would take more time and effort than
+I have in this semester. After finishing what I need in order to get an A for my independent study, I think I will return to the start once again to try and rebuild the
+editor using the Recoil library so that components no longer need to worry about sending an update function down through its children to update a hook variable; Recoil can instead provide a sort of "global" state that all components can read and alter without having to send props down through every level. I believe this functionality would be
+extremely beneficial and make things a lot easier in the end if I ever continue creating this editor after my independent study is over. Right now, I do not plan to continue
+development, but perhaps the Recoil library could change my mind.
+</br>
+</br>
+The changes implemented over the past week are as follows:
+ - added Search: a file containing a list of block definitions to represent a variety of c++ functions. Hard coded because I could not think of an efficient way to
+                 dynamically create all possible c++ blocks
+ - added getBlocks to Search: a method to use the current input and filter from the search bar to only return blocks that meet the search criteria
+ - fixed various bugs: I can't remember all of them, but I know of one existing bug. Sometimes typing into a UserInput too quickly can delete the end character and replace it 
+                 with the last typed character. I noticed that typing "int" too fast resulted in "it." I believe this behavior to be due to the constant reconstruction of
+                 the Workspace component, which must occur every time the blockList is updated. This is one example of what I believe the Recoil library will help with, since
+                 providing the Workspace's blockList as an atom will make it so that the Workspace as a whole does not have to be updated every time the blockList is updated.
+ - added FileWriter: at this point, I think I know how to write to a file based on what I saw online, but I don't know how to read from a local file. I created FileWriter with
+                 the intention of using a UserInput to provide a file name and a button that upon being pressed will write the contents of the editor lines to the file. This is
+                 not ideal in the slightest, but I have no other idea of how to read and write to a file since the node:fs module does not work with Vite.
+
 ## 3/9/23 Edits:
 Blocks can now be properly translated into text in the corresponding line of the text editor. (After reading what I wrote on 3/6/23, it looks like I thought this was the case back then, but it was indeed bugged and needed to be fixed/improved.) The editor still cannot take text from an editor line and use it to edit a block in the BlockZone. I spent a while trying to get this to work (and the pseudocode for this, with two different possible algorithms, is in the Helper.jsx file), but the algorithm is quite complicated. It involves knowing which index in the updated string was updated and which index of the values array of the block was updated, then updating the index of the values array accordingly. This may sound simple, but there are a lot of conditions that need to be checked during the algorithm, and that makes it hard to implement. I chose to wait on implementing the algorithm until I figure out how my blocks will translate into code. Right now I have it so that my blocks are one-to-one with the lines of the text editor, but depending on how I implement the blocks, it could be a one-to-many situation. For example, if I create a set block to perform the action "set variable = value;" then I could translate that to "int variable; variable = value;" if that's how I choose to implement the blocks.
 </br>
