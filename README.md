@@ -1,6 +1,7 @@
 # IndependentStudy
 A code editor providing a visual aspect to coding rather than allowing a user to code just through keyboard input.
 
+
 ## 3/16/23 Edits:
 At this point the editor is being made to directly translate blocks representing c++ code to actual c++ statements so that the project can be finished by the end of
 the semester. I could continue to take the editor in a direction in which I believe could be beneficial to programming, but that would take more time and effort than
