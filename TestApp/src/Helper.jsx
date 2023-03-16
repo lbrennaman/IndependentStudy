@@ -138,9 +138,57 @@ export function handleKeyDown(event, list, index, updateBlockList) {
 
         // Update the blockList using the return value of the following function
         updateBlockList(insertNewLine(list, index));
-    } else if (list.length > 1 && event.key === 'Delete') { // If the user hits "Delete", delete the index so long as the editor has more than 1 line
-        updateBlockList(deleteArrayIndex(list, index));
-    }
+
+    } else if (list.length > 1 && event.key === 'Delete') { 
+        // If the user hits "Delete", delete the index so long as the editor has more than 1 line
+        event.preventDefault();                             // Prevent default delete behavior
+        updateBlockList(deleteArrayIndex(list, index));     // Update the blockList
+
+    } else if (event.key === 'Tab' && event.shiftKey) {
+        // If the user hits "Shift+Tab", remove a tab from the current index of list only if there is a tab to remove
+        event.preventDefault();
+
+        // Depending on whether or not list[index].value is a string or an array
+        if (typeof(list[index].value) === 'string') {
+            // If it is a string, check if it starts with a '\t'
+            if (list[index].value[0] == '\t') {
+                // Remove the tab from the string by copying all indeces after index 0 into a copy string
+                var copy = "";
+                for (var i = 1; i < list[index].value.length; i++) {
+                    copy += list[index].value[i];
+                }
+
+                // Update the blockList with this updated string
+                updateBlockList(replaceArrayIndex(list, index, {value: copy, type: UserInput}));
+            }
+        } else {
+            // If it is an array, check if its first string starts with a '\t'
+            if (list[index].value[0][0] == '\t') {
+                // Remove the tab from the string by copying all indeces after index 0 into a copy string
+                var copy = "";
+                for (var i = 1; i < list[index].value[0].length; i++) {
+                    copy += list[index].value[0][i];
+                }
+
+                // Update the blockList with this updated string
+                updateBlockList(replaceArrayIndex(list, index, {value: replaceArrayIndex(list[index].value, 0, copy), type: Block}));
+            }
+        }
+    } else if (event.key === 'Tab') { 
+        // If the user hits "Tab", prepend a tab to the current index of list.
+        event.preventDefault();
+        
+        // Depending on whether or not list[index].value is a string or an array
+        if (typeof(list[index].value) === 'string') {
+            // If it is a string, append list[index].value to a string only containing a tab
+            var tab = '\t' + list[index].value;
+            updateBlockList(replaceArrayIndex(list, index, {value: tab, type: UserInput}));
+        } else {
+            // If it is an array, replace the first index of the array with a copy of the first index of the array, but with a tab prepended to it
+            var tab = '\t' + list[index].value[0];
+            updateBlockList(replaceArrayIndex(list, index, {value: replaceArrayIndex(list[index].value, 0, tab), type: Block}));
+        }
+    } 
 }
 
 // createBlockList function
@@ -248,7 +296,7 @@ export function createDragZoneList(list, updateSelected, updateIndex) {
                     <Block 
                         values={list[i]} 
                         index={i} 
-                        updateValue={() => { return null }} 
+                        updateValue={updateSelected} 
                         updateIndex={updateIndex}
                         handleKeyDown={(event) => { return null }}
                     />

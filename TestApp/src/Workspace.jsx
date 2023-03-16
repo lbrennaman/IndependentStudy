@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import * as helper from './Helper';
 
 export function Workspace(properties) {
-    const [value, updateValue] = useState("");       // Value currently being typed into a UserInput in the Workspace
+    const [value, updateValue] = useState("");      // Value currently being typed into a UserInput in the Workspace
     const [index, updateIndex] = useState(null);    // Line number currently in focus
 
     // Parameters can be cleaned by using JSON: settings = {list: properties.blockList, index: index, updateBlockList: properties...}, pass settings to functions

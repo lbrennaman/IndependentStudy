@@ -13,6 +13,7 @@ export function DragZone(properties) {
     useEffect(() => {
         if (index != null) {
             properties.updateSelected(properties.blockList[index]);
+            updateIndex(null);
         }
     }, [index]);
 
