@@ -14,23 +14,26 @@ import FileWriter from './FileWriter';
 function MainView(properties) {
 
     // Define state variables via hooks
-    // Shareable data
-    const [search, updateSearch] = useState("");                                        // DragZone search bar
-    const [dragZoneSelected, updateDragZoneSelected] = useState(null);
-    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                                 
+    const [search, updateSearch] = useState("");                                        // DragZone search bar, current input
+    const [dragZoneSelected, updateDragZoneSelected] = useState(null);                  // Current block selected in the DragZone
+    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                // Current line selected in the BlockZone
     const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
     const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [blockValues, updateBlockValues] = useState(null);
-    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]);
+    const [blockValues, updateBlockValues] = useState(null);                            // Current list of blocks to display in the DragZone
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]);        // Current list of blocks/lines to display in the BlockZone
 
     // The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>
     );
 
+    // The FileWriter controlling the file writing process
+    const [f_writer, updateWriter] = useState(<FileWriter blockList={bzValues}/>);
+
     // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
     useEffect(() => {
         updateWorkspace(<Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>);
+        updateWriter(<FileWriter blockList={bzValues}/>);
     }, [bzValues]);
 
     // The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
@@ -84,8 +87,7 @@ function MainView(properties) {
             updateSelected={updateDragZoneSelected}
             />
         );
-    }, [blockValues])
-    
+    }, [blockValues]);
 
     return (
         <div className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
@@ -98,7 +100,7 @@ function MainView(properties) {
                         </div>
                         <div className={"d-flex col p-0 m-0"}  style={{height: '100%', width: '50%'}}>  
                             {/* Use a button and a UserInput to write to a file. User input provides file name, button writes to file.*/}
-                            <FileWriter/>
+                            {f_writer}
                         </div>
                     </div>
                 </div>

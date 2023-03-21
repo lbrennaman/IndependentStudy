@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// UserInput component: a simple text area with a specific style. Handles data based on the given properties.
 function UserInput(properties) {
     return(
         <form id={"UserInputForm"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>

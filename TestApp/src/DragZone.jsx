@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import * as helper from './Helper';
 import UserInput from './UserInput';
 
+// DragZone component: manages displaying the list of blocks in the blockList, also contains a search bar for filtering the blockList.
 export function DragZone(properties) {
     const [index, updateIndex] = useState(null);
 

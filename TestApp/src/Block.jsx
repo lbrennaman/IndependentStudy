@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import * as helper from './Helper';
 import UserInput from './UserInput';
 
-// Recursive React Component
+// BlockChild component: recursively constructs the child elements of a block so that each element is next to each other in a line
 function BlockChild(properties) {
     // Copy array from index [1, length - 1]
     var copy = [];
@@ -33,6 +33,7 @@ function BlockChild(properties) {
     }
 }
 
+// Block Component: an array of values where every odd index is a value and every even index is a UserInput. When concatenated into one string, represents one line of code.
 export function Block(properties) {
     // The format of a block is values={[value, <UserInput/>, value, <UserInput/>, etc...]}
     // If this block has no values, then there is no block. Return null

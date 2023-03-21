@@ -13,6 +13,8 @@ const SearchBlocks = [
     {type: ['0'], array: ['', '', ' -= ', '', ';']},
     {type: ['0'], array: ['', '', ' *= ', '', ';']},
     {type: ['0'], array: ['', '', ' /= ', '', ';']},
+    {type: ['0'], array: ['', '', ' (', '', ') {']},
+
 
     {type: ['int'], array: ['int ', '', ';']},
     {type: ['int'], array: ['int ', '', ' = ', '', ';']},
@@ -76,7 +78,8 @@ const SearchBlocks = [
     {type: ['prototype', 'template'], array: ['template<class ', '', '> ', '', '<', '', '>::', '', '(', '', ');']},
     {type: ['if'], array: ['if (', '', ') {']},
     {type: ['for', 'loop'], array: ['for (int ', '', '; ', '', '; ', '', ') {']},
-    {type: ['while', 'loop'], array: ['while (', '', ') {']}    
+    {type: ['while', 'loop'], array: ['while (', '', ') {']},
+    {type: ['cout'], array: ['cout <<', '', ';']},    
 ];
 
 // Return an a subset of SearchBlocks based on the current input and filter

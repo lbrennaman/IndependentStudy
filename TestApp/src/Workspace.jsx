@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import * as helper from './Helper';
 
+// Workspace component: holds the BlockZone (list of blocks representing code) and the Editor (the actual code the blocks translate to)
 export function Workspace(properties) {
     const [value, updateValue] = useState("");      // Value currently being typed into a UserInput in the Workspace
     const [index, updateIndex] = useState(null);    // Line number currently in focus
