@@ -13,7 +13,6 @@ function returnFileLines(lines) {
         string += lines[i].value + '\n';
     }
 
-    console.log("File lines: ", string);
     return string;
 }
 
@@ -25,8 +24,6 @@ async function handleButton(event, lines, filename) {
     let data = returnFileLines(lines);
 
     // developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
-    // This stores the data as a blob and writes it to a file
-    // Ideally a file picker should not be used, it should create a file using the given filename
     const blob = new Blob([data]);
     const newHandle = await window.showSaveFilePicker();
     const writableStream = await newHandle.createWritable();
