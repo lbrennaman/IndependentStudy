@@ -10,8 +10,14 @@ import UserInput from './UserInput';
 import Block from './Block';
 import FileWriter from './FileWriter';
 
-/*  \file main.jsx
- *  \brief MainView Component: controls the entire interface
+/*! @file main.jsx 
+ *  @brief main.jsx: main file implementing React components
+ *
+ *  Creates the MainView component and attaches it to the DOM via a div with the id "MainViewController."
+ */
+
+/*!
+ *  @brief MainView Component: controls the entire interface
  *
  *  The MainView Component represents the entire interface as it holds all subcomponents along with the data that needs to be
  *  shared between those subcomponents.
