@@ -1,7 +1,25 @@
-import { useState, useEffect, useRef } from 'react';
+/// Import the useState and useEffect hooks from React
+import { useState, useEffect} from 'react';
+
+/// Import all functions from helper
 import * as helper from './Helper';
 
-// Workspace component: holds the BlockZone (list of blocks representing code) and the Editor (the actual code the blocks translate to)
+/*! @file Workspace.jsx 
+ *  @brief Workspace.jsx: file containing the Workspace component.
+ *
+ *  Contains the component that holds the BlockZone (list of blocks representing code) and Editor (lines of code corresponding to blocks).
+ */
+
+/*! 
+ *  @brief Workspace: holds the BlockZone (list of blocks representing code) and the Editor (the actual code the blocks translate to)
+ *
+ *  Component holding the BlockZone and Editor.
+ * 
+ *  @param properties The properties that can be passed down to this component.
+ *                    Uses properties.blockList, properties.updateBlockList, properties.updateInput, and properties.updateMainIndex
+ * 
+ *  @return Returns the jsx component representing the Workspace.
+ */
 export function Workspace(properties) {
     const [value, updateValue] = useState("");      // Value currently being typed into a UserInput in the Workspace
     const [index, updateIndex] = useState(null);    // Line number currently in focus

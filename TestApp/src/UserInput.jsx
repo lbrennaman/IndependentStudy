@@ -1,6 +1,16 @@
-import { useState } from 'react';
+/*! @file UserInput.jsx 
+ *  @brief UserInput.jsx: file containing the UserInput component.
+ *
+ *  Contains the component that holds a simple text area, but uses events as specified by its properties.
+ */
 
-// UserInput component: a simple text area with a specific style. Handles data based on the given properties.
+/*! 
+ *  @brief UserInput: a simple text area with a specific style. Handles data based on the given properties.
+ *
+ *  @param properties The properties that can be passed down to this component.
+ * 
+ *  @return Returns the jsx component representing the UserInput.
+ */
 function UserInput(properties) {
     return(
         <form id={"UserInputForm"} className={"p-0 m-0"} style={{height: '100%', width:'100%'}}>

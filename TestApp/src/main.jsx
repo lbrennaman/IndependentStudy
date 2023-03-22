@@ -1,13 +1,28 @@
+/// Imports React API along with useState and useEffect
 import React, { useState, useEffect } from 'react';
+
+/// Import ReactDOM API
 import ReactDOM from 'react-dom/client';
 
+/// Import all functions from helper
 import * as helper from './Helper';
+
+/// Import the getBlocks function from Search.jsx
 import { getBlocks } from './Search';
 
+/// Import the DragZone component from DragZone.jsx
 import DragZone from './DragZone';
+
+/// Import the Workspace component from Workspace.jsx
 import Workspace from './Workspace';
+
+/// Import the UserInput component from UserInput.jsx
 import UserInput from './UserInput';
+
+// Import the Block component from Block.jsx
 import Block from './Block';
+
+// Import the FileWriter component from FileWriter.jsx
 import FileWriter from './FileWriter';
 
 /*! @file main.jsx 
@@ -31,31 +46,30 @@ function MainView(properties) {
 
     // Define state variables via hooks
 
-    ///
-    /// search: DragZone current search bar input
+    // DragZone current search bar input
     const [search, updateSearch] = useState("");  
 
     /// dragZoneSelected: Current block selected in the DragZone
     const [dragZoneSelected, updateDragZoneSelected] = useState(null);                 
     
-    /// blockZoneSelected: Current line selected in the BlockZone
+    // Current line selected in the BlockZone
     const [blockZoneSelected, updateBlockZoneSelected] = useState(null);  
     
-    /// input: DragZone/BlockZone current textarea input of block in focus
+    // DragZone/BlockZone current textarea input of block in focus
     const [input, updateInput] = useState("");  
     
-    /// blockValues: Current list of blocks to display in the DragZone
+    // Current list of blocks to display in the DragZone
     const [blockValues, updateBlockValues] = useState(null);  
     
-    /// bzValues: Current list of blocks/lines to display in the BlockZone
+    // Current list of blocks/lines to display in the BlockZone
     const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]); 
 
-    /// workspace: The Workspace component holding the BlockZone and Editor
+    // The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>
     );
 
-    /// f_writer: The FileWriter controlling the file writing process
+    //The FileWriter controlling the file writing process
     const [f_writer, updateWriter] = useState(<FileWriter blockList={bzValues}/>);
 
     // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
@@ -64,7 +78,7 @@ function MainView(properties) {
         updateWriter(<FileWriter blockList={bzValues}/>);
     }, [bzValues]);
 
-    /// dragzone: The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
+    // The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
     const [dragZone, updateDragZone] = useState(
         <DragZone 
         blockList={blockValues}

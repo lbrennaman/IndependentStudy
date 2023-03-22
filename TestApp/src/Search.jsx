@@ -1,7 +1,15 @@
-// Block definitions for functions to modify
-// Ex. Arrays containing "[]" need to be replaced, and the functions in this file are meant to return
-//     a new array after replacing those "[]". For example, [type] should be replaced with a type from 
-//     the list of types for the current programming language
+/*! @file Search.jsx 
+ *  @brief Search.jsx: file containing block representations and functions to obtain blocks.
+ *
+ *  Contains user defined block representations (SearchBlocks) and a function to return a filtered list of those blocks.
+ */
+
+/*! 
+ *  @brief SearchBlocks: array of JavaScript objects representing blocks
+ *
+ *  An array of JavaScript objects representing blocks. Their type field provides "name" or "names" for the block to be called by (to make
+ *  it easier to search for them). Their array field is the array of strings that the block represents.
+ */
 const SearchBlocks = [
     {type: ['main'], array: ['int main(', '', ') {']},
     {type: ['include'], array: ['#include<', '', '>']},
@@ -82,7 +90,18 @@ const SearchBlocks = [
     {type: ['cout'], array: ['cout <<', '', ';']},    
 ];
 
-// Return an a subset of SearchBlocks based on the current input and filter
+/*! 
+ *  @brief getBlocks: return a subset of SearchBlocks based on the current input and filter.
+ *
+ *  The current input of the BlockZone/Editor is compared to the list of types in SearchBlocks to determine which subset of blocks are appropriate
+ *  for this function to return. This list of blocks is further filtered by the filter as the filter searches for a match within the array of matched blocks.
+ * 
+ *  @param input The current input of the focused line in the BlockZone/Editor.
+ *  @param filter The current input of the search bar used to further filter the subset of blocks matched by the current input.
+ * 
+ *  @return The subset of SearchBlocks that matches the criteria determined by the current input and filter.
+ * 
+ */
 export function getBlocks(input, filter) {
     var array = [];
 

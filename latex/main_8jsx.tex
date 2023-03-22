@@ -17,31 +17,31 @@ React\+DOM {\bfseries create\+Root} (document.\+get\+Element\+By\+Id(\char`\"{}M
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{main_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04}\label{main_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04} 
-import {\bfseries React}
-\item 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} {\bfseries React}
+\begin{DoxyCompactList}\small\item\em Imports React API along with use\+State and use\+Effect. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_ab2f41b09c09d8f8dd24311e6d446b2e5}\label{main_8jsx_ab2f41b09c09d8f8dd24311e6d446b2e5} 
-import import React\+DOM from react dom {\bfseries client} \{ use\+State, use\+Effect \} from \textquotesingle{}react\textquotesingle{}
-\item 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} \mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} React\+DOM from react dom {\bfseries client} \{ use\+State, use\+Effect \} from \textquotesingle{}react\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Import React\+DOM API. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_a6488f9339c10604e3830178774829496}\label{main_8jsx_a6488f9339c10604e3830178774829496} 
-import $\ast$as helper from {\bfseries Helper}
-\item 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} $\ast$as helper from {\bfseries Helper}
+\begin{DoxyCompactList}\small\item\em Import all functions from helper. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_a59be084da8908b7d77ff34b25cd84488}\label{main_8jsx_a59be084da8908b7d77ff34b25cd84488} 
 {\bfseries import} \{ get\+Blocks \} from \textquotesingle{}./Search\textquotesingle{}
-\item 
+\begin{DoxyCompactList}\small\item\em Import the get\+Blocks function from \doxylink{Search_8jsx}{Search.\+jsx}. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_ac500e972d608166740b07e6a10285a02}\label{main_8jsx_ac500e972d608166740b07e6a10285a02} 
-import Drag\+Zone from {\bfseries Drag\+Zone}
-\item 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} Drag\+Zone from {\bfseries Drag\+Zone}
+\begin{DoxyCompactList}\small\item\em Import the Drag\+Zone component from \doxylink{DragZone_8jsx}{Drag\+Zone.\+jsx}. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_afa668c8988ba846047d874298f1322e7}\label{main_8jsx_afa668c8988ba846047d874298f1322e7} 
-import Workspace from {\bfseries Workspace}
-\item 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} Workspace from {\bfseries Workspace}
+\begin{DoxyCompactList}\small\item\em Import the Workspace component from \doxylink{Workspace_8jsx}{Workspace.\+jsx}. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_a68af891a7a4439c9cd7076b5200de524}\label{main_8jsx_a68af891a7a4439c9cd7076b5200de524} 
-import User\+Input from {\bfseries User\+Input}
-\item 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} User\+Input from {\bfseries User\+Input}
+\begin{DoxyCompactList}\small\item\em Import the User\+Input component from \doxylink{UserInput_8jsx}{User\+Input.\+jsx}. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_aa2fe35e5c9c24ddf768bdd21c6c1f7c1}\label{main_8jsx_aa2fe35e5c9c24ddf768bdd21c6c1f7c1} 
-import Block from {\bfseries Block}
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} Block from {\bfseries Block}
 \item 
 \Hypertarget{main_8jsx_a7c123d7946afd66899229f7382329465}\label{main_8jsx_a7c123d7946afd66899229f7382329465} 
-import File\+Writer from {\bfseries File\+Writer}
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} File\+Writer from {\bfseries File\+Writer}
 \end{DoxyCompactItemize}
 
 
@@ -71,20 +71,4 @@ The Main\+View Component represents the entire interface as it holds all subcomp
 \begin{DoxyReturn}{Returns}
 A jsx object holding the Workspace, Drag\+Zone, and File\+Writer components 
 \end{DoxyReturn}
-search\+: Drag\+Zone current search bar input
-
 drag\+Zone\+Selected\+: Current block selected in the Drag\+Zone
-
-block\+Zone\+Selected\+: Current line selected in the Block\+Zone
-
-input\+: Drag\+Zone/\+Block\+Zone current textarea input of block in focus
-
-block\+Values\+: Current list of blocks to display in the Drag\+Zone
-
-bz\+Values\+: Current list of blocks/lines to display in the Block\+Zone
-
-workspace\+: The Workspace component holding the Block\+Zone and Editor
-
-f\+\_\+writer\+: The File\+Writer controlling the file writing process
-
-dragzone\+: The Drag\+Zone component holding the search/filter bar and the corresponding list of blocks to choose from

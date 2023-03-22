@@ -1,14 +1,30 @@
+/// Import the useState and useEffect hooks from React
 import { useState, useEffect } from 'react';
 
+/// Import all functions from helper
 import * as helper from './Helper';
+
+/// Import the UserInput component from UserInput.jsx
 import UserInput from './UserInput';
 
-// DragZone component: manages displaying the list of blocks in the blockList, also contains a search bar for filtering the blockList.
+/*! @file DragZone.jsx 
+ *  @brief DragZone.jsx: file containing the DragZone component.
+ *
+ *  Contains the component that holds a list of blocks as determined by the getBlocks method of Search.jsx.
+ */
+
+/*! 
+ *  @brief DragZone: manages displaying the list of blocks in the blockList, also contains a search bar for filtering the blockList.
+ * 
+ *  @param properties The properties that can be passed down to this component.
+ * 
+ *  @return Returns the jsx component representing the DragZone.
+ */
 export function DragZone(properties) {
     const [index, updateIndex] = useState(null);
 
     // Create the list of blocks to display in the dragzone
-    var blockList = helper.createDragZoneList(properties.blockList, properties.updateSelected, updateIndex);
+    var blockList = helper.createDragZoneList(properties.blockList, updateIndex);
 
     // When a block is clicked (and index is updated), update the selected block to the clicked block
     useEffect(() => {

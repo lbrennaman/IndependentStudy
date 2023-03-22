@@ -1,17 +1,56 @@
 import Block from './Block';
 import UserInput from './UserInput';
 
-// wasInserted function: determine whether a character was inserted into a string or not at a given index
+/*! @file Helper.jsx 
+ *  @brief Helper.jsx: file containing helper functions.
+ *
+ *  Contains helper functions for various processes performed by the backend such as replacing elements at an array index,
+ *  deleting elements from an array at a specified index, inserting an element into an array at an index, etc.
+ */
+
+/*! 
+ *  @brief wasInserted function: determine whether a character was inserted into a string or not at a given index
+ *
+ *  The purpose of this method is to check a string before and after an operation was applied to the string.
+ *  Suppose that str1 is the string before the operation and str2 is the string after the operation.
+ *  Compares substrings of str1 and str2 to determine whether or not a character was inserted into the string or not.
+ * 
+ *  @param str1 Any string.
+ *  @param str2 Supposedly str1, but after an insertion.
+ *  @param index The index a character was supposedly inserted into.
+ * 
+ *  @return True or False
+ */
 export function wasInserted(str1, str2, index) {
     return (subString(str1, 0, index - 1) == subString(str2, 0, index - 1)) && (subString(str1, index + 1, str1.length - 1) == subString(str2, index, str2.length - 1));
 }
 
-// wasDeleted function: determine whether a character was deleted into a string or not at a given index
+/*! 
+ *  @brief wasDeleted function: determine whether a character was deleted from a string or not at a given index
+ *
+ *  The purpose of this method is to check a string before and after an operation was applied to the string.
+ *  Suppose that str1 is the string before the operation and str2 is the string after the operation.
+ *  Compares substrings of str1 and str2 to determine whether or not a character was removed from the string or not.
+ * 
+ *  @param str1 Any string.
+ *  @param str2 Supposedly str1, but after a character was deleted.
+ *  @param index The index a character was supposedly deleted from.
+ * 
+ *  @return True or False
+ */
 export function wasDeleted(str1, str2, index) {
     return (subString(str1, 0, index - 1) == subString(str2, 0, index - 1)) && (subString(str1, index, str1.length - 1) == subString(str2, index + 1, str2.length - 1));
 }
 
-// arrayToString function: concatenate elements to form a single string
+/*! 
+ *  @brief arrayToString function: concatenate elements to form a single string
+ *
+ *  Iterate over each element in the string and concatenate the elements together to form a single string.
+ * 
+ *  @param array The array to convert to a string.
+ * 
+ *  @return The array after being converted to a string
+ */
 export function arrayToString(array) {
     var copy = "";
     for (var i = 0; i < array.length; i++) {
@@ -20,8 +59,23 @@ export function arrayToString(array) {
     return copy;
 }
 
-// subString function: return the list of characters in a string from indeces [start, end].
+/*! 
+ *  @brief subString function: return the list of characters in a string from indeces [start, end]
+ *
+ *  Return a substring of the given string from indeces [start, end].
+ * 
+ *  @param string The string to get a substring from.
+ *  @param start The starting index of the substring.
+ *  @param end The last index of the substring.
+ * 
+ *  @return The substring of string from indeces [start, end] or string if either start or end is invalid.
+ */
 export function subString(string, start, end) {
+    if (start < 0) {
+        console.log("Error: invalid starting index. Index is less than zero!");
+        return string;
+    }
+
     if (end > string.length - 1) {
         console.log("Error: substring end is too big of an index for this string! Returning string...");
         return string;
@@ -34,8 +88,24 @@ export function subString(string, start, end) {
     return copy;
 }
 
-// subArray function: get sub array of array from indeces [start, end]. Ex subArray([5, 9, 6, 7, 8], 0, 2) returns [5, 9, 6]
+/*! 
+ *  @brief subArray function: get sub array of array from indeces [start, end]. 
+ *
+ *  For the given array, return a smaller array consisting of the elements from array[start] to array[end].
+ *  Ex subArray([5, 9, 6, 7, 8], 0, 2) returns [5, 9, 6].
+ * 
+ *  @param array The array to return a subArray from.
+ *  @param start The starting index to return a subArray from.
+ *  @param end The last index to return a subArray from.
+ * 
+ *  @return A subArray of the array from [start, end].
+ */
 export function subArray(array, start, end) {
+    if (start < 0) {
+        console.log("Error: start is less than zero!");
+        return array;
+    }
+
     if (end > array.length - 1) {
         console.log("Error: subarray end is out of bounds! Returning array...");
         return array;
@@ -48,7 +118,18 @@ export function subArray(array, start, end) {
     return copy;
 }
 
-// replaceArrayIndex function: replace a value in an array at the given index
+/*! 
+ *  @brief replaceArrayIndex function: replace a value in an array at the given index
+ *
+ *  Given an array, replace array[index] with the given value. Note that array[index] cannot be set to value since the array still points
+ *  to the array that was passed to this function. A copy of the array is first created so that the original array is not altered.
+ * 
+ *  @param array The array whose index to replace with the given value.
+ *  @param index The index of the array to replace.
+ *  @param value The value to replace array[index] with.
+ * 
+ *  @return A copy of array where array[index] is replaced with the given value.
+ */
 export function replaceArrayIndex(array, index, value) {
     var copy = [];
     var i = 0;
@@ -70,7 +151,16 @@ export function replaceArrayIndex(array, index, value) {
     return copy;
 }
 
-// deleteArrayIndex function: return a copy of a given array without the specified index
+/*! 
+ *  @brief deleteArrayIndex function: return a copy of a given array without the specified index
+ *
+ *  Given an array, return a copy of the array where array[index] is removed from the array. Thus copy.length == array.length - 1.
+ * 
+ *  @param array The array whose index should be removed.
+ *  @param index The index of the array to remove.
+ * 
+ *  @return A copy of array where array[index] no longer exists within the array and copy.length == array.length - 1.
+ */
 export function deleteArrayIndex(array, index) {
     var copy = [];
     var i = 0;
@@ -91,11 +181,17 @@ export function deleteArrayIndex(array, index) {
     return copy;
 }
 
-// insertIntoArray function: insert a value into an array at the given index
-// ------------------------------------------------------------------------------------------------------------------
-// array: the array of items to insert the given value into
-// index: the index of the array to insert the value into
-// value: the value to insert into the array
+/*! 
+ *  @brief insertIntoArray function: insert a value into an array at the given index
+ *
+ *  Given an array and a value, insert the value into the array at the given index
+ * 
+ *  @param array The array to insert the value into.
+ *  @param index The index of the array to have the value inserted into.
+ *  @param value The value to insert into array[index].
+ * 
+ *  @return A copy of the array where array[index] now contains value. copy.length will now be equal to array.length + 1
+ */
 export function insertIntoArray(array, index, value) {
     var copy = [];
     var i = 0;
@@ -116,20 +212,36 @@ export function insertIntoArray(array, index, value) {
     return copy;
 }
 
-// insertNewLine function
-// ------------------------------------------------------------------------------------------------------------------
-// list: properties.blockList; the blockList as stored in the parent component (Main)
-// index: the current index that is selected, as stored by this component
+/*! 
+ *  @brief insertNewLine function: insert a new line into the blockList.
+ *
+ *  The blockList should be provided to this function as the list parameter. A new line (a blank UserInput) should be inserted into the blockList
+ *  at the specified index.
+ * 
+ *  @param list Can be any array, but should be the blockList.
+ *  @param index The index of the array in which to insert the newline.
+ * 
+ *  @return Returns a copy of the given list (should be blockList) where a UserInput has been inserted into list[index]. 
+ */
 export function insertNewLine(list, index) {
     return insertIntoArray(list, index, {type: UserInput, value: ''});
 }
 
-// handleKeyDown function
-// ------------------------------------------------------------------------------------------------------------------
-// event: the event that triggered this function (meant to be onKeyDown)
-// list: properties.blockList; the blockList as stored in the parent component (Main)
-// index: the current index that is selected, as stored by this component
-// updateBlockList: the update function to update the blockList stored in the parent component
+/*! 
+ *  @brief handleKeyDown function: a function to trigger when an onKeyDown event fires. Meant to be provided to Workspace UserInputs.
+ *
+ *  When onKeyDown fires, the handleKeyDown function ensures that the enter key cannot insert a carriage return in the text area like normal, 
+ *  that the delete key does not delete a character, that the tab key does not refocus to the next focusable area, and that shift+tab does not 
+ *  focus to the previous focusable area. Instead, the enter key inserts a new line into the Workspace, the delete key deletes a line from the Workspace,
+ *  the tab key prepends a '\t' into the focused textarea, and shift+tab removes a prepended '\t' from the focused textarea if such a '\t' exists.
+ * 
+ *  @param event The event that was told to trigger this function.
+ *  @param list Any array, but this array should be the blockList.
+ *  @param index The current Workspace line in focus.
+ *  @param updateBlockList The update function to update the blockList once a change is made to the blockList.
+ * 
+ *  @return None. Any changes made in the function will be handled by updateBlockList.
+ */
 export function handleKeyDown(event, list, index, updateBlockList) {
     // When enter is pressed, add a new line to the blockList
     if (event.key === 'Enter') {
@@ -191,13 +303,19 @@ export function handleKeyDown(event, list, index, updateBlockList) {
     } 
 }
 
-// createBlockList function
-// ------------------------------------------------------------------------------------------------------------------
-// list: properties.blockList; the blockList as stored in the parent component (Main)
-// index: the current index that is selected, as stored by this component
-// updateBlockList: the update function to update the blockList stored in the parent component
-// updateValue: the update function to update the current value being modified in this component
-// updateIndex: the update function to update the current index that is selected, as stored by this component
+/*! 
+ *  @brief createBlockList function: create the BlockZone's blockList
+ *
+ *  Given the blockList from Main, create the BlockZone's blockList.
+ * 
+ *  @param list Any array, but this should be Main's bzValues.
+ *  @param index The current Workspace line in focus.
+ *  @param updateBlockList The update function for Main's bzValues
+ *  @param updateValue The update function for the Workspace's value.
+ *  @param updateIndex The update function for the Workspace's index (current line in focus).
+ * 
+ *  @return The BlockZone's blockList (an array of UserInputs and Blocks).
+ */
 export function createBlockList(list, index, updateBlockList, updateValue, updateIndex) {
     var blockList = [];
 
@@ -234,13 +352,17 @@ export function createBlockList(list, index, updateBlockList, updateValue, updat
     return blockList;
 }
 
-// createEditorLines function
-// ----------------------------------------------------------------------------------------------------------------
-// list: properties.blockList; the blockList as stored in the parent component (Main)
-// index: the current index that is selected, as stored by this component
-// updateBlockList: the update function to update the blockList stored in the parent component
-// updateValue: the update function to update the current value being modified in this component
-// updateIndex: the update function to update the current index that is selected, as stored by this component
+/*! 
+ *  @brief createEditorLines function: create the lines of code that correspond to their respective Blocks/UserInputs
+ * 
+ *  @param list Any array, but this should be Main's bzValues.
+ *  @param index The current Workspace line in focus.
+ *  @param updateBlockList The update function for Main's bzValues.
+ *  @param updateValue The update function for the Workspace's value.
+ *  @param updateIndex The update function for the Workspace's index (current line in focus).
+ * 
+ *  @return The list of UserInputs representing the Editor.
+ */
 export function createEditorLines(list, index, updateBlockList, updateValue, updateIndex) {
     var editorLines = [];
 
@@ -282,7 +404,15 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
     return editorLines;
 }
 
-export function createDragZoneList(list, updateSelected, updateIndex) {
+/*! 
+ *  @brief createDragZoneList function: create the list of blocks to display in the DragZone.
+ * 
+ *  @param list Any array, but should be the blockValues array from Main.
+ *  @param updateIndex The update function to update the DragZone's current index in focus.
+ * 
+ *  @return The array of Blocks to display in the DragZone.
+ */
+export function createDragZoneList(list, updateIndex) {
     var array = [];
 
     // If there is no list, do not continue, return null
@@ -296,7 +426,7 @@ export function createDragZoneList(list, updateSelected, updateIndex) {
                     <Block 
                         values={list[i]} 
                         index={i} 
-                        updateValue={updateSelected} 
+                        updateValue={(event) => { return null }} 
                         updateIndex={updateIndex}
                         handleKeyDown={(event) => { return null }}
                     />
