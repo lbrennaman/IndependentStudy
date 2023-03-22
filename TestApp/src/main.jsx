@@ -10,24 +10,33 @@ import UserInput from './UserInput';
 import Block from './Block';
 import FileWriter from './FileWriter';
 
-// Build the main view controller
+/*  \file main.jsx
+ *  \brief MainView Component: controls the entire interface
+ *
+ *  The MainView Component represents the entire interface as it holds all subcomponents along with the data that needs to be
+ *  shared between those subcomponents.
+ * 
+ *  @param properties Properties that may be passed to this component upon instantiation. None used.
+ * 
+ *  @return A jsx object holding the Workspace, DragZone, and FileWriter components
+ * 
+ */
 function MainView(properties) {
 
     // Define state variables via hooks
-    const [search, updateSearch] = useState("");                                        // DragZone search bar, current input
-    const [dragZoneSelected, updateDragZoneSelected] = useState(null);                  // Current block selected in the DragZone
-    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                // Current line selected in the BlockZone
-    const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
-    const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [blockValues, updateBlockValues] = useState(null);                            // Current list of blocks to display in the DragZone
-    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]);        // Current list of blocks/lines to display in the BlockZone
+    const [search, updateSearch] = useState("");                                        ///< DragZone current search bar input
+    const [dragZoneSelected, updateDragZoneSelected] = useState(null);                  ///< Current block selected in the DragZone
+    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                ///< Current line selected in the BlockZone
+    const [input, updateInput] = useState("");                                          ///< DragZone/BlockZone current textarea input of block in focus
+    const [blockValues, updateBlockValues] = useState(null);                            ///< Current list of blocks to display in the DragZone
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]);        ///< Current list of blocks/lines to display in the BlockZone
 
-    // The Workspace component holding the BlockZone and Editor
+    /// The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>
     );
 
-    // The FileWriter controlling the file writing process
+    /// The FileWriter controlling the file writing process
     const [f_writer, updateWriter] = useState(<FileWriter blockList={bzValues}/>);
 
     // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
@@ -36,7 +45,7 @@ function MainView(properties) {
         updateWriter(<FileWriter blockList={bzValues}/>);
     }, [bzValues]);
 
-    // The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
+    /// The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
     const [dragZone, updateDragZone] = useState(
         <DragZone 
         blockList={blockValues}
@@ -115,33 +124,10 @@ function MainView(properties) {
     )
 }
 
-// #######################################################################################
-// 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-// #######################################################################################
 
-// # 1: Initialize all ReactDOM objects #
-// const mainViewController = new MainViewController(); <-- should not need this class, but in the future, might be needed to control MainView controllers
-
+// Initialize all ReactDOM objects 
 ReactDOM.createRoot(document.getElementById("MainViewController")).render(
     <React.StrictMode>
         <MainView/>
     </React.StrictMode>
 );
-
-// #######################################################################################
-// 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-// #######################################################################################
-
-// # 2: List all function definitions #
-
-// #######################################################################################
-// 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-// #######################################################################################
-
-// # 3: Define any action listeners for document #
-
-// #######################################################################################
-// 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
-// #######################################################################################
-
-// # 4: Actual Main: list all sequential statements here #
