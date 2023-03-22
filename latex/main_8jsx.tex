@@ -8,8 +8,10 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+function \mbox{\hyperlink{main_8jsx_ac6f18d9378c4f1a9596c35cd39aa0fe4}{Main\+View}} (properties)
+\begin{DoxyCompactList}\small\item\em Main\+View Component\+: controls the entire interface. \end{DoxyCompactList}\item 
 \Hypertarget{main_8jsx_ad66271283179691afae14b1f38871a09}\label{main_8jsx_ad66271283179691afae14b1f38871a09} 
-React\+DOM {\bfseries create\+Root} (document.\+get\+Element\+By\+Id(\char`\"{}Main\+View\+Controller\char`\"{})).render($<$ React.\+Strict\+Mode $>$$<$ Main\+View/$>$$<$/React.\+Strict\+Mode $>$)
+React\+DOM {\bfseries create\+Root} (document.\+get\+Element\+By\+Id(\char`\"{}Main\+View\+Controller\char`\"{})).render($<$ React.\+Strict\+Mode $>$$<$ \mbox{\hyperlink{main_8jsx_ac6f18d9378c4f1a9596c35cd39aa0fe4}{Main\+View}}/$>$$<$/React.\+Strict\+Mode $>$)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -47,3 +49,42 @@ import File\+Writer from {\bfseries File\+Writer}
 \doxylink{main_8jsx}{main.\+jsx}\+: main file implementing React components 
 
 Creates the Main\+View component and attaches it to the DOM via a div with the id \char`\"{}\+Main\+View\+Controller.\char`\"{} 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8jsx_ac6f18d9378c4f1a9596c35cd39aa0fe4}\label{main_8jsx_ac6f18d9378c4f1a9596c35cd39aa0fe4} 
+\index{main.jsx@{main.jsx}!MainView@{MainView}}
+\index{MainView@{MainView}!main.jsx@{main.jsx}}
+\doxysubsubsection{\texorpdfstring{MainView()}{MainView()}}
+{\footnotesize\ttfamily function Main\+View (\begin{DoxyParamCaption}\item[{}]{properties }\end{DoxyParamCaption})}
+
+
+
+Main\+View Component\+: controls the entire interface. 
+
+The Main\+View Component represents the entire interface as it holds all subcomponents along with the data that needs to be shared between those subcomponents.
+
+
+\begin{DoxyParams}{Parameters}
+{\em properties} & Properties that may be passed to this component upon instantiation. None used.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A jsx object holding the Workspace, Drag\+Zone, and File\+Writer components 
+\end{DoxyReturn}
+Drag\+Zone current search bar input
+
+Current block selected in the Drag\+Zone
+
+Current line selected in the Block\+Zone
+
+Drag\+Zone/\+Block\+Zone current textarea input of block in focus
+
+Current list of blocks to display in the Drag\+Zone
+
+Current list of blocks/lines to display in the Block\+Zone
+
+The Workspace component holding the Block\+Zone and Editor
+
+The File\+Writer controlling the file writing process
+
+The Drag\+Zone component holding the search/filter bar and the corresponding list of blocks to choose from
