@@ -31,30 +31,30 @@ function MainView(properties) {
 
     // Define state variables via hooks
 
-    /// DragZone current search bar input
+    /// @var search DragZone current search bar input
     const [search, updateSearch] = useState("");  
 
-    /// Current block selected in the DragZone
+    /// @var dragZoneSelected Current block selected in the DragZone
     const [dragZoneSelected, updateDragZoneSelected] = useState(null);                 
     
-    /// Current line selected in the BlockZone
+    /// @var blockZoneSelected Current line selected in the BlockZone
     const [blockZoneSelected, updateBlockZoneSelected] = useState(null);  
     
-    /// DragZone/BlockZone current textarea input of block in focus
+    /// @var input DragZone/BlockZone current textarea input of block in focus
     const [input, updateInput] = useState("");  
     
-    /// Current list of blocks to display in the DragZone
+    /// @var blockValues Current list of blocks to display in the DragZone
     const [blockValues, updateBlockValues] = useState(null);  
     
-    /// Current list of blocks/lines to display in the BlockZone
+    /// @var bzValues Current list of blocks/lines to display in the BlockZone
     const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]); 
 
-    /// The Workspace component holding the BlockZone and Editor
+    /// @var workspace The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>
     );
 
-    /// The FileWriter controlling the file writing process
+    /// @var f_writer The FileWriter controlling the file writing process
     const [f_writer, updateWriter] = useState(<FileWriter blockList={bzValues}/>);
 
     // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
@@ -63,7 +63,7 @@ function MainView(properties) {
         updateWriter(<FileWriter blockList={bzValues}/>);
     }, [bzValues]);
 
-    /// The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
+    /// @var dragzone The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
     const [dragZone, updateDragZone] = useState(
         <DragZone 
         blockList={blockValues}
