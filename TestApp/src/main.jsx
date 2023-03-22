@@ -31,30 +31,31 @@ function MainView(properties) {
 
     // Define state variables via hooks
 
-    /// @var search DragZone current search bar input
+    ///
+    /// search: DragZone current search bar input
     const [search, updateSearch] = useState("");  
 
-    /// @var dragZoneSelected Current block selected in the DragZone
+    /// dragZoneSelected: Current block selected in the DragZone
     const [dragZoneSelected, updateDragZoneSelected] = useState(null);                 
     
-    /// @var blockZoneSelected Current line selected in the BlockZone
+    /// blockZoneSelected: Current line selected in the BlockZone
     const [blockZoneSelected, updateBlockZoneSelected] = useState(null);  
     
-    /// @var input DragZone/BlockZone current textarea input of block in focus
+    /// input: DragZone/BlockZone current textarea input of block in focus
     const [input, updateInput] = useState("");  
     
-    /// @var blockValues Current list of blocks to display in the DragZone
+    /// blockValues: Current list of blocks to display in the DragZone
     const [blockValues, updateBlockValues] = useState(null);  
     
-    /// @var bzValues Current list of blocks/lines to display in the BlockZone
+    /// bzValues: Current list of blocks/lines to display in the BlockZone
     const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]); 
 
-    /// @var workspace The Workspace component holding the BlockZone and Editor
+    /// workspace: The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>
     );
 
-    /// @var f_writer The FileWriter controlling the file writing process
+    /// f_writer: The FileWriter controlling the file writing process
     const [f_writer, updateWriter] = useState(<FileWriter blockList={bzValues}/>);
 
     // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
@@ -63,7 +64,7 @@ function MainView(properties) {
         updateWriter(<FileWriter blockList={bzValues}/>);
     }, [bzValues]);
 
-    /// @var dragzone The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
+    /// dragzone: The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
     const [dragZone, updateDragZone] = useState(
         <DragZone 
         blockList={blockValues}
