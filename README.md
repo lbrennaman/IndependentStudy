@@ -1,6 +1,23 @@
 # IndependentStudy
 A code editor providing a visual aspect to coding rather than allowing a user to code just through keyboard input.
 
+## 3/23/23
+This is the end of the branching_point. The editor is now fully capable of creating programs as shown by the files in test_programs.
+Is the current editor better than actual programming? I would say not by a long shot. There are plenty of things about this editor that I think results
+in an editor that is less productive than normal text editors. There are still many frontend issues like how the editor can't scroll if too many lines
+are added to the editor, like how a new line does not focus the newline, like how typing in the middle of a textarea allows moves the caret to the end of the line, 
+blocks are not sized properly (nor do they have some kind of scrollbar) so their contents are hard to see, etc., but even if these problems were fixed, I do not believe 
+this editor to be more productive. Since the current editor simply stores strings that directly translate to code, I would say that using this VPL editor uses the same 
+amount of effort as a normal text editor except that it requires to use the mouse frequently along with keyboard input. To make the VPL editor more productive than
+a normal text editor, I think that the VPL should do more than simply translate blocks directly to code. An example would be if one block could generate multiple lines
+of code, then perhaps the editor could be more effective; however, I do not have a specific idea in mind right now. Completion of this branch allows me to complete all
+of the grade items for my independent study, so I will not be continuing with this style of editor. Rather, for the rest of the semester, I think that I would like
+to experiment with the Recoil library for React in order to try and improve upon my current design.
+
+Features implemented this week:
+ - added Download functionality: added a download button to the FileWriter that opens the user's file system and allows the user to save the contents of the editor
+                                 lines to a file. Was meant to be done synchronously, but that would require learning about "dedicated web workers."
+ - added Doxygen comments: added doxygen comments to all functions in order to generate documentation.
 
 ## 3/16/23 Edits:
 At this point the editor is being made to directly translate blocks representing c++ code to actual c++ statements so that the project can be finished by the end of
