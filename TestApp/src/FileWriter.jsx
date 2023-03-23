@@ -24,7 +24,10 @@ function returnFileLines(lines) {
 
     var string = "";
     for (var i = 0; i < lines.length; i++) {
-        string += lines[i].value + '\n';
+        for (var j = 0; j < lines[i].value.length; j++) {
+            string += lines[i].value[j]
+        }
+        string += '\n';
     }
 
     return string;
@@ -44,6 +47,7 @@ async function handleButton(event, lines, filename) {
 
     // Turn the lines into one long string
     let data = returnFileLines(lines);
+    console.log("Data: ", data);
 
     // developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
     const blob = new Blob([data]);

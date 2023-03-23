@@ -12,7 +12,7 @@
  */
 const SearchBlocks = [
     {type: ['main'], array: ['int main(', '', ') {']},
-    {type: ['include'], array: ['#include<', '', '>']},
+    {type: ['#', 'include'], array: ['#include<', '', '>']},
     {type: ['using'], array: ['using namespace ', '', ';']},
 
     {type: ['0'], array: ['', '', ';']},
@@ -30,6 +30,7 @@ const SearchBlocks = [
     {type: ['int'], array: ['int ', '', ' -= ', '', ';']},
     {type: ['int'], array: ['int ', '', ' *= ', '', ';']},
     {type: ['int'], array: ['int ', '', ' /= ', '', ';']},
+    {type: ['int', '[]'], array: ['int ', '', '[', '', '] = {', '', '} ;']},
 
     {type: ['long'], array: ['long ', '', ';']},
     {type: ['long'], array: ['long ', '', ' = ', '', ';']},
@@ -87,7 +88,9 @@ const SearchBlocks = [
     {type: ['if'], array: ['if (', '', ') {']},
     {type: ['for', 'loop'], array: ['for (int ', '', '; ', '', '; ', '', ') {']},
     {type: ['while', 'loop'], array: ['while (', '', ') {']},
-    {type: ['cout'], array: ['cout <<', '', ';']},    
+    {type: ['cout'], array: ['cout << ', '', ';']},
+    {type: ['cout'], array: ['cout << ', '', ' << ', '', ';']},
+    {type: ['cin'], array: ['cin >> ', '', ';']},
 ];
 
 /*! 
