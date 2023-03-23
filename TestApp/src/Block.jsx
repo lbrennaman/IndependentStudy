@@ -1,8 +1,30 @@
-import { useState, useEffect } from 'react';
+/// Import the useState hook from React
+import { useState } from 'react';
+
+/// Import all functions from helper
 import * as helper from './Helper';
+
+/// Import the UserInput component from UserInput.jsx
 import UserInput from './UserInput';
 
-// Recursive React Component
+
+/*! @file Block.jsx 
+ *  @brief Block.jsx: file containing the Block component.
+ *
+ *  Contains the component that forms a Block (an element representing the code of a programming language).
+ */
+
+/*! 
+ *  @brief BlockChild: a recursive React Component to help build a Block
+ *
+ *  Recursively builds rows within a block to display all divs of a block on the same line.
+ * 
+ *  @param properties The properties that can be passed down to this component.
+ * 
+ *  @return Returns the jsx component representing a Block's child component.
+ */
+
+// BlockChild component: recursively constructs the child elements of a block so that each element is next to each other in a line
 function BlockChild(properties) {
     // Copy array from index [1, length - 1]
     var copy = [];
@@ -33,6 +55,15 @@ function BlockChild(properties) {
     }
 }
 
+/*! 
+ *  @brief Block: Block component representing the code of a programming language.
+ *
+ *  An array of values where every odd index is a value and every even index is a UserInput. When concatenated into one string, represents one line of code.
+ * 
+ *  @param properties The properties that can be passed down to this component.
+ * 
+ *  @return Returns the jsx component representing a Block.
+ */
 export function Block(properties) {
     // The format of a block is values={[value, <UserInput/>, value, <UserInput/>, etc...]}
     // If this block has no values, then there is no block. Return null
@@ -75,7 +106,7 @@ export function Block(properties) {
     return(
         <div id={"Block Container"} 
             className={"container-fluid p-0 m-0"} 
-            style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'auto'}} 
+            style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'hidden'}} 
             onMouseDown={(event) => properties.updateIndex(properties.index)}>
             <BlockChild values={array}/>
         </div>

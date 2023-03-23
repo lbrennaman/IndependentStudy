@@ -1,35 +1,81 @@
+/// Imports React API along with useState and useEffect
 import React, { useState, useEffect } from 'react';
+
+/// Import ReactDOM API
 import ReactDOM from 'react-dom/client';
 
+/// Import all functions from helper
 import * as helper from './Helper';
-import { SearchBlocks } from './Search';
 
+/// Import the getBlocks function from Search.jsx
+import { getBlocks } from './Search';
+
+/// Import the DragZone component from DragZone.jsx
 import DragZone from './DragZone';
+
+/// Import the Workspace component from Workspace.jsx
 import Workspace from './Workspace';
+
+/// Import the UserInput component from UserInput.jsx
 import UserInput from './UserInput';
+
+// Import the Block component from Block.jsx
 import Block from './Block';
 
-// Build the main view controller
+// Import the FileWriter component from FileWriter.jsx
+import FileWriter from './FileWriter';
+
+/*! @file main.jsx 
+ *  @brief main.jsx: main file implementing React components
+ *
+ *  Creates the MainView component and attaches it to the DOM via a div with the id "MainViewController."
+ */
+
+/*! 
+ *  @brief MainView Component: controls the entire interface
+ *
+ *  The MainView Component represents the entire interface as it holds all subcomponents along with the data that needs to be
+ *  shared between those subcomponents.
+ * 
+ *  @param properties Properties that may be passed to this component upon instantiation. None used.
+ * 
+ *  @return A jsx object holding the Workspace, DragZone, and FileWriter components
+ * 
+ */
 function MainView(properties) {
 
     // Define state variables via hooks
-    // Shareable data
-    const [search, updateSearch] = useState("");                                        // DragZone search bar
-    const [dragZoneSelected, updateDragZoneSelected] = useState(null);
-    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);                                 
-    const [input, updateInput] = useState("");                                          // DragZone/BlockZone current textarea input of block in focus
-    const [file, updateFile] = useState(null);                                          // Current file to read from/write to
-    const [blockValues, updateBlockValues] = useState(null);
-    const [bzValues, updateBZValues] = useState([{type: UserInput, value: "Line 1"}, {type: Block, value: ["First", "x", "Third", "z"]}]);
+
+    // DragZone current search bar input
+    const [search, updateSearch] = useState("");  
+
+    /// dragZoneSelected: Current block selected in the DragZone
+    const [dragZoneSelected, updateDragZoneSelected] = useState(null);                 
+    
+    // Current line selected in the BlockZone
+    const [blockZoneSelected, updateBlockZoneSelected] = useState(null);  
+    
+    // DragZone/BlockZone current textarea input of block in focus
+    const [input, updateInput] = useState("");  
+    
+    // Current list of blocks to display in the DragZone
+    const [blockValues, updateBlockValues] = useState(null);  
+    
+    // Current list of blocks/lines to display in the BlockZone
+    const [bzValues, updateBZValues] = useState([{type: UserInput, value: ""}]); 
 
     // The Workspace component holding the BlockZone and Editor
     const [workspace, updateWorkspace] = useState(
         <Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>
     );
 
+    //The FileWriter controlling the file writing process
+    const [f_writer, updateWriter] = useState(<FileWriter blockList={bzValues}/>);
+
     // When the BlockZone's blockList is updated, refresh the Workspace to show these changes
     useEffect(() => {
         updateWorkspace(<Workspace blockList={bzValues} updateBlockList={updateBZValues} updateInput={updateInput} updateMainIndex={updateBlockZoneSelected}/>);
+        updateWriter(<FileWriter blockList={bzValues}/>);
     }, [bzValues]);
 
     // The DragZone component holding the search/filter bar and the corresponding list of blocks to choose from
@@ -59,75 +105,62 @@ function MainView(properties) {
 
     // Update the dragzone depending on the current textarea input
     useEffect(() => {
-        console.log("Updated input: ", input);
-
         // Update dragZone blockList using updated input
-        if (input != null && typeof(input) === 'string') {
+        if (input != "" && typeof(input) === 'string') {
             // Algorithm to get the blockList by using the input to filter SearchBlocks
-            var copy = [];
-            for (var i = 0; i < SearchBlocks.length; i++) {
-                for (var j = 0; j < SearchBlocks[i].length; j++) {
-                    copy.push(SearchBlocks[i][j]);
-                }
-            }
-
-            // If search bar is not null, use search bar value to further filter SearchBlocks
-            // TODO
+            var searchBlocks = getBlocks(input, search);
 
             // Update dragzone blocks
-            updateBlockValues(copy);
-
-            // Update dragzone
-            updateDragZone(
-                <DragZone
-                blockList={blockValues}
-                updateSearch={updateSearch}
-                updateBlockList={updateBlockValues}
-                updateInput={updateInput}
-                updateSelected={updateDragZoneSelected}
-                />
-            );
+            updateBlockValues(searchBlocks);
+        } else {
+            updateBlockValues([]);
         }
-    }, [input]);
-    
+    }, [input, search]);
+
+    // When blockValues are updated, update DragZone
+    useEffect(() => {
+        // Update dragzone
+        updateDragZone(
+            <DragZone
+            blockList={blockValues}
+            updateSearch={updateSearch}
+            updateBlockList={updateBlockValues}
+            updateInput={updateInput}
+            updateSelected={updateDragZoneSelected}
+            />
+        );
+    }, [blockValues]);
 
     return (
-        <div className={"row mh-100"} style={{height: '100%', overflow: 'hidden'}}>   
-            <div className={"d-flex col-2 p-0 m-0"} style={{border: '2px solid red', height: '100%'}}>  
-                {dragZone}
+        <div className={"container-fluid p-0 m-0"} style={{height: '100%', width: '100%'}}>
+            <div className={"row mh-100 p-0 m-0"} style={{height: '30px', overflow: 'hidden'}}> 
+                <div className={"d-flex col-2 p-0 m-0"}  style={{height: '100%', width: '17%'}}>  
+                </div>
+                <div className={"d-flex col-10 p-0 m-0"}  style={{height: '100%', width: '83%'}}>  
+                    <div className={"row mh-100 p-0 m-0"} style={{height: '30px', width: '100%', overflow: 'hidden'}}> 
+                        <div className={"d-flex col p-0 m-0"}  style={{height: '100%', width: '50%'}}>  
+                        </div>
+                        <div className={"d-flex col p-0 m-0"}  style={{height: '100%', width: '50%'}}>  
+                            {/* Use a button and a UserInput to write to a file. User input provides file name, button writes to file.*/}
+                            {f_writer}
+                        </div>
+                    </div>
+                </div>
             </div>
-            {workspace}
+            <div className={"row mh-100 p-0 m-0"} style={{height: '100%', overflow: 'hidden'}}>   
+                <div className={"d-flex col-2 p-0 m-0"} style={{border: '2px solid red', height: '100%'}}>  
+                    {dragZone}
+                </div>
+                {workspace}
+            </div>
         </div>
     )
 }
 
-// #######################################################################################
-// 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-// #######################################################################################
 
-// # 1: Initialize all ReactDOM objects #
-// const mainViewController = new MainViewController(); <-- should not need this class, but in the future, might be needed to control MainView controllers
-
+// Initialize all ReactDOM objects 
 ReactDOM.createRoot(document.getElementById("MainViewController")).render(
     <React.StrictMode>
         <MainView/>
     </React.StrictMode>
 );
-
-// #######################################################################################
-// 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-// #######################################################################################
-
-// # 2: List all function definitions #
-
-// #######################################################################################
-// 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-// #######################################################################################
-
-// # 3: Define any action listeners for document #
-
-// #######################################################################################
-// 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
-// #######################################################################################
-
-// # 4: Actual Main: list all sequential statements here #

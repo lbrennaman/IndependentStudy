@@ -1,0 +1,94 @@
+\hypertarget{FileWriter_8jsx}{}\doxysection{Test\+App/src/\+File\+Writer.jsx File Reference}
+\label{FileWriter_8jsx}\index{TestApp/src/FileWriter.jsx@{TestApp/src/FileWriter.jsx}}
+
+
+\doxylink{FileWriter_8jsx}{File\+Writer.\+jsx}\+: file containing the File\+Writer component.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+function \mbox{\hyperlink{FileWriter_8jsx_a6869f7ed2eea673b55ec52373cc46f96}{return\+File\+Lines}} (lines)
+\begin{DoxyCompactList}\small\item\em return\+File\+Lines\+: takes all editor lines and converts them to a single string to write to the file \end{DoxyCompactList}\item 
+function async \mbox{\hyperlink{FileWriter_8jsx_ab394115eb708ce7db1f0a6d6aecbf67b}{handle\+Button}} (event, lines, filename)
+\begin{DoxyCompactList}\small\item\em Handles writing the block\+List to a file when the button is pressed. \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{FileWriter_8jsx_a209ff2dc7ec6db2c7499fd8875caab4d}{File\+Writer}} (properties)
+\begin{DoxyCompactList}\small\item\em File\+Writer\+: uses a User\+Input to get a file name and uses a button to write the contents of the editor lines to that file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{FileWriter_8jsx_a59be084da8908b7d77ff34b25cd84488}\label{FileWriter_8jsx_a59be084da8908b7d77ff34b25cd84488} 
+{\bfseries import} \{ use\+State \} from \textquotesingle{}react\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Import the use\+State hook from React. \end{DoxyCompactList}\item 
+\Hypertarget{FileWriter_8jsx_a68af891a7a4439c9cd7076b5200de524}\label{FileWriter_8jsx_a68af891a7a4439c9cd7076b5200de524} 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} User\+Input from {\bfseries User\+Input}
+\begin{DoxyCompactList}\small\item\em Import the User\+Input component from \doxylink{UserInput_8jsx}{User\+Input.\+jsx}. \end{DoxyCompactList}\item 
+\Hypertarget{FileWriter_8jsx_a888fd354418e651e77b559a88a5d5117}\label{FileWriter_8jsx_a888fd354418e651e77b559a88a5d5117} 
+export default {\bfseries File\+Writer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{FileWriter_8jsx}{File\+Writer.\+jsx}\+: file containing the File\+Writer component. 
+
+Contains the component that handles writing the contents of the editor lines to a file. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{FileWriter_8jsx_a209ff2dc7ec6db2c7499fd8875caab4d}\label{FileWriter_8jsx_a209ff2dc7ec6db2c7499fd8875caab4d} 
+\index{FileWriter.jsx@{FileWriter.jsx}!FileWriter@{FileWriter}}
+\index{FileWriter@{FileWriter}!FileWriter.jsx@{FileWriter.jsx}}
+\doxysubsubsection{\texorpdfstring{FileWriter()}{FileWriter()}}
+{\footnotesize\ttfamily function export File\+Writer (\begin{DoxyParamCaption}\item[{}]{properties }\end{DoxyParamCaption})}
+
+
+
+File\+Writer\+: uses a User\+Input to get a file name and uses a button to write the contents of the editor lines to that file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em properties} & The properties that can be passed down to this component.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the jsx component representing the File\+Writer. 
+\end{DoxyReturn}
+\Hypertarget{FileWriter_8jsx_ab394115eb708ce7db1f0a6d6aecbf67b}\label{FileWriter_8jsx_ab394115eb708ce7db1f0a6d6aecbf67b} 
+\index{FileWriter.jsx@{FileWriter.jsx}!handleButton@{handleButton}}
+\index{handleButton@{handleButton}!FileWriter.jsx@{FileWriter.jsx}}
+\doxysubsubsection{\texorpdfstring{handleButton()}{handleButton()}}
+{\footnotesize\ttfamily function async handle\+Button (\begin{DoxyParamCaption}\item[{}]{event,  }\item[{}]{lines,  }\item[{}]{filename }\end{DoxyParamCaption})}
+
+
+
+Handles writing the block\+List to a file when the button is pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event that called this function. \\
+\hline
+{\em lines} & The array of data to write to the file. \\
+\hline
+{\em filename} & The name of the file to write the data to.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. Simply writes to the file and does not return any data. 
+\end{DoxyReturn}
+\Hypertarget{FileWriter_8jsx_a6869f7ed2eea673b55ec52373cc46f96}\label{FileWriter_8jsx_a6869f7ed2eea673b55ec52373cc46f96} 
+\index{FileWriter.jsx@{FileWriter.jsx}!returnFileLines@{returnFileLines}}
+\index{returnFileLines@{returnFileLines}!FileWriter.jsx@{FileWriter.jsx}}
+\doxysubsubsection{\texorpdfstring{returnFileLines()}{returnFileLines()}}
+{\footnotesize\ttfamily function return\+File\+Lines (\begin{DoxyParamCaption}\item[{}]{lines }\end{DoxyParamCaption})}
+
+
+
+return\+File\+Lines\+: takes all editor lines and converts them to a single string to write to the file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lines} & An array of strings. Concatenates this array of strings into a single string to write to a file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The single string to write to the file. 
+\end{DoxyReturn}

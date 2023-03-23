@@ -1,0 +1,361 @@
+\hypertarget{Helper_8jsx}{}\doxysection{Test\+App/src/\+Helper.jsx File Reference}
+\label{Helper_8jsx}\index{TestApp/src/Helper.jsx@{TestApp/src/Helper.jsx}}
+
+
+\doxylink{Helper_8jsx}{Helper.\+jsx}\+: file containing helper functions.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+function export \mbox{\hyperlink{Helper_8jsx_a0984ca5a24934c2d48b3c4eb56bdaced}{was\+Inserted}} (str1, str2, index)
+\begin{DoxyCompactList}\small\item\em was\+Inserted function\+: determine whether a character was inserted into a string or not at a given index \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a756c09eee38c4ee703074bfd8bb18d7c}{was\+Deleted}} (str1, str2, index)
+\begin{DoxyCompactList}\small\item\em was\+Deleted function\+: determine whether a character was deleted from a string or not at a given index \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_adcf25652de27eff4abc64f25e55e0dab}{array\+To\+String}} (array)
+\begin{DoxyCompactList}\small\item\em array\+To\+String function\+: concatenate elements to form a single string \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_ab4c537ad04e7761347dc96337e98fb90}{sub\+String}} (string, start, end)
+\begin{DoxyCompactList}\small\item\em sub\+String function\+: return the list of characters in a string from indeces \mbox{[}start, end\mbox{]} \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_ab3c4d786ee6c306afb15f73b1d41ae7e}{sub\+Array}} (array, start, end)
+\begin{DoxyCompactList}\small\item\em sub\+Array function\+: get sub array of array from indeces \mbox{[}start, end\mbox{]}. \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a5c002186fe6a18fd157b8f1fa3ca0739}{replace\+Array\+Index}} (array, index, value)
+\begin{DoxyCompactList}\small\item\em replace\+Array\+Index function\+: replace a value in an array at the given index \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a95333ffece914569d2a10649bcc548c2}{delete\+Array\+Index}} (array, index)
+\begin{DoxyCompactList}\small\item\em delete\+Array\+Index function\+: return a copy of a given array without the specified index \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a600c955a6811087e4c5dfa3705638086}{insert\+Into\+Array}} (array, index, value)
+\begin{DoxyCompactList}\small\item\em insert\+Into\+Array function\+: insert a value into an array at the given index \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_abc305b5f571108c38e8f370b415937f8}{insert\+New\+Line}} (list, index)
+\begin{DoxyCompactList}\small\item\em insert\+New\+Line function\+: insert a new line into the block\+List. \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a543a2906bbb95aa4418c89230492145d}{handle\+Key\+Down}} (event, list, index, update\+Block\+List)
+\begin{DoxyCompactList}\small\item\em handle\+Key\+Down function\+: a function to trigger when an on\+Key\+Down event fires. Meant to be provided to Workspace User\+Inputs. \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a7c83073edce648ba763fe6ca7fe35469}{create\+Block\+List}} (list, index, update\+Block\+List, update\+Value, update\+Index)
+\begin{DoxyCompactList}\small\item\em create\+Block\+List function\+: create the Block\+Zone\textquotesingle{}s block\+List \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_ad33d2f8cebde6b88f3986982ccce6c72}{create\+Editor\+Lines}} (list, index, update\+Block\+List, update\+Value, update\+Index)
+\begin{DoxyCompactList}\small\item\em create\+Editor\+Lines function\+: create the lines of code that correspond to their respective Blocks/\+User\+Inputs \end{DoxyCompactList}\item 
+function export \mbox{\hyperlink{Helper_8jsx_a5281f5d1461650adda156f14c5a102e9}{create\+Drag\+Zone\+List}} (list, update\+Index)
+\begin{DoxyCompactList}\small\item\em create\+Drag\+Zone\+List function\+: create the list of blocks to display in the Drag\+Zone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{Helper_8jsx_aa2fe35e5c9c24ddf768bdd21c6c1f7c1}\label{Helper_8jsx_aa2fe35e5c9c24ddf768bdd21c6c1f7c1} 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} Block from {\bfseries Block}
+\item 
+\Hypertarget{Helper_8jsx_a68af891a7a4439c9cd7076b5200de524}\label{Helper_8jsx_a68af891a7a4439c9cd7076b5200de524} 
+\mbox{\hyperlink{Block_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} User\+Input from {\bfseries User\+Input}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{Helper_8jsx}{Helper.\+jsx}\+: file containing helper functions. 
+
+Contains helper functions for various processes performed by the backend such as replacing elements at an array index, deleting elements from an array at a specified index, inserting an element into an array at an index, etc. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{Helper_8jsx_adcf25652de27eff4abc64f25e55e0dab}\label{Helper_8jsx_adcf25652de27eff4abc64f25e55e0dab} 
+\index{Helper.jsx@{Helper.jsx}!arrayToString@{arrayToString}}
+\index{arrayToString@{arrayToString}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{arrayToString()}{arrayToString()}}
+{\footnotesize\ttfamily function export array\+To\+String (\begin{DoxyParamCaption}\item[{}]{array }\end{DoxyParamCaption})}
+
+
+
+array\+To\+String function\+: concatenate elements to form a single string 
+
+Iterate over each element in the string and concatenate the elements together to form a single string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array to convert to a string.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The array after being converted to a string 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a7c83073edce648ba763fe6ca7fe35469}\label{Helper_8jsx_a7c83073edce648ba763fe6ca7fe35469} 
+\index{Helper.jsx@{Helper.jsx}!createBlockList@{createBlockList}}
+\index{createBlockList@{createBlockList}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{createBlockList()}{createBlockList()}}
+{\footnotesize\ttfamily function export create\+Block\+List (\begin{DoxyParamCaption}\item[{}]{list,  }\item[{}]{index,  }\item[{}]{update\+Block\+List,  }\item[{}]{update\+Value,  }\item[{}]{update\+Index }\end{DoxyParamCaption})}
+
+
+
+create\+Block\+List function\+: create the Block\+Zone\textquotesingle{}s block\+List 
+
+Given the block\+List from Main, create the Block\+Zone\textquotesingle{}s block\+List.
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Any array, but this should be Main\textquotesingle{}s bz\+Values. \\
+\hline
+{\em index} & The current Workspace line in focus. \\
+\hline
+{\em update\+Block\+List} & The update function for Main\textquotesingle{}s bz\+Values \\
+\hline
+{\em update\+Value} & The update function for the Workspace\textquotesingle{}s value. \\
+\hline
+{\em update\+Index} & The update function for the Workspace\textquotesingle{}s index (current line in focus).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Block\+Zone\textquotesingle{}s block\+List (an array of User\+Inputs and Blocks). 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a5281f5d1461650adda156f14c5a102e9}\label{Helper_8jsx_a5281f5d1461650adda156f14c5a102e9} 
+\index{Helper.jsx@{Helper.jsx}!createDragZoneList@{createDragZoneList}}
+\index{createDragZoneList@{createDragZoneList}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{createDragZoneList()}{createDragZoneList()}}
+{\footnotesize\ttfamily function export create\+Drag\+Zone\+List (\begin{DoxyParamCaption}\item[{}]{list,  }\item[{}]{update\+Index }\end{DoxyParamCaption})}
+
+
+
+create\+Drag\+Zone\+List function\+: create the list of blocks to display in the Drag\+Zone. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Any array, but should be the block\+Values array from Main. \\
+\hline
+{\em update\+Index} & The update function to update the Drag\+Zone\textquotesingle{}s current index in focus.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The array of Blocks to display in the Drag\+Zone. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_ad33d2f8cebde6b88f3986982ccce6c72}\label{Helper_8jsx_ad33d2f8cebde6b88f3986982ccce6c72} 
+\index{Helper.jsx@{Helper.jsx}!createEditorLines@{createEditorLines}}
+\index{createEditorLines@{createEditorLines}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{createEditorLines()}{createEditorLines()}}
+{\footnotesize\ttfamily function export create\+Editor\+Lines (\begin{DoxyParamCaption}\item[{}]{list,  }\item[{}]{index,  }\item[{}]{update\+Block\+List,  }\item[{}]{update\+Value,  }\item[{}]{update\+Index }\end{DoxyParamCaption})}
+
+
+
+create\+Editor\+Lines function\+: create the lines of code that correspond to their respective Blocks/\+User\+Inputs 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Any array, but this should be Main\textquotesingle{}s bz\+Values. \\
+\hline
+{\em index} & The current Workspace line in focus. \\
+\hline
+{\em update\+Block\+List} & The update function for Main\textquotesingle{}s bz\+Values. \\
+\hline
+{\em update\+Value} & The update function for the Workspace\textquotesingle{}s value. \\
+\hline
+{\em update\+Index} & The update function for the Workspace\textquotesingle{}s index (current line in focus).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The list of User\+Inputs representing the Editor. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a95333ffece914569d2a10649bcc548c2}\label{Helper_8jsx_a95333ffece914569d2a10649bcc548c2} 
+\index{Helper.jsx@{Helper.jsx}!deleteArrayIndex@{deleteArrayIndex}}
+\index{deleteArrayIndex@{deleteArrayIndex}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{deleteArrayIndex()}{deleteArrayIndex()}}
+{\footnotesize\ttfamily function export delete\+Array\+Index (\begin{DoxyParamCaption}\item[{}]{array,  }\item[{}]{index }\end{DoxyParamCaption})}
+
+
+
+delete\+Array\+Index function\+: return a copy of a given array without the specified index 
+
+Given an array, return a copy of the array where array\mbox{[}index\mbox{]} is removed from the array. Thus copy.\+length == array.\+length -\/ 1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array whose index should be removed. \\
+\hline
+{\em index} & The index of the array to remove.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of array where array\mbox{[}index\mbox{]} no longer exists within the array and copy.\+length == array.\+length -\/ 1. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a543a2906bbb95aa4418c89230492145d}\label{Helper_8jsx_a543a2906bbb95aa4418c89230492145d} 
+\index{Helper.jsx@{Helper.jsx}!handleKeyDown@{handleKeyDown}}
+\index{handleKeyDown@{handleKeyDown}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{handleKeyDown()}{handleKeyDown()}}
+{\footnotesize\ttfamily function export handle\+Key\+Down (\begin{DoxyParamCaption}\item[{}]{event,  }\item[{}]{list,  }\item[{}]{index,  }\item[{}]{update\+Block\+List }\end{DoxyParamCaption})}
+
+
+
+handle\+Key\+Down function\+: a function to trigger when an on\+Key\+Down event fires. Meant to be provided to Workspace User\+Inputs. 
+
+When on\+Key\+Down fires, the handle\+Key\+Down function ensures that the enter key cannot insert a carriage return in the text area like normal, that the delete key does not delete a character, that the tab key does not refocus to the next focusable area, and that shift+tab does not focus to the previous focusable area. Instead, the enter key inserts a new line into the Workspace, the delete key deletes a line from the Workspace, the tab key prepends a \textquotesingle{}\textbackslash{}t\textquotesingle{} into the focused textarea, and shift+tab removes a prepended \textquotesingle{}\textbackslash{}t\textquotesingle{} from the focused textarea if such a \textquotesingle{}\textbackslash{}t\textquotesingle{} exists.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event that was told to trigger this function. \\
+\hline
+{\em list} & Any array, but this array should be the block\+List. \\
+\hline
+{\em index} & The current Workspace line in focus. \\
+\hline
+{\em update\+Block\+List} & The update function to update the block\+List once a change is made to the block\+List.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. Any changes made in the function will be handled by update\+Block\+List. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a600c955a6811087e4c5dfa3705638086}\label{Helper_8jsx_a600c955a6811087e4c5dfa3705638086} 
+\index{Helper.jsx@{Helper.jsx}!insertIntoArray@{insertIntoArray}}
+\index{insertIntoArray@{insertIntoArray}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{insertIntoArray()}{insertIntoArray()}}
+{\footnotesize\ttfamily function export insert\+Into\+Array (\begin{DoxyParamCaption}\item[{}]{array,  }\item[{}]{index,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+insert\+Into\+Array function\+: insert a value into an array at the given index 
+
+Given an array and a value, insert the value into the array at the given index
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array to insert the value into. \\
+\hline
+{\em index} & The index of the array to have the value inserted into. \\
+\hline
+{\em value} & The value to insert into array\mbox{[}index\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the array where array\mbox{[}index\mbox{]} now contains value. copy.\+length will now be equal to array.\+length + 1 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_abc305b5f571108c38e8f370b415937f8}\label{Helper_8jsx_abc305b5f571108c38e8f370b415937f8} 
+\index{Helper.jsx@{Helper.jsx}!insertNewLine@{insertNewLine}}
+\index{insertNewLine@{insertNewLine}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{insertNewLine()}{insertNewLine()}}
+{\footnotesize\ttfamily function export insert\+New\+Line (\begin{DoxyParamCaption}\item[{}]{list,  }\item[{}]{index }\end{DoxyParamCaption})}
+
+
+
+insert\+New\+Line function\+: insert a new line into the block\+List. 
+
+The block\+List should be provided to this function as the list parameter. A new line (a blank User\+Input) should be inserted into the block\+List at the specified index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Can be any array, but should be the block\+List. \\
+\hline
+{\em index} & The index of the array in which to insert the newline.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a copy of the given list (should be block\+List) where a User\+Input has been inserted into list\mbox{[}index\mbox{]}. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a5c002186fe6a18fd157b8f1fa3ca0739}\label{Helper_8jsx_a5c002186fe6a18fd157b8f1fa3ca0739} 
+\index{Helper.jsx@{Helper.jsx}!replaceArrayIndex@{replaceArrayIndex}}
+\index{replaceArrayIndex@{replaceArrayIndex}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{replaceArrayIndex()}{replaceArrayIndex()}}
+{\footnotesize\ttfamily function export replace\+Array\+Index (\begin{DoxyParamCaption}\item[{}]{array,  }\item[{}]{index,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+
+
+replace\+Array\+Index function\+: replace a value in an array at the given index 
+
+Given an array, replace array\mbox{[}index\mbox{]} with the given value. Note that array\mbox{[}index\mbox{]} cannot be set to value since the array still points to the array that was passed to this function. A copy of the array is first created so that the original array is not altered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array whose index to replace with the given value. \\
+\hline
+{\em index} & The index of the array to replace. \\
+\hline
+{\em value} & The value to replace array\mbox{[}index\mbox{]} with.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of array where array\mbox{[}index\mbox{]} is replaced with the given value. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_ab3c4d786ee6c306afb15f73b1d41ae7e}\label{Helper_8jsx_ab3c4d786ee6c306afb15f73b1d41ae7e} 
+\index{Helper.jsx@{Helper.jsx}!subArray@{subArray}}
+\index{subArray@{subArray}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{subArray()}{subArray()}}
+{\footnotesize\ttfamily function export sub\+Array (\begin{DoxyParamCaption}\item[{}]{array,  }\item[{}]{start,  }\item[{}]{end }\end{DoxyParamCaption})}
+
+
+
+sub\+Array function\+: get sub array of array from indeces \mbox{[}start, end\mbox{]}. 
+
+For the given array, return a smaller array consisting of the elements from array\mbox{[}start\mbox{]} to array\mbox{[}end\mbox{]}. Ex sub\+Array(\mbox{[}5, 9, 6, 7, 8\mbox{]}, 0, 2) returns \mbox{[}5, 9, 6\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & The array to return a sub\+Array from. \\
+\hline
+{\em start} & The starting index to return a sub\+Array from. \\
+\hline
+{\em end} & The last index to return a sub\+Array from.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A sub\+Array of the array from \mbox{[}start, end\mbox{]}. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_ab4c537ad04e7761347dc96337e98fb90}\label{Helper_8jsx_ab4c537ad04e7761347dc96337e98fb90} 
+\index{Helper.jsx@{Helper.jsx}!subString@{subString}}
+\index{subString@{subString}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{subString()}{subString()}}
+{\footnotesize\ttfamily function export sub\+String (\begin{DoxyParamCaption}\item[{}]{string,  }\item[{}]{start,  }\item[{}]{end }\end{DoxyParamCaption})}
+
+
+
+sub\+String function\+: return the list of characters in a string from indeces \mbox{[}start, end\mbox{]} 
+
+Return a substring of the given string from indeces \mbox{[}start, end\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em string} & The string to get a substring from. \\
+\hline
+{\em start} & The starting index of the substring. \\
+\hline
+{\em end} & The last index of the substring.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The substring of string from indeces \mbox{[}start, end\mbox{]} or string if either start or end is invalid. 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a756c09eee38c4ee703074bfd8bb18d7c}\label{Helper_8jsx_a756c09eee38c4ee703074bfd8bb18d7c} 
+\index{Helper.jsx@{Helper.jsx}!wasDeleted@{wasDeleted}}
+\index{wasDeleted@{wasDeleted}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{wasDeleted()}{wasDeleted()}}
+{\footnotesize\ttfamily function export was\+Deleted (\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{index }\end{DoxyParamCaption})}
+
+
+
+was\+Deleted function\+: determine whether a character was deleted from a string or not at a given index 
+
+The purpose of this method is to check a string before and after an operation was applied to the string. Suppose that str1 is the string before the operation and str2 is the string after the operation. Compares substrings of str1 and str2 to determine whether or not a character was removed from the string or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str1} & Any string. \\
+\hline
+{\em str2} & Supposedly str1, but after a character was deleted. \\
+\hline
+{\em index} & The index a character was supposedly deleted from.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
+\Hypertarget{Helper_8jsx_a0984ca5a24934c2d48b3c4eb56bdaced}\label{Helper_8jsx_a0984ca5a24934c2d48b3c4eb56bdaced} 
+\index{Helper.jsx@{Helper.jsx}!wasInserted@{wasInserted}}
+\index{wasInserted@{wasInserted}!Helper.jsx@{Helper.jsx}}
+\doxysubsubsection{\texorpdfstring{wasInserted()}{wasInserted()}}
+{\footnotesize\ttfamily function export was\+Inserted (\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{index }\end{DoxyParamCaption})}
+
+
+
+was\+Inserted function\+: determine whether a character was inserted into a string or not at a given index 
+
+The purpose of this method is to check a string before and after an operation was applied to the string. Suppose that str1 is the string before the operation and str2 is the string after the operation. Compares substrings of str1 and str2 to determine whether or not a character was inserted into the string or not.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str1} & Any string. \\
+\hline
+{\em str2} & Supposedly str1, but after an insertion. \\
+\hline
+{\em index} & The index a character was supposedly inserted into.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or False 
+\end{DoxyReturn}
