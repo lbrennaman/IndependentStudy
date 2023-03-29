@@ -85,9 +85,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6869f7ed2eea673b55ec52373cc46f96"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FileWriter_8jsx.html#a6869f7ed2eea673b55ec52373cc46f96">returnFileLines</a> (lines)</td></tr>
-<tr class="memdesc:a6869f7ed2eea673b55ec52373cc46f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">returnFileLines: takes all editor lines and converts them to a single string to write to the file  <br /></td></tr>
-<tr class="separator:a6869f7ed2eea673b55ec52373cc46f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f6b21e59de1f17356273a48bacffae"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FileWriter_8jsx.html#af0f6b21e59de1f17356273a48bacffae">returnFileLines</a> (lines, option)</td></tr>
+<tr class="memdesc:af0f6b21e59de1f17356273a48bacffae"><td class="mdescLeft">&#160;</td><td class="mdescRight">returnFileLines: takes all editor lines and converts them to a single string to write to the file  <br /></td></tr>
+<tr class="separator:af0f6b21e59de1f17356273a48bacffae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab394115eb708ce7db1f0a6d6aecbf67b"><td class="memItemLeft" align="right" valign="top">function async&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="FileWriter_8jsx.html#ab394115eb708ce7db1f0a6d6aecbf67b">handleButton</a> (event, lines, filename)</td></tr>
 <tr class="memdesc:ab394115eb708ce7db1f0a6d6aecbf67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles writing the blockList to a file when the button is pressed.  <br /></td></tr>
 <tr class="separator:ab394115eb708ce7db1f0a6d6aecbf67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,8 +185,8 @@ export default&#160;</td><td class="memItemRight" valign="bottom"><b>FileWriter<
 
 </div>
 </div>
-<a id="a6869f7ed2eea673b55ec52373cc46f96" name="a6869f7ed2eea673b55ec52373cc46f96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6869f7ed2eea673b55ec52373cc46f96">&#9670;&#160;</a></span>returnFileLines()</h2>
+<a id="af0f6b21e59de1f17356273a48bacffae" name="af0f6b21e59de1f17356273a48bacffae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0f6b21e59de1f17356273a48bacffae">&#9670;&#160;</a></span>returnFileLines()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,8 +195,18 @@ export default&#160;</td><td class="memItemRight" valign="bottom"><b>FileWriter<
           <td class="memname">function returnFileLines </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>lines</em></td><td>)</td>
+          <td class="paramname"><em>lines</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>option</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -204,7 +214,8 @@ export default&#160;</td><td class="memItemRight" valign="bottom"><b>FileWriter<
 <p>returnFileLines: takes all editor lines and converts them to a single string to write to the file </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lines</td><td>An array of strings. Concatenates this array of strings into a single string to write to a file.</td></tr>
+    <tr><td class="paramname">lines</td><td>An array of strings. Concatenates this array of strings into a single string to write to a file. </td></tr>
+    <tr><td class="paramname">option</td><td>Can be either "text", "JSON", or neither. Determines whether to store the contents of editor lines or the blocks themselves (as JSON).</td></tr>
   </table>
   </dd>
 </dl>

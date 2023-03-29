@@ -8,7 +8,7 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-function \mbox{\hyperlink{FileWriter_8jsx_a6869f7ed2eea673b55ec52373cc46f96}{return\+File\+Lines}} (lines)
+function \mbox{\hyperlink{FileWriter_8jsx_af0f6b21e59de1f17356273a48bacffae}{return\+File\+Lines}} (lines, option)
 \begin{DoxyCompactList}\small\item\em return\+File\+Lines\+: takes all editor lines and converts them to a single string to write to the file \end{DoxyCompactList}\item 
 function async \mbox{\hyperlink{FileWriter_8jsx_ab394115eb708ce7db1f0a6d6aecbf67b}{handle\+Button}} (event, lines, filename)
 \begin{DoxyCompactList}\small\item\em Handles writing the block\+List to a file when the button is pressed. \end{DoxyCompactList}\item 
@@ -74,11 +74,11 @@ Handles writing the block\+List to a file when the button is pressed.
 \begin{DoxyReturn}{Returns}
 None. Simply writes to the file and does not return any data. 
 \end{DoxyReturn}
-\Hypertarget{FileWriter_8jsx_a6869f7ed2eea673b55ec52373cc46f96}\label{FileWriter_8jsx_a6869f7ed2eea673b55ec52373cc46f96} 
+\Hypertarget{FileWriter_8jsx_af0f6b21e59de1f17356273a48bacffae}\label{FileWriter_8jsx_af0f6b21e59de1f17356273a48bacffae} 
 \index{FileWriter.jsx@{FileWriter.jsx}!returnFileLines@{returnFileLines}}
 \index{returnFileLines@{returnFileLines}!FileWriter.jsx@{FileWriter.jsx}}
 \doxysubsubsection{\texorpdfstring{returnFileLines()}{returnFileLines()}}
-{\footnotesize\ttfamily function return\+File\+Lines (\begin{DoxyParamCaption}\item[{}]{lines }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily function return\+File\+Lines (\begin{DoxyParamCaption}\item[{}]{lines,  }\item[{}]{option }\end{DoxyParamCaption})}
 
 
 
@@ -86,7 +86,9 @@ return\+File\+Lines\+: takes all editor lines and converts them to a single stri
 
 
 \begin{DoxyParams}{Parameters}
-{\em lines} & An array of strings. Concatenates this array of strings into a single string to write to a file.\\
+{\em lines} & An array of strings. Concatenates this array of strings into a single string to write to a file. \\
+\hline
+{\em option} & Can be either \char`\"{}text\char`\"{}, \char`\"{}\+JSON\char`\"{}, or neither. Determines whether to store the contents of editor lines or the blocks themselves (as JSON).\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
