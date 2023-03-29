@@ -19,10 +19,10 @@ import Workspace from './Workspace';
 /// Import the UserInput component from UserInput.jsx
 import UserInput from './UserInput';
 
-// Import the Block component from Block.jsx
+/// Import the Block component from Block.jsx
 import Block from './Block';
 
-// Import the FileWriter component from FileWriter.jsx
+/// Import the FileWriter component from FileWriter.jsx
 import FileWriter from './FileWriter';
 
 /*! @file main.jsx 

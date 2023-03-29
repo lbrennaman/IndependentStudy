@@ -1,5 +1,5 @@
 /// Import the useState and useEffect hooks from React
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 /// Import all functions from helper
 import * as helper from './Helper';

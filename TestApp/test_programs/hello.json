@@ -1,0 +1,9 @@
+[
+	{"type":"Block","array":["#include<","iostream",">"]},
+	{"type":"UserInput","array":""},
+	{"type":"Block","array":["using namespace ","std",";"]},
+	{"type":"UserInput","array":""},
+	{"type":"Block","array":["int main(","void",") {"]},
+	{"type":"Block","array":["\tcout << ","\"Hello, world!\""," << ","endl",";"]},
+	{"type":"UserInput","array":"}"}
+]
