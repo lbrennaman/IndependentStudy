@@ -15,22 +15,22 @@ The blocks do not represent an entire line of code as some pieces of code requir
 As such, the blocks are meant to represent the pieces of code that do not require user input, such as the function main()
 in C or C++. The main() function is always written as 
 
- - "int main(\[UserInput]) {" 
+ - "int main([UserInput]) {" 
 
-where the \[UserInput] is the area of the line of code that requires a user's input. A "main block" would be one that represents the 
+where the [UserInput] is the area of the line of code that requires a user's input. A "main block" would be one that represents the 
 
  - "int main(" and ") {" 
 
 parts of the line so that the user does not have to input them, leaving the user to only have to type what they need to for the 
-\[UserInput] part of the line. If the desired definition of main() is to write 
+[UserInput] part of the line. If the desired definition of main() is to write 
 
  - "int main(int argc, string[] argv) {" 
 
 then all syntax can be abstracted from the user by providing the user with a block that represents 
 
- - "int main(int \[UserInput], string[], \[UserInput]) {" thus, leaving only
+ - "int main(int [UserInput], string[], [UserInput]) {" thus, leaving only
 
-the need to enter variable names into the \[UserInput] areas. This approach can completely abstract the need for a user to 
+the need to enter variable names into the [UserInput] areas. This approach can completely abstract the need for a user to 
 know a language's syntax because the block would know the syntax for the user. The most difficult challenge in creating 
 such an editor is the idea of how to style the frontend in a way that not only provides the desired functionality but whose
 ease of use provides more productivity than classical programming.

@@ -82,7 +82,7 @@ What is this project?</h1>
 <p>A visual programming language (VPL) is a method of programming through the use of visual elements displayed on a computer. This project creates a VPL text editor that allows a user to code using visual "blocks." Blocks represent the code of a chosen programming language (in the current implementation, this language is C++), and the purpose of these blocks is to simplify the process of writing code by providing a tool used to abstract details &ndash; details that inhibit a user's ability to code &ndash; from the user. One such detail that is abstracted from the user is syntax.</p>
 <p>The blocks do not represent an entire line of code as some pieces of code require user input, such as variable names. As such, the blocks are meant to represent the pieces of code that do not require user input, such as the function main() in C or C++. The main() function is always written as</p>
 <ul>
-<li>"int main(\[UserInput]) {"</li>
+<li>"int main([UserInput]) {"</li>
 </ul>
 <p>where the [UserInput] is the area of the line of code that requires a user's input. A "main block" would be one that represents the</p>
 <ul>
@@ -94,7 +94,7 @@ What is this project?</h1>
 </ul>
 <p>then all syntax can be abstracted from the user by providing the user with a block that represents</p>
 <ul>
-<li>"int main(int \[UserInput], string[], \[UserInput]) {" thus, leaving only</li>
+<li>"int main(int [UserInput], string[], [UserInput]) {" thus, leaving only</li>
 </ul>
 <p>the need to enter variable names into the [UserInput] areas. This approach can completely abstract the need for a user to know a language's syntax because the block would know the syntax for the user. The most difficult challenge in creating such an editor is the idea of how to style the frontend in a way that not only provides the desired functionality but whose ease of use provides more productivity than classical programming.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
