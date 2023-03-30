@@ -27,8 +27,8 @@ import UserInput from './UserInput';
 // BlockChild component: recursively constructs the child elements of a block so that each element is next to each other in a line
 function BlockChild(properties) {
     // Copy array from index [1, length - 1]
-    var copy = [];
-    for (var i = 1; i < properties.values.length; i++) {
+    let copy = [];
+    for (let i = 1; i < properties.values.length; i++) {
         copy.push(properties.values[i]);
     }
 
@@ -75,8 +75,8 @@ export function Block(properties) {
     const [index, updateIndex] = useState(null);
 
     // Create a new array by replacing even indeces with UserInputs
-    var array = [];
-    for (var i = 0; i < properties.values.length; i++) {
+    let array = [];
+    for (let i = 0; i < properties.values.length; i++) {
         if (i % 2 == 1) {
             array.push(
                 <UserInput 

@@ -24,7 +24,7 @@ export function DragZone(properties) {
     const [index, updateIndex] = useState(null);
 
     // Create the list of blocks to display in the dragzone
-    var blockList = helper.createDragZoneList(properties.blockList, updateIndex);
+    let blockList = helper.createDragZoneList(properties.blockList, updateIndex);
 
     // When a block is clicked (and index is updated), update the selected block to the clicked block
     useEffect(() => {

@@ -108,7 +108,7 @@ function MainView(properties) {
         // Update dragZone blockList using updated input
         if (input != "" && typeof(input) === 'string') {
             // Algorithm to get the blockList by using the input to filter SearchBlocks
-            var searchBlocks = getBlocks(input, search);
+            let searchBlocks = getBlocks(input, search);
 
             // Update dragzone blocks
             updateBlockValues(searchBlocks);

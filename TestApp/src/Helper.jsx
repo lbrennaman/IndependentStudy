@@ -52,8 +52,8 @@ export function wasDeleted(str1, str2, index) {
  *  @return The array after being converted to a string
  */
 export function arrayToString(array) {
-    var copy = "";
-    for (var i = 0; i < array.length; i++) {
+    let copy = "";
+    for (let i = 0; i < array.length; i++) {
         copy += array[i];
     }
     return copy;
@@ -81,8 +81,8 @@ export function subString(string, start, end) {
         return string;
     }
 
-    var copy = "";
-    for (var i = start; i <= end; i++) {
+    let copy = "";
+    for (let i = start; i <= end; i++) {
         copy += string[i];
     }
     return copy;
@@ -111,8 +111,8 @@ export function subArray(array, start, end) {
         return array;
     }
 
-    var copy = [];
-    for (var i = start; i <= end; i++) {
+    let copy = [];
+    for (let i = start; i <= end; i++) {
         copy.push(array[i]);
     }
     return copy;
@@ -131,8 +131,8 @@ export function subArray(array, start, end) {
  *  @return A copy of array where array[index] is replaced with the given value.
  */
 export function replaceArrayIndex(array, index, value) {
-    var copy = [];
-    var i = 0;
+    let copy = [];
+    let i = 0;
 
     // Copy indeces from [0, index), if index_i == 0, skip to updating index
     for (i; i < index; i++) {
@@ -162,8 +162,8 @@ export function replaceArrayIndex(array, index, value) {
  *  @return A copy of array where array[index] no longer exists within the array and copy.length == array.length - 1.
  */
 export function deleteArrayIndex(array, index) {
-    var copy = [];
-    var i = 0;
+    let copy = [];
+    let i = 0;
 
     // Copy indeces from [0, index)
     for (i; i < index; i++) {
@@ -193,8 +193,8 @@ export function deleteArrayIndex(array, index) {
  *  @return A copy of the array where array[index] now contains value. copy.length will now be equal to array.length + 1
  */
 export function insertIntoArray(array, index, value) {
-    var copy = [];
-    var i = 0;
+    let copy = [];
+    let i = 0;
 
     // Copy lines from [0, index - 1] back into the array
     for (i; i < index + 1; i++) {
@@ -265,8 +265,8 @@ export function handleKeyDown(event, list, index, updateBlockList) {
             // If it is a string, check if it starts with a '\t'
             if (list[index].value[0] == '\t') {
                 // Remove the tab from the string by copying all indeces after index 0 into a copy string
-                var copy = "";
-                for (var i = 1; i < list[index].value.length; i++) {
+                let copy = "";
+                for (let i = 1; i < list[index].value.length; i++) {
                     copy += list[index].value[i];
                 }
 
@@ -277,8 +277,8 @@ export function handleKeyDown(event, list, index, updateBlockList) {
             // If it is an array, check if its first string starts with a '\t'
             if (list[index].value[0][0] == '\t') {
                 // Remove the tab from the string by copying all indeces after index 0 into a copy string
-                var copy = "";
-                for (var i = 1; i < list[index].value[0].length; i++) {
+                let copy = "";
+                for (let i = 1; i < list[index].value[0].length; i++) {
                     copy += list[index].value[0][i];
                 }
 
@@ -293,11 +293,11 @@ export function handleKeyDown(event, list, index, updateBlockList) {
         // Depending on whether or not list[index].value is a string or an array
         if (typeof(list[index].value) === 'string') {
             // If it is a string, append list[index].value to a string only containing a tab
-            var tab = '\t' + list[index].value;
+            let tab = '\t' + list[index].value;
             updateBlockList(replaceArrayIndex(list, index, {value: tab, type: UserInput}));
         } else {
             // If it is an array, replace the first index of the array with a copy of the first index of the array, but with a tab prepended to it
-            var tab = '\t' + list[index].value[0];
+            let tab = '\t' + list[index].value[0];
             updateBlockList(replaceArrayIndex(list, index, {value: replaceArrayIndex(list[index].value, 0, tab), type: Block}));
         }
     } 
@@ -317,10 +317,10 @@ export function handleKeyDown(event, list, index, updateBlockList) {
  *  @return The BlockZone's blockList (an array of UserInputs and Blocks).
  */
 export function createBlockList(list, index, updateBlockList, updateValue, updateIndex) {
-    var blockList = [];
+    let blockList = [];
 
     // Iterate through the blockList data and add the appropriate component to the list of blocks to display in the BlockZone
-    for (var i = 0; i < list.length; i++) {
+    for (let i = 0; i < list.length; i++) {
         // If a block has not been placed in this line of the BlockZone, the line is still a UserInput (which may have a value)
         if (list[i].type == UserInput) {
             blockList.push(
@@ -364,10 +364,10 @@ export function createBlockList(list, index, updateBlockList, updateValue, updat
  *  @return The list of UserInputs representing the Editor.
  */
 export function createEditorLines(list, index, updateBlockList, updateValue, updateIndex) {
-    var editorLines = [];
+    let editorLines = [];
 
     // Iterate through the blockList data and write the proper string data to the corresponding line of the text editor
-    for (var i = 0; i < list.length; i++) {
+    for (let i = 0; i < list.length; i++) {
         // If the type of data is a UserInput component, the data is already a string, so add it to the editor
         if (list[i].type == UserInput) {
             editorLines.push(
@@ -383,7 +383,7 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
             );
         } else {
             // The type of data is a Block, so take list[i].value and concatenate the array into their string representation
-            var stringRepresentation = arrayToString(list[i].value);
+            let stringRepresentation = arrayToString(list[i].value);
             editorLines.push(
                 <div key={"Editor Line: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>
                     <UserInput 
@@ -391,7 +391,7 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
                         index={i} 
                         updateValue={(value) => {
                             // Something to put here in the meantime. View blockTranslationPseudo for pseudocode algorithm to implement
-                            var a = 0;
+                            let a = 0;
                             a++;
                         }} 
                         updateIndex={updateIndex}
@@ -413,13 +413,13 @@ export function createEditorLines(list, index, updateBlockList, updateValue, upd
  *  @return The array of Blocks to display in the DragZone.
  */
 export function createDragZoneList(list, updateIndex) {
-    var array = [];
+    let array = [];
 
     // If there is no list, do not continue, return null
     if (list == null) {
         return null;
     } else { // Else, if there is a list, iterate through list and create a block using its values
-        for (var i = 0; i < list.length; i++) {
+        for (let i = 0; i < list.length; i++) {
             // Push a div (container) with a block inside of it
             array.push(
                 <div key={"Dragzone Row: " + i} className={"row p-0 m-0"} style={{height: '30px', width: '100%', border: '1px solid black'}}>

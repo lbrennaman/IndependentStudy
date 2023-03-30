@@ -106,23 +106,23 @@ const SearchBlocks = [
  * 
  */
 export function getBlocks(input, filter) {
-    var array = [];
+    let array = [];
 
     // Compare input to each type of SearchBlock
     // Iterate through each type in SearchBlocks
-    for (var i = 0; i < SearchBlocks.length; i++) {
-        var matched = false; // Ensure that only one string from each type can be a match
+    for (let i = 0; i < SearchBlocks.length; i++) {
+        let matched = false; // Ensure that only one string from each type can be a match
 
         // Iterate through each string/array in SearchBlocks[i]
-        for (var j = 0; j < SearchBlocks[i].type.length; j++) {
+        for (let j = 0; j < SearchBlocks[i].type.length; j++) {
             if (!matched) {
                 if (SearchBlocks[i].type[j].includes(input.toLowerCase())) {
                     matched = true;
 
                     // If filter is not null, only push the matched array if the a string in the array includes the filter
                     if (filter != null) {
-                        var filterMatch = false; // Ensure that the array can only be pushed once after the filter is matched for the first time
-                        for (var k = 0; k < SearchBlocks[i].array.length; k++) {    // Iterate through the matched block's array
+                        let filterMatch = false; // Ensure that the array can only be pushed once after the filter is matched for the first time
+                        for (let k = 0; k < SearchBlocks[i].array.length; k++) {    // Iterate through the matched block's array
                             if (!filterMatch) {                                     // If the array has not been found to include the filter
                                 if (SearchBlocks[i].array[k].includes(filter)) {    // If the array includes the filter
                                     filterMatch = true;                             // Prevent the array from being pushed multiple times by showing it has been matched
