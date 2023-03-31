@@ -1,0 +1,50 @@
+\label{index_md_TestApp_2src_2README}%
+\Hypertarget{index_md_TestApp_2src_2README}%
+
+\begin{DoxyItemize}
+\item by Logan Brennaman
+\item Spring Semester 2023 \DoxyHorRuler{0}
+
+\end{DoxyItemize}\hypertarget{index_autotoc_md1}{}\doxysection{What is this project?}\label{index_autotoc_md1}
+A visual programming language (VPL) is a method of programming through the use of visual elements displayed on a computer. This project creates a VPL text editor that allows a user to code using visual \char`\"{}blocks.\char`\"{} Blocks represent the code of a chosen programming language (in the current implementation, this language is C++), and the purpose of these blocks is to simplify the process of writing code by providing a tool used to abstract details -- details that inhibit a user\textquotesingle{}s ability to code -- from the user. One such detail that is abstracted from the user is syntax.
+
+The blocks do not represent an entire line of code as some pieces of code require user input, such as variable names. As such, the blocks are meant to represent the pieces of code that do not require user input, such as the function main() in C or C++. The main() function is always written as
+
+
+\begin{DoxyItemize}
+\item \char`\"{}int main(\mbox{[}\+User\+Input\mbox{]}) \{\char`\"{}
+\end{DoxyItemize}
+
+where the \mbox{[}User\+Input\mbox{]} is the area of the line of code that requires a user\textquotesingle{}s input. A \char`\"{}main block\char`\"{} would be one that represents the
+
+
+\begin{DoxyItemize}
+\item \char`\"{}int main(\char`\"{} and \char`\"{}) \{\char`\"{}
+\end{DoxyItemize}
+
+parts of the line so that the user does not have to input them, leaving the user to only have to type what they need to for the \mbox{[}User\+Input\mbox{]} part of the line. If the desired definition of main() is to write
+
+
+\begin{DoxyItemize}
+\item \char`\"{}int main(int argc, string\mbox{[}$\,$\mbox{]} argv) \{\char`\"{}
+\end{DoxyItemize}
+
+then all syntax can be abstracted from the user by providing the user with a block that represents
+
+
+\begin{DoxyItemize}
+\item \char`\"{}int main(int \mbox{[}\+User\+Input\mbox{]}, string\mbox{[}$\,$\mbox{]}, \mbox{[}\+User\+Input\mbox{]}) \{\char`\"{}
+\end{DoxyItemize}
+
+thus, leaving only the need to enter variable names into the \mbox{[}User\+Input\mbox{]} areas. This approach can completely abstract the need for a user to know a language\textquotesingle{}s syntax because the block would know the syntax for the user. The most difficult challenge in creating such an editor is the idea of how to style the frontend in a way that not only provides the desired functionality but whose ease of use provides more productivity than classical programming.\hypertarget{index_autotoc_md2}{}\doxysection{Files}\label{index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item \doxylink{Block_8jsx}{Block.\+jsx}\+: defines the React component for a Block
+\item \doxylink{DragZone_8jsx}{Drag\+Zone.\+jsx}\+: defines the Drag\+Zone React component that is used to store a list of Blocks the user can use
+\item \doxylink{FileWriter_8jsx}{File\+Writer.\+jsx}\+: defines the File\+Writer React component that handles writing to the user\textquotesingle{}s file system
+\item \doxylink{Helper_8jsx}{Helper.\+jsx}\+: defines the helper functions used by the various other React components in this project
+\item \doxylink{main_8jsx}{main.\+jsx}\+: defines the Main\+View React component that manages the transfer of data from one subcomponent to another
+\item \doxylink{Search_8jsx}{Search.\+jsx}\+: defines the representation of Blocks and provides a method to get a list of Blocks depending on the given parameters
+\item \doxylink{UserInput_8jsx}{User\+Input.\+jsx}\+: defines the React component for an input area that the user is allowed to type in
+\item \doxylink{Workspace_8jsx}{Workspace.\+jsx}\+: defines a React component that creates an area to place blocks and a text editor to show what the blocks translate to 
+\end{DoxyItemize}

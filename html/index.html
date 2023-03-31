@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.7"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VPL_Editor: Main Page</title>
+<title>VPL_Editor: VPL Editor Independent Study</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,10 +68,48 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">VPL_Editor Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">VPL Editor Independent Study </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_TestApp_2src_2README"></a></p><ul>
+<li>by Logan Brennaman</li>
+<li>Spring Semester 2023 <hr  />
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
+What is this project?</h1>
+<p>A visual programming language (VPL) is a method of programming through the use of visual elements displayed on a computer. This project creates a VPL text editor that allows a user to code using visual "blocks." Blocks represent the code of a chosen programming language (in the current implementation, this language is C++), and the purpose of these blocks is to simplify the process of writing code by providing a tool used to abstract details &ndash; details that inhibit a user's ability to code &ndash; from the user. One such detail that is abstracted from the user is syntax.</p>
+<p>The blocks do not represent an entire line of code as some pieces of code require user input, such as variable names. As such, the blocks are meant to represent the pieces of code that do not require user input, such as the function main() in C or C++. The main() function is always written as</p>
+<ul>
+<li>"int main([UserInput]) {"</li>
+</ul>
+<p>where the [UserInput] is the area of the line of code that requires a user's input. A "main block" would be one that represents the</p>
+<ul>
+<li>"int main(" and ") {"</li>
+</ul>
+<p>parts of the line so that the user does not have to input them, leaving the user to only have to type what they need to for the [UserInput] part of the line. If the desired definition of main() is to write</p>
+<ul>
+<li>"int main(int argc, string[] argv) {"</li>
+</ul>
+<p>then all syntax can be abstracted from the user by providing the user with a block that represents</p>
+<ul>
+<li>"int main(int [UserInput], string[], [UserInput]) {"</li>
+</ul>
+<p>thus, leaving only the need to enter variable names into the [UserInput] areas. This approach can completely abstract the need for a user to know a language's syntax because the block would know the syntax for the user. The most difficult challenge in creating such an editor is the idea of how to style the frontend in a way that not only provides the desired functionality but whose ease of use provides more productivity than classical programming.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Files</h1>
+<ul>
+<li><a class="el" href="Block_8jsx.html" title="Block.jsx: file containing the Block component.">Block.jsx</a>: defines the React component for a Block</li>
+<li><a class="el" href="DragZone_8jsx.html" title="DragZone.jsx: file containing the DragZone component.">DragZone.jsx</a>: defines the DragZone React component that is used to store a list of Blocks the user can use</li>
+<li><a class="el" href="FileWriter_8jsx.html" title="FileWriter.jsx: file containing the FileWriter component.">FileWriter.jsx</a>: defines the FileWriter React component that handles writing to the user's file system</li>
+<li><a class="el" href="Helper_8jsx.html" title="Helper.jsx: file containing helper functions.">Helper.jsx</a>: defines the helper functions used by the various other React components in this project</li>
+<li><a class="el" href="main_8jsx.html" title="main.jsx: main file implementing React components">main.jsx</a>: defines the MainView React component that manages the transfer of data from one subcomponent to another</li>
+<li><a class="el" href="Search_8jsx.html" title="Search.jsx: file containing block representations and functions to obtain blocks.">Search.jsx</a>: defines the representation of Blocks and provides a method to get a list of Blocks depending on the given parameters</li>
+<li><a class="el" href="UserInput_8jsx.html" title="UserInput.jsx: file containing the UserInput component.">UserInput.jsx</a>: defines the React component for an input area that the user is allowed to type in</li>
+<li><a class="el" href="Workspace_8jsx.html" title="Workspace.jsx: file containing the Workspace component.">Workspace.jsx</a>: defines a React component that creates an area to place blocks and a text editor to show what the blocks translate to </li>
+</ul>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

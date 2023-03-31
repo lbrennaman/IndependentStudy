@@ -28,10 +28,10 @@ parts of the line so that the user does not have to input them, leaving the user
 
 then all syntax can be abstracted from the user by providing the user with a block that represents 
 
- - "int main(int [UserInput], string[], [UserInput]) {" thus, leaving only
-
-the need to enter variable names into the [UserInput] areas. This approach can completely abstract the need for a user to 
-know a language's syntax because the block would know the syntax for the user. The most difficult challenge in creating 
+ - "int main(int [UserInput], string[], [UserInput]) {" 
+ 
+thus, leaving only the need to enter variable names into the [UserInput] areas. This approach can completely abstract the need for 
+a user to know a language's syntax because the block would know the syntax for the user. The most difficult challenge in creating 
 such an editor is the idea of how to style the frontend in a way that not only provides the desired functionality but whose
 ease of use provides more productivity than classical programming.
 
