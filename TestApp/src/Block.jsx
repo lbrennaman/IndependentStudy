@@ -16,43 +16,28 @@ import UserInput from './UserInput';
 
 /*! 
  *  @brief BlockChild: a recursive React Component to help build a Block
- *
- *  Recursively builds rows within a block to display all divs of a block on the same line.
  * 
  *  @param properties The properties that can be passed down to this component.
  * 
  *  @return Returns the jsx component representing a Block's child component.
  */
 
-// BlockChild component: recursively constructs the child elements of a block so that each element is next to each other in a line
+// BlockChild component: constructs a span for each child element of the block
 function BlockChild(properties) {
-    // Copy array from index [1, length - 1]
-    let copy = [];
-    for (let i = 1; i < properties.values.length; i++) {
-        copy.push(properties.values[i]);
+    let elements = [];
+    for (let i = 0; i < properties.values.length; i++) {
+        elements.push( 
+            <span key={"BlockChild line " + properties.index + " index: " + i} className={"d-flex px-1 m-0"} style={{height: '100%'}}>
+                {properties.values[i]}
+            </span>
+        );
     }
 
-    // If the array has more than one string left, return a row with two columns: left -> values[0], right -> value[1 -> length - 1]
-    if (properties.values.length > 1) {
-        return(
-            <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
-                <div className={"col-3 p-0 m-0"} style={{height: '100%'}}>
-                    {properties.values[0]}
-                </div>
-                <div className={"col-9 p-0 m-0"} style={{height: '100%'}}>
-                    <BlockChild values={copy}/>
-                </div>
-            </div>
-        );
-    } else { // Else, return a div with that remaining string
-        return(
-            <div className={"row p-0 m-0"} style={{height: '100%', width: '100%'}}>
-                <div className={"col p-0 m-0"} style={{height: '100%'}}>
-                    {properties.values[0]}
-                </div>
-            </div>
-        );
-    }
+    return(
+        <span className={"d-flex p-0 m-0"} style={{height: '100%'}}>
+            {elements}
+        </span>
+    );
 }
 
 /*! 
@@ -108,7 +93,7 @@ export function Block(properties) {
             className={"container-fluid p-0 m-0"} 
             style={{height: '100%', width: '100%', overflow: 'hidden', overflowX: 'hidden'}} 
             onMouseDown={(event) => properties.updateIndex(properties.index)}>
-            <BlockChild values={array}/>
+            <BlockChild values={array} index={properties.index}/>
         </div>
     );
 }

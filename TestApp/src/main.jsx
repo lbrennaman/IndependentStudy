@@ -147,7 +147,7 @@ function MainView(properties) {
                     </div>
                 </div>
             </div>
-            <div className={"row mh-100 p-0 m-0"} style={{height: '100%', overflow: 'hidden'}}>   
+            <div className={"row mh-100 p-0 m-0"} style={{height: '100%'}}>   
                 <div className={"d-flex col-2 p-0 m-0"} style={{border: '2px solid red', height: '100%'}}>  
                     {dragZone}
                 </div>
