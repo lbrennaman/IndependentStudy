@@ -120,7 +120,7 @@ export function getBlocks(input, filter) {
                     matched = true;
 
                     // If filter is not null, only push the matched array if the a string in the array includes the filter
-                    if (filter != null) {
+                    if (filter !== null) {
                         let filterMatch = false; // Ensure that the array can only be pushed once after the filter is matched for the first time
                         for (let k = 0; k < SearchBlocks[i].array.length; k++) {    // Iterate through the matched block's array
                             if (!filterMatch) {                                     // If the array has not been found to include the filter

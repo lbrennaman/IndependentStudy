@@ -416,7 +416,7 @@ export function createDragZoneList(list, updateIndex) {
     let array = [];
 
     // If there is no list, do not continue, return null
-    if (list == null) {
+    if (list === null) {
         return null;
     } else { // Else, if there is a list, iterate through list and create a block using its values
         for (let i = 0; i < list.length; i++) {

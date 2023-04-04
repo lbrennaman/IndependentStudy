@@ -92,9 +92,9 @@ function MainView(properties) {
     // When a block from the dragZone is clicked, the dragZoneSelected is changed (side effect: also occurs on resetting dragZoneSelected to null)
     useEffect(() => {
         // If a block has been selected in the dragZone
-        if (dragZoneSelected != null) {
+        if (dragZoneSelected !== null) {
             // Updated the currently focused index of the workspace with the selected dragZone block (if a line is in focus)
-            if (blockZoneSelected != null) {
+            if (blockZoneSelected !== null) {
                 updateBZValues(helper.replaceArrayIndex(bzValues, blockZoneSelected, {type: Block, value: dragZoneSelected}));
             }
 

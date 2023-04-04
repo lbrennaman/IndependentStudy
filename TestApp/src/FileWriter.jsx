@@ -10,6 +10,50 @@ import UserInput from './UserInput';
  *  Contains the component that handles writing the contents of the editor lines to a file.
  */
 
+/*! @brief formatStringAsJSON: take in a string and return it with JSON formatting
+ *
+ *  @param string: the string to format as JSON
+ * 
+ *  @return The string, except formatted as it would be in a .json file
+ */
+function formatStringAsJSON(string) {
+    // Add newlines and tabs to the string to make it look good when written to a file
+    let copy = "";
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] == ",") {                 // Ensure that there are newlines at the end of objects
+            if (i - 1 >= 0) {
+                if (string[i - 1] == "}") {
+                    copy += ",\n";
+                } else {
+                    copy += string[i];
+                }
+            } 
+        } else if (string[i] == "]") {          // Ensure that the final "]" has a new line before it
+            if (i + 1 >= string.length) {
+                copy += "\n]";
+            } else {
+                copy += string[i];
+            }
+        } else if (string[i] == '{') {          // Ensure that the beginning of each object is indented
+            if (i + 6 < string.length) {
+                if (string.slice(i + 1, i + 7) == "\"type\"") { // This helps to know if it is the beginning of the object or not
+                    copy += "\t{";
+                } else {
+                    copy += "{";
+                }
+            } else {
+                copy += "{";
+            }
+        } else if (i == 0) {                    // Ensure that the first "[" has a new line after it
+            copy += "[\n";
+        } else {                                // Otherwise, just copy the character into the string
+            copy += string[i];
+        }
+    }
+
+    return copy;
+}
+
 /*! 
  *  @brief returnFileLines: takes all editor lines and converts them to a single string to write to the file
  * 
@@ -40,7 +84,6 @@ function returnFileLines(lines, option) {
     } else if (option == "JSON") { 
         // Copy the lines as JSON
         let arr = [];
-
         for (let line of lines) {
             if (line.type == UserInput) {
                 arr.push({type: "UserInput", array: line.value});
@@ -52,42 +95,8 @@ function returnFileLines(lines, option) {
         // Stringify the JSON
         let string = JSON.stringify(arr);
 
-        // Add newlines and tabs to the string to make it look good when written to a file
-        let copy = "";
-        for (let i = 0; i < string.length; i++) {
-            if (string[i] == ",") {                 // Ensure that there are newlines at the end of objects
-                if (i - 1 >= 0) {
-                    if (string[i - 1] == "}") {
-                        copy += ",\n";
-                    } else {
-                        copy += string[i];
-                    }
-                } 
-            } else if (string[i] == "]") {          // Ensure that the final "]" has a new line before it
-                if (i + 1 >= string.length) {
-                    copy += "\n]";
-                } else {
-                    copy += string[i];
-                }
-            } else if (string[i] == '{') {          // Ensure that the beginning of each object is indented
-                if (i + 6 < string.length) {
-                    if (string.slice(i + 1, i + 7) == "\"type\"") { // This helps to know if it is the beginning of the object or not
-                        console.log("TRUE")
-                        copy += "\t{";
-                    } else {
-                        copy += "{";
-                    }
-                } else {
-                    copy += "{";
-                }
-            } else if (i == 0) {                    // Ensure that the first "[" has a new line after it
-                copy += "[\n";
-            } else {                                // Otherwise, just copy the character into the string
-                copy += string[i];
-            }
-        }
-
-        return copy
+        // Format the string as JSON and return it
+        return formatStringAsJSON(string);
 
     } else {
         console.log("An inappropriate option was provided to returnFileLines. \nOption must be either \"text\" or \"JSON\".");
@@ -110,8 +119,17 @@ async function handleButton(event, lines, filename) {
     event.preventDefault();
 
     // Turn the lines into one long string
-    let data = returnFileLines(lines, "JSON");
-    console.log("Data: ", data);
+    let data;
+    if (filename !== null) {
+        if (filename.includes(".json")) {
+            data = returnFileLines(lines, "JSON");
+        } else {
+            data = returnFileLines(lines, "text");
+        }
+    } else {
+        console.log("No file name provided! Saving data as text...");
+        data = returnFileLines(lines, "text");
+    }
 
     // developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
     const blob = new Blob([data]);

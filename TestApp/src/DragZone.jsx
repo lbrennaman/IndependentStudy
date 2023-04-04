@@ -28,9 +28,10 @@ export function DragZone(properties) {
 
     // When a block is clicked (and index is updated), update the selected block to the clicked block
     useEffect(() => {
+        console.log(index !== null);
         if (index !== null) {
             properties.updateSelected(properties.blockList[index]);
-            updateIndex(null);
+            updateIndex(null); // Straight up broken for no reason :)
         }
     }, [index]);
 

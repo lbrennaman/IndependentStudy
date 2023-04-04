@@ -31,7 +31,7 @@ export function Workspace(properties) {
     // Whenever a UserInput value is changed (so long as index is a valid line number), change its corresponding index in the blockList
     useEffect(() => {
         properties.updateBlockList(() => {
-            if (index != null) {
+            if (index !== null) {
                 // Valid line number, edit the blockList so that it contains the updated value in the corresponding index
                 return helper.replaceArrayIndex(properties.blockList, index, {type: properties.blockList[index].type, value: value});
             } else {
@@ -45,7 +45,7 @@ export function Workspace(properties) {
 
     // Whenever the line in focus changes, let main know which line is in focus
     useEffect(() => {
-        if (index != null) {
+        if (index !== null) {
             properties.updateMainIndex(index);
         }
     }, [index]);

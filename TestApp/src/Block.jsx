@@ -69,7 +69,7 @@ export function Block(properties) {
                     index={i}
                     updateValue={(value) => {
                         // If this block's index is not null, meaning this block has an index in focus, allow the blockList to be updated
-                        if (index != null) {
+                        if (index !== null) {
                             properties.updateValue(helper.replaceArrayIndex(properties.values, index, value));
                         }
                     }} 
