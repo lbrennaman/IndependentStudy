@@ -35,9 +35,6 @@ a user to know a language's syntax because the block would know the syntax for t
 such an editor is the idea of how to style the frontend in a way that not only provides the desired functionality but whose
 ease of use provides more productivity than classical programming.
 
-## Picture of Editor
-![Alt text](../../spanblocks_hello_screenshot.png "Hello, world! Example")
-
 ## Files
  - Block.jsx: defines the React component for a Block
  - DragZone.jsx: defines the DragZone React component that is used to store a list of Blocks the user can use

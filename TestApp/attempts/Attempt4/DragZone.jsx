@@ -7,6 +7,8 @@ import * as helper from './Helper';
 /// Import the UserInput component from UserInput.jsx
 import UserInput from './UserInput';
 
+// import { useSelector, useDispatch, Provider } from 'react-redux';
+
 /*! @file DragZone.jsx 
  *  @brief DragZone.jsx: file containing the DragZone component.
  *
@@ -21,18 +23,18 @@ import UserInput from './UserInput';
  *  @return Returns the jsx component representing the DragZone.
  */
 export function DragZone(properties) {
+    // const indexSelector = useSelector((state) => { return store.dragZone.index });
     const [index, updateIndex] = useState(null);
 
     // Create the list of blocks to display in the dragzone
-    let blockList = helper.createDragZoneList(properties.blockList, updateIndex);
+    const blockList = helper.createDragZoneList(properties.blockList, updateIndex);
 
     // When a block is clicked (and index is updated), update the selected block to the clicked block
     useEffect(() => {
+        console.log(index !== null);
         if (index !== null) {
-            properties.updateSelected((previous) => {
-                updateIndex(null);  // Update index before refreshing the dragZone (or else it will exit function early)
-                return properties.blockList[index];
-            });
+            properties.updateSelected(properties.blockList[index]);
+            updateIndex(null); // Straight up broken for no reason :)
         }
     }, [index]);
 
