@@ -36,7 +36,7 @@ such an editor is the idea of how to style the frontend in a way that not only p
 ease of use provides more productivity than classical programming.
 
 ## Picture of Editor
-![Alt text](/spanblocks_hello_screenshot.png "Hello, world! Example")
+![Alt text](../spanblocks_hello_screenshot.png "Hello, world! Example")
 
 ## Files
  - Block.jsx: defines the React component for a Block
